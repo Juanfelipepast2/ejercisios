@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de Sesion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+  </head>
+  <body>
+    <div class="contenedorElementosInicioSesion">
+        <div class="contenedorIzquierdoInicioSesion">          
+          <img src="{{ url_for('static', filename='img/logo-lce.png') }}" alt="Logo" id="logo-lce"/>
+        </div>
+        
+        <div class="contenedorDerechoInicioSesion">
+          <label for="codigoDt"><h1>Inicio de sesión</h1></label>
+           
+          <form autocomplete="off" id="formulario">
+            <div class="elemento">
+              <input type="number" id="codigoDt" name="codigoDt" placeholder="Código DT" required="true" min="0"/><br/>
+            </div>
+            <div class="elemento">
+              <input type="password" id="contrasenaDt" name="contrasenaDt" placeholder="Contraseña" required="true"/><br/>
+            </div>
+            <div class="elemento">
+              <input type="submit" value="Iniciar sesión" id="iniciarSesion" name="iniciarSesion" alt="Iniciar Sesion"/>
+            </div>
+          </form>
+        </div>
+    </div>
+    
+  </body>
+</html>

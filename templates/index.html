@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/estilos.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Inicio</title>
+  </head>
+  <body>
+    <div class="contenedorMenu">
+      <a class="logoMenu">
+        <img
+          src="{{ url_for('static', filename='img/logo-lce.png') }}"
+          alt="Logo"
+          style="height: 44px"
+        />
+        <p>Liga Champions Europea</p>
+      </a>
+
+      <nav>
+        <ul id="menuPrincipal">
+          <li>
+            <a>Temporada</a>
+            <ul class="submenu">
+              <li><a>Tabla</a></li>
+              <li><a>Partidos</a></li>
+            </ul>
+          </li>
+          <li>
+            <a>Historia</a>
+            <ul class="submenu">
+              <li><a>Salon de la Fama</a></li>
+              <li><a>Partidos</a></li>
+              <li><a>DTs</a></li>
+            </ul>
+          </li>
+          <li>
+            <a>Perfil</a>
+            <ul class="submenu">
+              <li><a>Cuenta</a></li>
+              <li><a>Mi Equipo</a></li>
+            </ul>
+          </li>
+          <li><a href="{{url_for('salir')}}">Salir</a></li>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>

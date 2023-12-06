@@ -1,0 +1,339 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box
+}
+
+html{
+    font-family: sans-serif;
+    height: 100%;
+    
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #4B4B4B;         
+    
+}
+
+/* Estilos de inicio de sesion*/
+.contenedorElementosInicioSesion{             
+    display: grid;    
+    align-content: center;
+    justify-content: center;
+    grid-gap: 0px;          
+}
+
+.contenedorIzquierdoInicioSesion{        
+    grid-row: 1;  
+    width: 300px;
+    height: 500px;
+    border-radius: 8px 0px 0px 8px;    
+    background: #D48D00;    
+    display: grid;
+    place-content: center;
+}
+ 
+
+
+.contenedorDerechoInicioSesion{        
+    grid-row: 1;
+    background: #373737;
+    width: 400px;
+    height: 500px;
+    border-radius: 0px 8px 8px 0px;        
+    display: grid;
+    
+    place-content: center;
+
+    text-align: center;
+    
+    
+}
+
+.contenedorDerechoInicioSesion input{    
+    margin-top: 30px;
+    width: 300px;      
+    height: 40px;            
+    grid-column: 1;    
+}
+
+.contenedorDerechoInicioSesion h1{    
+    margin-bottom: 60px;
+    grid-column: 1;  
+    color: #ffffff;  
+}
+
+
+.contenedorElementosInicioSesion input[type="number"], .contenedorElementosInicioSesion input[type="password"], .contenedorElementosInicioSesion input[type="text"]{            
+    background: transparent;
+    border: none;
+    border-bottom: #D48D00 2px solid;
+    color: #ffffff;    
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+.contenedorElementosInicioSesion input[type="number"]::placeholder, .contenedorElementosInicioSesion input[type="password"]::placeholder, .contenedorElementosInicioSesion input[type="text"]::placeholder{
+    color: #cccccc;    
+}
+
+.contenedorElementosInicioSesion input[type="number"]:focus, .contenedorElementosInicioSesion input[type="password"]:focus, .contenedorElementosInicioSesion input[type="text"]:focus{
+    outline: none;
+    border-bottom: #ffffff 2px solid;
+}
+
+
+
+/*Estilos de registro de DT*/
+.contenedorElementosRegistro{             
+    height: 100%;
+    display: grid;    
+    place-content: center;   
+    align-content: center;
+    grid-gap: 0px;          
+}
+
+.contenedorIzquierdoRegistro{  
+    grid-row: 2;      
+    grid-column: 1;
+    width: 400px;
+    height: 500px;
+    border-radius: 8px 0px 0px 8px;    
+    background: #D48D00;    
+    display: grid;      
+    justify-content: center;  
+    align-content: center;
+    
+    
+}
+ 
+.elementoIzquierdoRegistro{    
+    margin-bottom: 40px;
+    
+}
+
+.contenedorDerechoRegistro{        
+    grid-row: 2;
+    grid-column: 2;      
+    background: #373737;
+    width: 400px;
+    height: 500px;
+    border-radius: 0px 8px 8px 0px;    
+    display: grid;      
+    justify-content: center;  
+    align-content: center;
+    
+}
+
+
+.contenedorElementosRegistro input[type="password"], .contenedorElementosRegistro input[type="text"]{        
+    width: 300px;      
+    height: 40px;      
+    border: none;        
+    background: transparent;
+    border: none;
+    border-bottom: #ffffff 2px solid;
+    color: #ffffff;    
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.contenedorElementosRegistro input[type="number"]:focus, .contenedorElementosRegistro input[type="password"]:focus, .contenedorElementosRegistro input[type="text"]:focus{
+    outline: none;
+    border-bottom: #ffffff 2px solid;
+}
+
+.contenedorElementosRegistro input[type="password"]::placeholder, .contenedorElementosRegistro input[type="text"]::placeholder{
+    color: #ffffff;    
+}
+
+.contenedorElementosRegistro h1, h3{           
+    color: #ffffff;  
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
+    
+    
+}
+
+.contenedorElementosRegistro label{
+    color: #ffffff;
+    font-size: 14px;    
+}
+.contenedorElementosRegistro select{
+    border: none;
+    width: 300px;
+    height: 40px;
+    border-radius: 8px;
+    background: #535353;
+    color: #ffffff;
+}
+
+
+.checkboxRegistro{
+    display: grid;    
+    justify-content: left;    
+    align-items: center;
+    
+}
+
+
+.checkboxRegistro input{
+    grid-row: 1;
+    grid-column: 1;
+}
+.checkboxRegistro label{
+    grid-row: 1;
+    grid-column: 2;
+    margin-left: 15px;
+}
+
+.elementoDerechoRegistro, .checkboxRegistro{
+    margin-top: 20px;
+}
+
+
+/*Estilos generales*/
+
+input[type="submit"]{
+    width: 300px;
+    height: 40px;
+    border-radius: 8px;
+    background: #D48D00;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;    
+    border: none;
+    
+}
+
+input[type="submit"]:hover{
+    background: #ffffff;
+    color: #D48D00;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+input[type="checkbox"]{    
+    -webkit-appearance: none;    
+    appearance: none;
+    width: 30px;
+    height: 30px;    
+    cursor: pointer;    
+    background: transparent;
+    border: #ffffff 2px solid;    
+    border-radius: 8px;        
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"]:after{     
+    font-family: "Font Awesome 5 Free";    
+    font-weight: 900;
+    content: "\f00c";
+    color: #ffffff;    
+    
+}
+
+input[type="checkbox"]:checked{    
+    background: #ffffff;    
+}
+
+input[type="checkbox"]:checked:after{     
+    color: #373737;        
+
+}
+
+#logo-lce{    
+    margin: 0px;
+    width: 300px;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+.contenedorMenu{
+    background-color: #D29300;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#menuPrincipal{
+    color: #ffffff;
+    list-style-type: none;
+    margin: 0;    
+    display: grid;          
+    
+}
+
+#menuPrincipal li{                
+    position: relative;
+    grid-row: 1;      
+    
+}
+
+#menuPrincipal li a{   
+
+    color: #ffffff;
+    
+    text-decoration: none;
+    display: flex;                 
+    height: 50px;
+    align-items: center;
+    min-width: 150px;    
+    padding-left: 10px;
+}
+
+.logoMenu{
+    
+    float: left;
+    display: flex;    
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.submenu{
+    width: 100%;;               
+    position: absolute;       
+    list-style: none;               
+    background-color: #D29300;            
+    display: none;    
+    
+}
+
+.submenu li a{
+    
+    display: block;    
+}
+
+.submenu li a:hover{
+    background-color: #926600;    
+}
+
+
+
+#menuPrincipal > li:hover{
+    background-color: #926600;
+}
+
+
+#menuPrincipal > li:hover .submenu{
+    display: block;
+    border-radius: 0px 0px 8px 8px; 
+}
+
+
