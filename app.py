@@ -39,5 +39,11 @@ def crearReset():
 
     return render_template("crearReset.html")
 
+@app.route("/reset/<codigo>")
+def reset(codigo):
+    app.logger.info(f"Se ha cargado la página de reset {request.path}")
+    return render_template("temporadasReset.html", codigo=codigo)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

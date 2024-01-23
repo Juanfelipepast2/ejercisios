@@ -37,6 +37,7 @@
         {% set secondaryColor = '#848484' %} 
         {% endif %}
         <tr>
+          <td><button id="botonBorrarEquipo">Borrar</button></td>
           <td style="background-color: {{ primaryColor }};">{{i}}</td>
           <td
             id="equipoYEscudoTabla"
@@ -64,12 +65,15 @@
     <h1>Partidos</h1>
 
     <!--CONTENEDOR SELECTOR FECHAS-->
-    <select id="selectorFechas" name="seelctorFechas">
-      <option value="Fecha1"><h1>Fecha 1</h1></option>
-      {% for i in range(0,13) %}
-      <option value="Fecha{{i+2}}"><h1>Fecha {{i+2}}</h1></option>
-      {% endfor %}
-    </select>
+    <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+      <select id="selectorFechas" name="selctorFechas">
+        <option value="Fecha1"><h1>Fecha 1</h1></option>
+        {% for i in range(0,13) %}
+        <option value="Fecha{{i+2}}"><h1>Fecha {{i+2}}</h1></option>
+        {% endfor %}
+      </select>
+      <button style="width: 150px;">Añadir Partido</button>
+    </div>
     {% set grdc = 1 %} 
     <div id="contenedorPartidos">
       <!--CONTENEDOR POR PARTIDO-->

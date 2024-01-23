@@ -28,12 +28,14 @@
             </div>            
             
         </div>
-        <table>
+        <table id="tablaCreacionEquipo">
             <tbody>
+                {% for i in range (0,10) %}
+                
                 <tr>
                     <td>1</td>                        
                     <td>                        
-                        <input type="text" name="nombreEquipo" id="nombreEquipo" placeholder="Nombre Equipo">
+                        <input type="text" name="nombreEquipo" id="nombreEquipo" placeholder="Nombre Equipo" required>
                     </td>
                     <td>
                         <input type="button" name="botonSelEscudo" id="botonSelEscudo" value="Subir escudo">
@@ -49,10 +51,11 @@
                         </select>
                     </td>
                     <td>
-                        <label for="presupuestoEquipo">Presupuesto Equipo:</label>
-                        <input type="number" name="presupuestoEquipo" id="presupuestoEquipo" placeholder="Presupuesto">
+                        <label for="presupuestoEquipo" >Presupuesto Equipo:</label>
+                        <input type="number" name="presupuestoEquipo" id="presupuestoEquipo" placeholder="Presupuesto" required>
                     </td>                    
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
 

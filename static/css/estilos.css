@@ -16,6 +16,18 @@ body{
     
 }
 
+table{
+    border-collapse: separate;    
+    border-spacing: 0px 10px;
+
+}
+
+td:first-child { 
+    border-radius: 10px 0px 0px 10px;
+}
+td:last-child { 
+    border-radius: 0px 10px 10px 0px;
+}
 
 h1{
     color: #ffffff;  
@@ -24,7 +36,7 @@ h1{
 input[type="number"], input[type="password"], input[type="text"]{            
     background: transparent;
     border: none;
-    border-bottom: #ffffff 2px solid;
+    border-bottom: rgb(212, 198, 0) 2px solid;
     color: #ffffff;    
     font-size: 20px;
     cursor: pointer;
@@ -38,7 +50,7 @@ input[type="number"]::placeholder, input[type="password"]::placeholder, input[ty
 
 input[type="number"]:focus, input[type="password"]:focus, input[type="text"]:focus{
     outline: none;
-    border-bottom: #D48D00 2px solid;
+    border-bottom: #ffffff 2px solid;
 }
 
 label{
@@ -62,6 +74,7 @@ select:focus{
 
 input[type="submit"], button, input[type="button"]{    
     height: 40px;
+    width: 300px;
     border-radius: 8px;
     background: #D48D00;
     color: #ffffff;
@@ -392,23 +405,18 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     height: 100%;    
     
 }
-#tablaTemporada{
-    border-collapse: separate;   
-    border-radius: 10px;     
-    border-spacing: 0 10px; 
+#tablaTemporada{        
+    border-radius: 10px;             
 
     font-size: 20px;
 
     padding: 30px;
 
 }
-td:first-child { 
+
+#tablaTemporada td:nth-child(2) { 
     border-radius: 10px 0px 0px 10px;
 }
-td:last-child { 
-    border-radius: 0px 10px 10px 0px;
-}
-
 
 
 #tablaTemporada th{
@@ -423,12 +431,17 @@ td:last-child {
 
 #tablaTemporada td{
     text-align: center;    
-    padding: 20px;    
+    padding: 10px;    
 }
 #equipoYEscudoTabla{
     text-align: left;
     padding-right: 30px;
     min-width: 200px;
+}
+
+
+#botonBorrarEquipo{
+    width: 100px;
 }
 
 /*seccion fechas*/
@@ -540,4 +553,21 @@ td:last-child {
     display: flex;
     grid-gap: 15px;
     align-items: center;
+}
+
+#tablaCreacionEquipo{
+    margin-top: 30px;
+    margin-bottom: 30px;      
+}
+
+
+#tablaCreacionEquipo tr{    
+    border-radius: 10px;
+    background-color: #2E2E2E;
+
+}
+
+#tablaCreacionEquipo td{
+    padding: 10px;
+    text-align: center;
 }
