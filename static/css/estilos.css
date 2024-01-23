@@ -11,159 +11,41 @@ html{
 }
 body{
     margin: 0;
-    padding: 0;
-    height: 100%;
+    padding: 0;    
     background: #4B4B4B;         
     
 }
 
-/* Estilos de inicio de sesion*/
-.contenedorElementosInicioSesion{             
-    display: grid;    
-    align-content: center;
-    justify-content: center;
-    grid-gap: 0px;          
-}
 
-.contenedorIzquierdoInicioSesion{        
-    grid-row: 1;  
-    width: 300px;
-    height: 500px;
-    border-radius: 8px 0px 0px 8px;    
-    background: #D48D00;    
-    display: grid;
-    place-content: center;
-}
- 
-
-
-.contenedorDerechoInicioSesion{        
-    grid-row: 1;
-    background: #373737;
-    width: 400px;
-    height: 500px;
-    border-radius: 0px 8px 8px 0px;        
-    display: grid;
-    
-    place-content: center;
-
-    text-align: center;
-    
-    
-}
-
-.contenedorDerechoInicioSesion input{    
-    margin-top: 30px;
-    width: 300px;      
-    height: 40px;            
-    grid-column: 1;    
-}
-
-.contenedorDerechoInicioSesion h1{    
-    margin-bottom: 60px;
-    grid-column: 1;  
+h1{
     color: #ffffff;  
 }
 
-
-.contenedorElementosInicioSesion input[type="number"], .contenedorElementosInicioSesion input[type="password"], .contenedorElementosInicioSesion input[type="text"]{            
+input[type="number"], input[type="password"], input[type="text"]{            
     background: transparent;
     border: none;
+    border-bottom: #ffffff 2px solid;
+    color: #ffffff;    
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+
+input[type="number"]::placeholder, input[type="password"]::placeholder, input[type="text"]::placeholder{
+    color: #ffffff;    
+}
+
+input[type="number"]:focus, input[type="password"]:focus, input[type="text"]:focus{
+    outline: none;
     border-bottom: #D48D00 2px solid;
-    color: #ffffff;    
-    font-size: 20px;
-    cursor: pointer;
-    
 }
 
-.contenedorElementosInicioSesion input[type="number"]::placeholder, .contenedorElementosInicioSesion input[type="password"]::placeholder, .contenedorElementosInicioSesion input[type="text"]::placeholder{
-    color: #cccccc;    
-}
-
-.contenedorElementosInicioSesion input[type="number"]:focus, .contenedorElementosInicioSesion input[type="password"]:focus, .contenedorElementosInicioSesion input[type="text"]:focus{
-    outline: none;
-    border-bottom: #ffffff 2px solid;
-}
-
-
-
-/*Estilos de registro de DT*/
-.contenedorElementosRegistro{             
-    height: 100%;
-    display: grid;    
-    place-content: center;   
-    align-content: center;
-    grid-gap: 0px;          
-}
-
-.contenedorIzquierdoRegistro{  
-    grid-row: 2;      
-    grid-column: 1;
-    width: 400px;
-    height: 500px;
-    border-radius: 8px 0px 0px 8px;    
-    background: #D48D00;    
-    display: grid;      
-    justify-content: center;  
-    align-content: center;
-    
-    
-}
- 
-.elementoIzquierdoRegistro{    
-    margin-bottom: 40px;
-    
-}
-
-.contenedorDerechoRegistro{        
-    grid-row: 2;
-    grid-column: 2;      
-    background: #373737;
-    width: 400px;
-    height: 500px;
-    border-radius: 0px 8px 8px 0px;    
-    display: grid;      
-    justify-content: center;  
-    align-content: center;
-    
-}
-
-
-.contenedorElementosRegistro input[type="password"], .contenedorElementosRegistro input[type="text"]{        
-    width: 300px;      
-    height: 40px;      
-    border: none;        
-    background: transparent;
-    border: none;
-    border-bottom: #ffffff 2px solid;
-    color: #ffffff;    
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.contenedorElementosRegistro input[type="number"]:focus, .contenedorElementosRegistro input[type="password"]:focus, .contenedorElementosRegistro input[type="text"]:focus{
-    outline: none;
-    border-bottom: #ffffff 2px solid;
-}
-
-.contenedorElementosRegistro input[type="password"]::placeholder, .contenedorElementosRegistro input[type="text"]::placeholder{
-    color: #ffffff;    
-}
-
-.contenedorElementosRegistro h1, h3{           
-    color: #ffffff;  
-    grid-column-start: 1;
-    grid-column-end: 3;
-    justify-self: center;
-    
-    
-}
-
-.contenedorElementosRegistro label{
+label{
     color: #ffffff;
-    font-size: 14px;    
+    font-size: 18px;    
 }
-.contenedorElementosRegistro select{
+select{
     border: none;
     width: 300px;
     height: 40px;
@@ -172,34 +54,13 @@ body{
     color: #ffffff;
 }
 
-
-.checkboxRegistro{
-    display: grid;    
-    justify-content: left;    
-    align-items: center;
-    
+select:focus{
+    outline: none;    
 }
 
 
-.checkboxRegistro input{
-    grid-row: 1;
-    grid-column: 1;
-}
-.checkboxRegistro label{
-    grid-row: 1;
-    grid-column: 2;
-    margin-left: 15px;
-}
 
-.elementoDerechoRegistro, .checkboxRegistro{
-    margin-top: 20px;
-}
-
-
-/*Estilos generales*/
-
-input[type="submit"]{
-    width: 300px;
+input[type="submit"], button, input[type="button"]{    
     height: 40px;
     border-radius: 8px;
     background: #D48D00;
@@ -211,7 +72,8 @@ input[type="submit"]{
     
 }
 
-input[type="submit"]:hover{
+
+input[type="submit"]:hover, button:hover, input[type="button"]:hover{
     background: #ffffff;
     color: #D48D00;
     font-weight: bold;
@@ -263,7 +125,170 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 
+#content{
+    margin-top: 100px;
+}
+
+/* Estilos de inicio de sesion*/
+.contenedorElementosInicioSesion{      
+    margin-top: 60px;       
+    display: grid;    
+    align-content: center;
+    justify-content: center;
+    grid-gap: 0px;          
+}
+
+.contenedorIzquierdoInicioSesion{        
+    grid-row: 1;  
+    width: 300px;
+    height: 500px;
+    border-radius: 8px 0px 0px 8px;    
+    background: #D48D00;    
+    display: grid;
+    place-content: center;
+}
+ 
+
+
+.contenedorDerechoInicioSesion{        
+    grid-row: 1;
+    background: #373737;
+    width: 400px;
+    height: 500px;
+    border-radius: 0px 8px 8px 0px;        
+    display: grid;
+    
+    place-content: center;
+
+    text-align: center;
+    
+    
+}
+
+.contenedorDerechoInicioSesion input{    
+    margin-top: 30px;
+    width: 300px;      
+    height: 40px;            
+    grid-column: 1;    
+}
+
+.contenedorDerechoInicioSesion h1{    
+    margin-bottom: 60px;
+    grid-column: 1;      
+}
+
+
+
+/*Estilos de registro de DT*/
+.contenedorElementosRegistro{             
+    margin-top: 60px;      
+    height: 100%;
+    display: grid;    
+    place-content: center;   
+    align-content: center;
+    grid-gap: 0px;      ;        
+}
+
+.contenedorIzquierdoRegistro{  
+    grid-row: 2;      
+    grid-column: 1;
+    width: 400px;
+    height: 500px;
+    border-radius: 8px 0px 0px 8px;    
+    background: #1E1E1E;    
+    display: grid;      
+    justify-content: center;  
+    align-content: center;
+    
+    
+}
+ 
+.elementoIzquierdoRegistro{    
+    margin-bottom: 40px;
+    
+}
+
+.contenedorDerechoRegistro{        
+    grid-row: 2;
+    grid-column: 2;      
+    background: #373737;
+    width: 400px;
+    height: 500px;
+    border-radius: 0px 8px 8px 0px;    
+    display: grid;      
+    justify-content: center;  
+    align-content: center;
+    
+}
+
+
+.contenedorElementosRegistro h1, h3{           
+    color: #ffffff;  
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
+    
+    
+}
+
+
+
+
+.checkboxRegistro{
+    display: grid;    
+    justify-content: left;    
+    align-items: center;
+    
+}
+
+
+.checkboxRegistro input{
+    grid-row: 1;
+    grid-column: 1;
+}
+.checkboxRegistro label{
+    grid-row: 1;
+    grid-column: 2;
+    margin-left: 15px;
+}
+
+.elementoDerechoRegistro, .checkboxRegistro{
+    margin-top: 20px;
+}
+
+
+/*Estilos partidos*/
+
+.contenidoTemporada{
+    margin-top: 60px;      
+    height: 100%;
+    display: grid;    
+    grid-gap: 0px;      ;        
+}
+
+.contenidoPartidos h1{
+    color: #ffffff;    
+    justify-self: center;
+}
+
+.contenedorBotones{
+    display: grid;    
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+/*BARRA DE MENU*/
+
 .contenedorMenu{
+    top: 0;    
+    position: fixed;
+    
+    width: 100%;
     background-color: #D29300;
     display: flex;
     justify-content: space-between;
@@ -275,6 +300,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     list-style-type: none;
     margin: 0;    
     display: grid;          
+    
     
 }
 
@@ -337,3 +363,181 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 
+/*PAGINA PARTIDOS*/
+
+
+#tituloTemporada{
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.contenidoTemporada{
+    display: flex;
+    justify-content: space-around;
+    color: #ffffff;        
+    
+}
+
+
+/*seccion tabla*/
+#contenedorTabla{
+    
+    text-align: left;
+
+    border-radius: 10px;	
+    padding: 20px;
+    background-color: #1E1E1E;    
+    height: 100%;    
+    
+}
+#tablaTemporada{
+    border-collapse: separate;   
+    border-radius: 10px;     
+    border-spacing: 0 10px; 
+
+    font-size: 20px;
+
+    padding: 30px;
+
+}
+td:first-child { 
+    border-radius: 10px 0px 0px 10px;
+}
+td:last-child { 
+    border-radius: 0px 10px 10px 0px;
+}
+
+
+
+#tablaTemporada th{
+    text-align: center;    
+    padding-bottom: 5px;     
+}
+
+#tablaTemporada tr{     
+    border-radius: 20px;            
+}
+
+
+#tablaTemporada td{
+    text-align: center;    
+    padding: 20px;    
+}
+#equipoYEscudoTabla{
+    text-align: left;
+    padding-right: 30px;
+    min-width: 200px;
+}
+
+/*seccion fechas*/
+
+
+#contenedorFechas{      
+    background-color: #373737;
+    align-content: center;
+    border-radius: 10px;	
+    padding: 80px;           
+}
+
+#contenedorPartidos{
+    display: grid;        
+}
+
+#selectorFechas{    
+    display : flex;
+
+    justify-content: center;
+    align-items: center;
+    background-color: #484848;
+    border-radius: 15px;
+
+    max-width: 300px;
+    min-width: 300px;
+
+    min-height: 30px;
+    min-height: 30px;    
+}
+
+
+
+
+.contenedorPartido{
+    margin-top: 50px;    
+    
+    display: flex;
+    
+    padding: 20px;
+
+    height: 100px;
+    width: 500px;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #484848;
+    border-radius: 15px;
+}
+
+.resultado{
+    display: flex;          
+    color: #ffffff;    
+    font-weight: bold;
+}
+
+
+
+
+
+
+/*pagina reset*/
+
+.contenidoReset{
+    margin-top: 60px;      
+    height: 100%;
+    display: grid;    
+    place-content: center;   
+    align-content: center;
+    justify-items: center;
+    grid-gap: 20px;      ;            
+}
+
+
+.formularioReset{
+    border-radius: 10px;
+    background-color: #373737;
+    padding: 30px;
+
+}
+
+.contenedorSuperior{
+    display: grid;    
+    grid-gap: 20px; 
+    justify-content: space-between
+
+
+}
+
+.contenedorCalendario{
+    grid-row: 1;
+    display: flex;    
+    grid-gap: 20px;
+    background-color: #414141;
+    border-radius: 10px;
+    padding: 20px;
+    align-items: center;
+}
+
+.contenedorInferior{
+    margin-top: 30px;
+    display: flex;
+    grid-gap: 100px;
+    align-items: center;
+}
+
+.contenedorInferior div{
+    display: flex;
+    grid-gap: 15px;
+    align-items: center;
+}

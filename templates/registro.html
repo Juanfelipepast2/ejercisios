@@ -1,76 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">    
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Añadir DT</title>
-    </head>
-    <body>        
-        
-        <form autocomplete="off">
-            <div class="contenedorElementosRegistro">                
-                <h1>Registrar DT</h1>                                
-                <div class="contenedorIzquierdoRegistro">
-                    
-                    <div class="elementoIzquierdoRegistro">
-                        <h3>El id del DT será: </h3>
-                    </div>
-                    <div class="elementoIzquierdoRegistro">
-                        <input type="text" id="nombreDt" name="nombreDt" placeholder="Nombre" required="true"/>
-                    </div>
-                    <div class="elementoIzquierdoRegistro">
-                        <input type="text" id="apellidoDt" name="apellidoDt" placeholder="Apellido" required="true"/>
-                    </div>
-                    <div class="elementoIzquierdoRegistro">
-                        <input type="password" id="contrasenaDt" name="contrasenaDt" placeholder="Contraseña" required="true" readonly/>
-                    </div>
-                                                                    
-                </div>
-                                
-                <div class="contenedorDerechoRegistro">
-                    <div class="elementoDerechoRegistro">
-                        <label for ="paisNacimiento">País de nacimiento: </label><br/>
-                        <select id="paisNacimiento" name="paisNacimiento" required="true">
-                            <option value="001">Colombia</option>
-                            <option value="002">Argentina</option>
-                            <option value="003">Ecuador</option>
-                            <option value="004">Venezuela</option>
-                            <option value="005">Perú</option>
-                        </select>
-                        
-                    </div>
+{% extends "index.html" %}
+{% block title %}Añadir DT{% endblock %} 
 
-                    <div class="elementoDerechoRegistro">
-                        <label for ="paisResidencia">País de residencia: </label><br/>
-                        <select id="paisResidencia" name="paisResidencia" required="true">
-                            <option value="001">Colombia</option>
-                            <option value="002">Argentina</option>
-                            <option value="003">Ecuador</option>
-                            <option value="004">Venezuela</option>
-                            <option value="005">Perú</option>
-                        </select>
-                    </div>
-
-                    <div class="checkboxRegistro">
-                        <input type="checkbox" id="esAdmin" name="rol" value="admin"/>
-                        <label for="esAdmin">Administrador</label>
-                    </div>
-                    
-                    <div class="checkboxRegistro">
-                        <input type="checkbox" id="esPropietario" name="rol" value="owner"/>
-                        <label for="esPropietario">Propietario</label>
-                    </div>
-
-                    <div class="elementoDerechoRegistro">
-                        <input type="submit" value="Registrar"/>
-                    </div>
-
-                </div>  
+{% block content %}
+<div>
+    <form autocomplete="off">
+        <div class="contenedorElementosRegistro">
+          <h1 style="padding-bottom: 20px">Registrar DT</h1>
+          <div class="contenedorIzquierdoRegistro">
+            <div class="elementoIzquierdoRegistro">
+              <h3>El id del DT será:</h3>
+            </div>
+            <div class="elementoIzquierdoRegistro">
+              <input
+                type="text"
+                id="nombreDt"
+                name="nombreDt"
+                placeholder="Nombre"
+                required="true"
+              />
+            </div>
+            <div class="elementoIzquierdoRegistro">
+              <input
+                type="text"
+                id="apellidoDt"
+                name="apellidoDt"
+                placeholder="Apellido"
+                required="true"
+              />
+            </div>
+            <div class="elementoIzquierdoRegistro">
+              <input type="text" id="contrasenaDt" name="contrasenaDt" placeholder="Contraseña" required="true" readonly value="{{contrasena}}"/>
+              <a href="{{url_for('registro')}}">Generar</a>
+            </div>
+          </div>
+      
+          <div class="contenedorDerechoRegistro">
+            <div class="elementoDerechoRegistro">
+              <label for="paisNacimiento">País de nacimiento: </label><br />
+              <select id="paisNacimiento" name="paisNacimiento" required="true">
+                <option value="001">Colombia</option>
+                <option value="002">Argentina</option>
+                <option value="003">Ecuador</option>
+                <option value="004">Venezuela</option>
+                <option value="005">Perú</option>
+              </select>
+            </div>
+      
+            <div class="elementoDerechoRegistro">
+              <label for="paisResidencia">País de residencia: </label><br />
+              <select id="paisResidencia" name="paisResidencia" required="true">
+                <option value="001">Colombia</option>
+                <option value="002">Argentina</option>
+                <option value="003">Ecuador</option>
+                <option value="004">Venezuela</option>
+                <option value="005">Perú</option>
+              </select>
+            </div>
+      
+            <div class="checkboxRegistro">
+              <input type="checkbox" id="esAdmin" name="rol" value="admin" />
+              <label for="esAdmin">Administrador</label>
+            </div>
+      
+            <div class="checkboxRegistro">
+              <input type="checkbox" id="esPropietario" name="rol" value="owner" />
+              <label for="esPropietario">Propietario</label>
+            </div>
+      
+            <div class="elementoDerechoRegistro">
+              <input type="submit" value="Registrar" onclick="alert('DT agregado')"/>
+            </div>
+          </div>
         </div>
-        </form>                  
-        
-    </body>
-</html>
+      </form>
+</div>
+{% endblock %}
+
+

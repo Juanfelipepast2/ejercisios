@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+{% block title %}Crear Reset{% endblock %} 
+{% block content %}
+<div class="contenidoReset">
+    <h1>Reset id {{"inserte id reset"}}</h1>
+    <form method="POST" class="formularioReset">
+        <!--contenedor horizontal 1-->
+        <div class="contenedorSuperior">
+            <div class="contenedorCalendario">
+                <label for="fechaInicio">Fecha Inicio</label>
+                <input type="date" name="fechaInicio" id="fechaInicio" required>
+            </div>
+            <div class="contenedorCalendario">
+                <input type="checkbox" name="checkFechaFin" id="checkFechaFin" value="1">
+                <label for="fechaFin">Fecha Inicio</label>
+                <input type="date" name="fechaFin" id="fechaFin" required>
+            </div>
+        </div>
+        <div class="contenedorInferior">
+            <div>
+                <label for="cantidadEquipos">Cantidad de equipos:</label>
+                <input type="number" name="cantidadEquipos" id="cantidadEquipos" placeholder="Presupuesto">
+            </div>
+            <div>
+                <input type="checkbox" name="presupuestoGeneral" id="presupuestoGeneral" value="1">
+                <label for="presupuestoGeneral">Presupuesto General:</label>
+                <input type="number" name="presupuestoGeneral" id="presupuestoGeneral" placeholder="Presupuesto">
+            </div>            
+            
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>1</td>                        
+                    <td>                        
+                        <input type="text" name="nombreEquipo" id="nombreEquipo" placeholder="Nombre Equipo">
+                    </td>
+                    <td>
+                        <input type="button" name="botonSelEscudo" id="botonSelEscudo" value="Subir escudo">
+                    </td>
+                    <td>
+                        <label for="selectorDT">DT:</label>
+                        <select name="selectorDT" id="selectorDT" required>
+                            <option value="1">DT 1</option>
+                            <option value="2">DT 2</option>
+                            <option value="3">DT 3</option>
+                            <option value="4">DT 4</option>
+                            <option value="5">DT 5</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="presupuestoEquipo">Presupuesto Equipo:</label>
+                        <input type="number" name="presupuestoEquipo" id="presupuestoEquipo" placeholder="Presupuesto">
+                    </td>                    
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="submit" value="Crear Reset">
+    </form>
+
+</div>
+
+
+{% endblock %}

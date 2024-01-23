@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    {% block head %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/estilos.css') }}"
-    />
+      href="{{ url_for('static', filename='css/estilos.css') }}"/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>Inicio</title>
+      referrerpolicy="no-referrer"/>
+    <title>{% block title %}{% endblock %}</title>
+
+    {% endblock %}
   </head>
   <body>
     <div class="contenedorMenu">
@@ -31,11 +33,7 @@
       <nav>
         <ul id="menuPrincipal">
           <li>
-            <a>Temporada</a>
-            <ul class="submenu">
-              <li><a>Tabla</a></li>
-              <li><a>Partidos</a></li>
-            </ul>
+            <a href="{{url_for('partidosTemporada')}}">Temporada</a>           
           </li>
           <li>
             <a>Historia</a>
@@ -52,9 +50,16 @@
               <li><a>Mi Equipo</a></li>
             </ul>
           </li>
+          <li>
+            <a href="{{url_for('registro')}}"">Registrar jugador</a>
+          </li>
           <li><a href="{{url_for('salir')}}">Salir</a></li>
         </ul>
       </nav>
+    </div>
+    
+    <div id="content">
+      {% block content %}{% endblock %}    
     </div>
   </body>
 </html>
