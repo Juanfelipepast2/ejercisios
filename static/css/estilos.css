@@ -29,8 +29,12 @@ td:last-child {
     border-radius: 0px 10px 10px 0px;
 }
 
-h1{
+h1, h2, h3, h4, h5, h6{
     color: #ffffff;  
+}
+
+a{
+    text-decoration:none
 }
 
 input[type="number"], input[type="password"], input[type="text"]{            
@@ -558,6 +562,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #tablaCreacionEquipo{
     margin-top: 30px;
     margin-bottom: 30px;      
+    justify-content: center;
 }
 
 
@@ -570,4 +575,53 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #tablaCreacionEquipo td{
     padding: 10px;
     text-align: center;
+}
+
+
+/*pagina selector de temporadas*/
+.contenidoSelectorResets{
+    display: grid;
+    justify-items: center;
+}
+
+#tablaContenedorTemporadas{
+    margin-top: 30px;
+    border-spacing: 10px 10px; 
+    justify-content: center;   
+    background-color: #373737;
+    border-radius: 10px;
+}
+
+.contenedorBotonTemporada{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    margin: 30px;
+    background-color: #1E1E1E;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+
+.contenedorBotonTemporada:hover{
+    background-color: #807e7e;
+}
+
+
+.contenedorBotonTemporada img{
+    width: 50px;    
+    margin: 10px;  
+    grid-row: 1;
+    grid-column: 1;  
+}
+
+.contenedorBotonTemporada h1{    
+    grid-row: 1;
+    grid-column: 2;  
+}
+
+.contenedorBotonTemporada h4{    
+    grid-column-start: 1;
+    grid-column-end: 3;
 }

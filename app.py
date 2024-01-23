@@ -29,9 +29,10 @@ def salir():
     return redirect(url_for("iniciarSesion"))
 
 @app.route("/temporada")
-def partidosTemporada():
+@app.route("/temporada/<codigo>")
+def partidosTemporada(codigo):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("temporada.html")
+    return render_template("temporada.html", codigo=codigo)
 
 @app.route("/reset")
 def crearReset():
@@ -39,11 +40,18 @@ def crearReset():
 
     return render_template("crearReset.html")
 
+@app.route("/reset")
 @app.route("/reset/<codigo>")
 def reset(codigo):
     app.logger.info(f"Se ha cargado la página de reset {request.path}")
     return render_template("temporadasReset.html", codigo=codigo)
 
+
+@app.route("/temporada/<codigo>")
+@app.route("/temporada/<codigo>/<codigoPartido>")
+def partido(codigo, codigoPartido):
+    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    return render_template("temporada.html", codigo=codigo, codigoPartido=codigoPartido)
 
 if __name__ == "__main__":
     app.run(debug=True)

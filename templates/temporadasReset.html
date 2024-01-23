@@ -2,7 +2,29 @@
 {% block title %}Reset {{codigo}}{% endblock %} 
 {% block content %}
 
-<div class="contenedorBasico">
-    
+<div class="contenidoSelectorResets">
+    <h1>Reset {{codigo}}</h1>
+    <table id="tablaContenedorTemporadas">
+        <tbody>
+            {% for i in range (0,2) %}
+            <tr>                
+                {% for j in range (0,4) %}
+                <td>                    
+                    <a class='contenedorBotonTemporada' href="{{url_for('partidosTemporada', codigo=j)}}">
+                        <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
+                        <h1>Temporada {{j}}</h1>                        
+                        <h4>Campeón {{"Jugador 2"}}</h4>
+                    </a>                    
+                </td>                                                                                
+                {% endfor %}                
+            </tr>
+            {% endfor %}
+            <td>
+                <div class='contenedorBotonTemporada'>                        
+                    <h1>+ Nueva temporada</h1>                                                
+                </div>
+            </td>  
+        </tbody>
+    </table>
 </div>
 {% endblock %}
