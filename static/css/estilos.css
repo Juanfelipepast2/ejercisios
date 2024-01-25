@@ -37,6 +37,18 @@ a{
     text-decoration:none
 }
 
+.contenedorGenerico{
+    margin-top: 60px;      
+    height: 100%;
+    display: grid;    
+    place-content: center;   
+    align-content: center;
+    justify-items: center;
+    grid-gap: 20px;      ;            
+}
+
+
+
 input[type="number"], input[type="password"], input[type="text"]{            
     background: transparent;
     border: none;
@@ -91,8 +103,7 @@ input[type="submit"], button, input[type="button"]{
 
 
 input[type="submit"]:hover, button:hover, input[type="button"]:hover{
-    background: #ffffff;
-    color: #D48D00;
+    background: #a06b00;    
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
@@ -451,6 +462,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /*seccion fechas*/
 
 
+
 #contenedorFechas{      
     background-color: #373737;
     align-content: center;
@@ -458,13 +470,21 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     padding: 80px;           
 }
 
+#contenedorFechas .contenedorBotones{
+    display: flex; 
+    justify-content: 
+    space-around; 
+    margin-bottom: 20px;
+}
+
+
 #contenedorPartidos{
     display: grid;        
 }
 
 #selectorFechas{    
     display : flex;
-
+    margin-top: 30px;    
     justify-content: center;
     align-items: center;
     background-color: #484848;
@@ -497,6 +517,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border-radius: 15px;
 }
 
+.contenedorPartido:hover{
+    background-color: #1e1e1e;
+}
+
 .resultado{
     display: flex;          
     color: #ffffff;    
@@ -510,15 +534,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 /*pagina reset*/
 
-.contenidoReset{
-    margin-top: 60px;      
-    height: 100%;
-    display: grid;    
-    place-content: center;   
-    align-content: center;
-    justify-items: center;
-    grid-gap: 20px;      ;            
-}
 
 
 .formularioReset{
@@ -579,10 +594,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 /*pagina selector de temporadas*/
-.contenidoSelectorResets{
-    display: grid;
-    justify-items: center;
-}
 
 #tablaContenedorTemporadas{
     margin-top: 30px;
@@ -592,7 +603,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border-radius: 10px;
 }
 
-.contenedorBotonTemporada{
+.contenedorBotonGenerico{
     display: grid;
     justify-content: center;
     align-items: center;
@@ -604,24 +615,178 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 
-.contenedorBotonTemporada:hover{
+.contenedorBotonGenerico:hover{
     background-color: #807e7e;
 }
 
 
-.contenedorBotonTemporada img{
+.contenedorBotonGenerico img{
     width: 50px;    
     margin: 10px;  
     grid-row: 1;
     grid-column: 1;  
 }
 
-.contenedorBotonTemporada h1{    
+.contenedorBotonGenerico h1{    
     grid-row: 1;
     grid-column: 2;  
 }
 
-.contenedorBotonTemporada h4{    
+.contenedorBotonGenerico h4{    
     grid-column-start: 1;
     grid-column-end: 3;
+}
+
+
+/*PÁGINA PARTIDO*/
+.contenedorVistaPartido{
+    border-radius: 10px;
+    background-color: #373737;
+    padding: 60px;
+    display: grid;
+    justify-items: center;
+    
+}
+
+
+
+.contenedorVistaPartido h1{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
+}
+
+
+.contenedorVistaPartido img{
+    width: 200px;
+    grid-row: 2;    
+}
+
+.contenedorVistaPartido ul{
+    list-style-type: none;
+
+    margin-top: 30px;
+    margin-bottom: 30px;    
+    justify-content: center;           
+}
+
+.contenedorVistaPartido li{
+    min-width: 300px;
+    padding: 10px;
+    text-align: center;
+    background-color: #FFB400;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
+}
+
+.contenedorVistaPartido .botonesAñadirEstadisticas{
+    background-color: transparent;
+}
+.botonesAñadirEstadisticas li{
+    min-width: 50px;
+    display: inline-block;
+}
+
+
+
+
+.contenedorVistaPartido .nombreEquipo, .contenedorVistaPartido .nombreDT{
+    display: grid;
+    justify-content: center;
+    align-items: center;        
+}
+
+
+.contenedorVistaPartido .nombreEquipo{
+    width: 500px;
+    background-color: #686868;
+    text-align: center;        
+    height: 30px;
+}
+
+.contenedorVistaPartido .nombreDT{
+    width: 300px;
+    background-color: #1E1E1E;
+    text-align: center; 
+    border-radius: 0px 0px 10px 10px;   
+    height: 30px;
+    
+}
+#escudoPartidoLocal{
+    grid-column: 1;
+    
+}
+
+#escudoPartidoVisitante{
+    grid-column: 3;    
+}
+
+
+
+.equipoLocal{
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
+}
+
+.nombreEquipo{
+    border-radius: 10px;
+}
+
+.equipoVisitante{
+    grid-column: 3;
+    grid-row: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.marcador{
+    background-color: #FFB400;
+    border-radius: 10px;
+    grid-column: 2;
+    grid-row: 3;
+    align-items: center;
+    padding: 30px;
+}
+
+.estadisticasLocal{
+    grid-row: 4;
+    grid-column: 1;
+}
+
+.estadisticasVisitante{
+    grid-row: 4;
+    grid-column: 3;
+}
+
+.botonGuardarPartido{
+    grid-column: 2;
+    grid-row: 5;
+}
+
+.contenedorVistaPartido .botonesAñadirEstadisticas button{
+    width: 100px;
+
+}
+
+
+
+.contenedorVistaPartido .botonesAñadirEstadisticas li{
+    background-color: transparent;
+}
+
+
+.botonesAñadirEstadisticas #botonTarjetaRoja{
+    background-color: red;
+}
+
+.botonesAñadirEstadisticas #botonTarjetaRoja:hover{
+    background-color: rgb(160, 0, 0);
 }

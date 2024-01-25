@@ -28,13 +28,12 @@ def salir():
     app.logger.info(f"Se ha cargado la página de salir {request.path}")
     return redirect(url_for("iniciarSesion"))
 
-@app.route("/temporada")
 @app.route("/temporada/<codigo>")
 def partidosTemporada(codigo):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
     return render_template("temporada.html", codigo=codigo)
 
-@app.route("/reset")
+@app.route("/crearReset")
 def crearReset():
     app.logger.info(f"Se ha cargado la página de reset {request.path}")
 
@@ -46,12 +45,24 @@ def reset(codigo):
     app.logger.info(f"Se ha cargado la página de reset {request.path}")
     return render_template("temporadasReset.html", codigo=codigo)
 
-
+@app.route("/temporada")
 @app.route("/temporada/<codigo>")
 @app.route("/temporada/<codigo>/<codigoPartido>")
 def partido(codigo, codigoPartido):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("temporada.html", codigo=codigo, codigoPartido=codigoPartido)
+    return render_template("partido.html", codigo=codigo, codigoPartido=codigoPartido)
+
+
+
+@app.route("/resets")
+def paginaResets():
+    app.logger.info(f"Se ha cargado la página de resets {request.path}")
+    return render_template("paginaResets.html")
+
+@app.route("/playoffs")
+def playoffs():
+    app.logger.info(f"Se ha cargado la página de playoffs {request.path}")
+    return render_template("playoffs.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

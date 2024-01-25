@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block title %}Partido {{codigoPartido}}{% endblock %} 
+{% block content %}
+<div class="contenedorGenerico">    
+    <div class="contenedorVistaPartido">
+        <h1>Temporada {{codigo}} fecha tal</h1>        
+        
+
+        <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoLocal"/>        
+    
+        <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoVisitante"/>        
+        <!--CONTENEDOR MARCADOR-->        
+        <div class="equipoLocal">
+            <h3 class="nombreEquipo">Equipo 1</h1>                        
+            <h3 class="nombreDT">Dt 1</h1>    
+        </div>
+        
+        
+        <div class="marcador">
+            <h1>2 - 1</h1>                    
+        </div>
+        <div class="equipoVisitante">            
+            <h3 class="nombreEquipo">Equipo 1</h1>                        
+            <h3 class="nombreDT">Dt 1</h1>            
+        </div>
+        
+        <!--CONTENEDOR ESTADISTICAS-->
+        <ul class="estadisticasLocal">
+            <a>
+                <li>                
+                    <h3>Gol: edison toloza</h3>                                                
+                </li>                            
+            </a>
+            <a>
+                <li>                
+                    <h3>Gol: edison toloza</h3>                                                
+                </li>                            
+            </a>
+            <a>
+                <li>                
+                    <h3>Amarilla</h3>                                                
+                </li>                            
+            </a>
+            <li class="botonesAñadirEstadisticas">
+                <ul>
+                    <li><button>Gol</button></li>
+                    <li><button>Amarilla</button></li>
+                    <li><button id="botonTarjetaRoja">Roja</button></li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="estadisticasVisitante">
+            <a>
+                <li>                
+                    <h3>Gol: Omar Duarte</h3>                                                
+                </li>                            
+            </a>            
+            <a>
+                <li style="background-color: red;">                
+                    <h3>Roja</h3>                                                
+                </li>                            
+            </a>
+            <li class="botonesAñadirEstadisticas">
+                <ul>
+                    <li><button>Gol</button></li>
+                    <li><button>Amarilla</button></li>
+                    <li><button id="botonTarjetaRoja">Roja</button></li>
+                </ul>
+            </li>
+        </ul>                
+        <button class="botonGuardarPartido">Guardar partido</button> 
+    </div>
+    
+</div>
+
+{% endblock %}

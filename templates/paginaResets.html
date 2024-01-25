@@ -1,18 +1,18 @@
 {% extends "index.html" %}
-{% block title %}Reset {{codigo}}{% endblock %} 
+{% block title %}Resets{{codigo}}{% endblock %} 
 {% block content %}
 
 <div class="contenedorGenerico">
-    <h1>Reset {{codigo}}</h1>
+    <h1>Resets</h1>
     <table id="tablaContenedorTemporadas">
         <tbody>
             {% for i in range (0,1) %}
             <tr>                
                 {% for j in range (0,1) %}
                 <td>                    
-                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', codigo=j)}}">
+                    <a class='contenedorBotonGenerico' href="{{url_for('reset', codigo=j)}}">
                         <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
-                        <h1>Temporada {{j}}</h1>                        
+                        <h1>Reset {{j}}</h1>                        
                         <h4>Campeón {{"Jugador 2"}}</h4>
                     </a>                    
                 </td>                                                                                
@@ -20,9 +20,9 @@
             </tr>
             {% endfor %}
             <td>
-                <div class='contenedorBotonGenerico'>                        
-                    <h1>+ Nueva temporada</h1>                                                
-                </div>
+                <a class='contenedorBotonGenerico' href="{{url_for('crearReset')}}">                        
+                    <h1>+ Nuevo reset</h1>                                                
+                </a>
             </td>  
         </tbody>
     </table>
