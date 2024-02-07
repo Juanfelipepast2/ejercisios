@@ -790,3 +790,45 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .botonesAñadirEstadisticas #botonTarjetaRoja:hover{
     background-color: rgb(160, 0, 0);
 }
+
+
+
+/*PAGINA Playoffs*/
+
+
+
+
+.cuadroCopas{
+    display: grid;
+    margin-top: 30px;
+    border-spacing: 10px 10px; 
+    justify-content: center;   
+    align-items: center;
+    background-color: #373737;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+
+#cuadroPartidoCopas{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    margin: 30px;
+    background-color: #1E1E1E;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#cuadroPartidoCopas:hover{
+    background-color: #807e7e;
+}
+
+
+#cuadroPartidoCopas img{
+    width: 50px;    
+    
+    grid-row: 1;
+    grid-column: 1;  
+}

@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% block title %}{{title}} temporada {{codigo}}{% endblock %} 
+{% block content %}
+
+<div class="contenedorGenerico">
+    <h1>{{title}} temporada {{codigo}}</h1>
+    <div class="cuadroCopas">     
+        <div class="barracuartos" style="grid-column: 1;display: grid; justify-items: center">
+            <h4 style="grid-row: 1;">Cuartos</h4>
+            {% for i in range(1, 5) %}
+            
+            <a id='cuadroPartidoCopas' style="grid-row: {{i+1}};">
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}";"/>
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>
+                <svg width="200" height="5"><line x1="0" y1="0" x2="200" y2="0" stroke="white" style="grid-column: 1;"/></svg>
+
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>                               
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>      
+            
+            </a>                                                                                                            
+        
+            {% endfor %} 
+        </div> 
+        <div class="barraSemis" style="grid-column: 2;display: grid; justify-items: center">
+            <h4 style="grid-row: 1;">Semis</h4>
+            {% for i in range(1, 3) %}        
+            <a id='cuadroPartidoCopas' style="grid-row: {{i+1}};">
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}""/>
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>
+                <svg width="200" height="5"><line x1="0" y1="0" x2="200" y2="0" stroke="white" style="grid-column: 1;"/></svg>
+
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>                               
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>      
+            
+            </a>     
+            {% endfor %} 
+        </div>           
+        <div class="barra final" style="grid-column: 3;display: grid; justify-items: center">
+            <h4 style="grid-row: 1;">Final</h4>
+            <a id='cuadroPartidoCopas' style="grid-row: {{i}};">
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}""/>
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>
+                <svg width="200" height="5"><line x1="0" y1="0" x2="200" y2="0" stroke="white" style="grid-column: 1;"/></svg>
+
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>                               
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>      
+            
+            </a>
+        </div>     
+        
+        <div class="barra campeón" style="grid-column: 4;display: grid; justify-items: center">
+            <img src="{{ url_for('static', filename='img/trofeo.png') }}" style="width: 200px;">
+            <a id='cuadroPartidoCopas' style="grid-row: {{i}};">
+                <div style="display: grid; align-items: center; padding: 10px;">
+                    <img src="{{ url_for('static', filename='img/logo-lce.png') }}""/>
+                    <h4 style="grid-column: 2;">Campeón {{"Jugador 2"}}</h4>
+                </div>                 
+            </a>
+            <h4>Campeón</h4>
+        </div>  
+        
+    </div>
+</div>
+{% endblock %}
