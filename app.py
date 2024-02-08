@@ -1,18 +1,41 @@
-from flask import Flask, redirect, request, render_template, url_for, request
+from flask import Flask, redirect, request, render_template, url_for, request, session
 import random, string, clases
 
 app = Flask(__name__)
 
+app.secret_key = 'Wo7X$Gj79%BBTz'
+
 @app.route("/")
 def inicio():
-  
-    app.logger.info(f"Se ha cargado la página de inicio {request.path}")
-    return render_template("index.html")
+    if 'codigoDt' in session:
 
-@app.route("/iniciarSesion")
+        return render_template("index.html")
+    return redirect(url_for("iniciarSesion"))
+
+    #app.logger.info(f"Se ha cargado la página de inicio {request.path}")
+    #return render_template("index.html")
+
+@app.route("/iniciarSesion", methods=["GET", "POST"])
 def iniciarSesion():
-    app.logger.info(f"Se ha cargado la página de inicio de sesi?n {request.path}")
-    return render_template("inicioSesion.html")
+    if 'codigoDt' in session:
+        return redirect(url_for("inicio"))
+    else:
+        if request.method == "POST":        
+            ##agregamos el usuario
+            password = clases.Tecnico.obtenerContrasena(int(request.form.get("codigoDt")))
+            if password != None and password == request.form.get("contrasenaDt"):
+                session['codigoDt'] = request.form.get("codigoDt")
+
+            return redirect(url_for("inicio"))
+
+        app.logger.info(f"Se ha cargado la página de inicio de sesi?n {request.path}")
+        return render_template("inicioSesion.html")
+
+
+@app.route("/salir")
+def salir():
+    session.pop('codigoDt')
+    return redirect(url_for("inicio"))
 
 @app.route("/registro")
 def registro():
@@ -30,11 +53,6 @@ def registrando_dt():
         dtTemp.guardarDTecnico()
         return redirect(url_for("iniciarSesion"))
 
-
-@app.route("/salir")
-def salir():
-    app.logger.info(f"Se ha cargado la página de salir {request.path}")
-    return redirect(url_for("iniciarSesion"))
 
 @app.route("/temporada/<codigo>")
 def partidosTemporada(codigo):

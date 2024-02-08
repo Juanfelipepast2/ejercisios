@@ -1,4 +1,6 @@
 import random
+import traceback
+
 import string
 import time
 import CRUD
@@ -40,43 +42,76 @@ class Tecnico:
             return False
     
     def guardarDTecnico(self):
-        con = CRUD.Conexion()
-        con.cur.execute("INSERT INTO tecnico (idpais , NOMBRETECNICO, APELLIDOTECNICO, CONTRASENATECNICO, ADMINTECNICO, OWNERTECNICO) VALUES (%s ,%s, %s, %s, %s, %s)", (self.idPais, self.nombre, self.apellido, self.contrasena, self.admin, self.pO))
-        con.conexion.commit()
-        del con
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute("INSERT INTO tecnico (idpais , NOMBRETECNICO, APELLIDOTECNICO, CONTRASENATECNICO, ADMINTECNICO, OWNERTECNICO) VALUES (%s ,%s, %s, %s, %s, %s)", (self.idPais, self.nombre, self.apellido, self.contrasena, self.admin, self.pO))
+            con.conexion.commit()
+            del con
+        except:
+            print("Error al guardar el tecnico")
+
+
+    def obtenerTecnico(id: int):
+        tecnicoTemp = None
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"SELECT * FROM tecnico where IDTECNICO = {id}")
+            tuplaTecnico = con.cur.fetchone()
+            
+            if(tuplaTecnico != None):
+                tecnicoTemp = Tecnico(int(tuplaTecnico[0]), int(tuplaTecnico[1]), tuplaTecnico[2], tuplaTecnico[3], tuplaTecnico[4], bool(tuplaTecnico[5]), bool(tuplaTecnico[6]))
+                            
+            
+        except:
+            print("Error al obtener el tecnico", traceback.print_exc())            
+        finally:
+            del con
+        return tecnicoTemp
+
+    def obtenerContrasena(id: int):
+        contraDt = None
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"SELECT CONTRASENATECNICO FROM tecnico where IDTECNICO = {id}")
+            contraDt = con.cur.fetchone()[0]                                                                                
+        except:
+            print("Error al verificar contrasena", traceback.print_exc())            
+        finally:
+            del con
+        return contraDt
 
     def cantidadTecnicos():
         con = CRUD.Conexion()
         con.cur.execute("SELECT COUNT(*) FROM tecnico")
-        cantidad = con.cur.fetchall()
+        cantidad = con.cur.fetchone()[0]
         del con
-        return cantidad[0][0]
+        return cantidad
 
-class Reset:
-    def __init__(self, id: int, fechaInicio, fechaFin):
+class Equipo:
+    def __init__(self, id: int, nombre: str, escudo):
         self.id = id
-        self.nombreReset = None
-        self.fecha = fechaInicio
-        self.fechaFin = fechaFin
+        self.nombre = nombre
+        self.escudo = escudo        
+        
+        ##ATRIBUTOS SIN USAR
+        self.presupuesto = None
+        self.idTemporada = None
+        self.Tecnico: Tecnico = None 
 
-    def __str__(self):
-        return f"{self.id} {self.nombreReset} {self.fecha} {self.fechaFin}"
+    def setIdTemporada(self, idTemporada: int):
+        self.idTemporada = idTemporada
+    
+    def setPresupuesto(self, presupuesto: int):
+        self.presupuesto = presupuesto
 
-    def guardarReset(self):
+    def setTecnico(self, tecnico: Tecnico):
+        self.Tecnico = tecnico
+
+    def añadirTecnico(self):
         con = CRUD.Conexion()
-        con.cur.execute("INSERT INTO rreset (NOMBRERESET, FECHAINICIORESET, FECHAFINRESET) VALUES (%s, %s, %s)", (self.nombreReset, self.fechaFin, self.fechaFin))
+        con.cur.execute("insert into tecnicotemporada (IDTECNICO, IDEQUIPO, IDTEMPORADA) values (%s, %s, %s)", (self.Tecnico.id, self.id, self.idTemporada))
         con.conexion.commit()
         del con
-
-    def cantidadResets():
-        con = CRUD.Conexion()
-        con.cur.execute("SELECT COUNT(*) FROM rreset")
-        cantidad = con.cur.fetchall()
-        del con
-        return cantidad[0][0]
-
-    def anadirTemporadas(temporada: Temporada):
-        temporada.guardarTemporada(self.id)
 
 class Temporada:
     def __init__(self, id: int, fechaInicio, fechaFin, idPais):
@@ -108,28 +143,32 @@ class Temporada:
     def anadirEquipos(equipo: Equipo):        
         equipo.guardarEquipo()
 
-class Equipo:
-    def __init__(self, id: int, nombre: str, escudo):
+
+
+
+class Reset:
+    def __init__(self, id: int, fechaInicio, fechaFin):
         self.id = id
-        self.nombre = nombre
-        self.escudo = escudo        
-        
-        ##ATRIBUTOS SIN USAR
-        self.presupuesto = None
-        self.idTemporada = None
-        self.Tecnico: Tecnico = None 
+        self.nombreReset = None
+        self.fecha = fechaInicio
+        self.fechaFin = fechaFin
 
-    def setIdTemporada(self, idTemporada: int):
-        self.idTemporada = idTemporada
-    
-    def setPresupuesto(self, presupuesto: int):
-        self.presupuesto = presupuesto
+    def __str__(self):
+        return f"{self.id} {self.nombreReset} {self.fecha} {self.fechaFin}"
 
-    def setTecnico(self, tecnico: Tecnico):
-        self.Tecnico = tecnico
-
-    def añadirTecnico(self):
+    def guardarReset(self):
         con = CRUD.Conexion()
-        con.cur.execute("insert into tecnicotemporada (IDTECNICO, IDEQUIPO, IDTEMPORADA) values (%s, %s, %s)", (self.Tecnico.id, self.id, self.idTemporada))
+        con.cur.execute("INSERT INTO rreset (NOMBRERESET, FECHAINICIORESET, FECHAFINRESET) VALUES (%s, %s, %s)", (self.nombreReset, self.fechaFin, self.fechaFin))
         con.conexion.commit()
         del con
+
+    def cantidadResets():
+        con = CRUD.Conexion()
+        con.cur.execute("SELECT COUNT(*) FROM rreset")
+        cantidad = con.cur.fetchall()
+        del con
+        return cantidad[0][0]
+
+    def anadirTemporadas(temporada: Temporada):
+        temporada.guardarTemporada(self.id)
+
