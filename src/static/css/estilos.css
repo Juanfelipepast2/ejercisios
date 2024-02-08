@@ -534,16 +534,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 /*pagina reset*/
 
-#cantidadEquipos{
-    width: 100px;
-    
-}
 
-#cantidadEquipos::-webkit-outer-spin-button, #cantidadEquipos::-webkit-inner-spin-button {
-    -webkit-appearance: auto;
-    margin: 0;
-
-  }
 
 .formularioReset{
     border-radius: 10px;
@@ -601,6 +592,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     text-align: center;
 }
 
+#tablaCreacionEquipo #btnAgregarEquipo{
+    width: 50px;
+}
 
 /*pagina selector de temporadas*/
 

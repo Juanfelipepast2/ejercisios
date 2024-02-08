@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 {% block title %}Crear Reset{% endblock %} 
 {% block content %}
+
+
 <div class="contenedorGenerico">
     <h1>Reset {{"inserte id reset"}}</h1>
     <form method="POST" class="formularioReset">
@@ -19,7 +21,7 @@
         <div class="contenedorInferior">
             <div>
                 <label for="cantidadEquipos">Cantidad de equipos:</label>
-                <input type="number" name="cantidadEquipos" id="cantidadEquipos" onkeydown="return false" min="1" max = 25 value="1">
+                <input type="number" name="cantidadEquipos" id="cantidadEquipos" onkeydown="return false" min="1" max = 25 value="0">
             </div>
             <div>
                 <input type="checkbox" name="presupuestoGeneral" id="presupuestoGeneral" value="1">
@@ -29,29 +31,17 @@
             
         </div>
         <table id="tablaCreacionEquipo">
-            <tbody>                                
+            <tbody id="cuerpoTablaCreacionEquipos" name="cuerpoTablaCreacionEquipos">       
+                <script>
+                    window.onload = (agregarEquipos(({{listaTecnicos | tojson}})));
+                </script>                                              
                 <tr>
-                    <td>1</td>                        
-                    <td>                        
-                        <input type="text" name="nombreEquipo" id="nombreEquipo" placeholder="Nombre Equipo" required>
-                    </td>
                     <td>
-                        <input type="file" name="botonSelEscudo" id="botonSelEscudo" value="Subir escudo" accept="image/*">
+                        <input type="button" value="+" id="btnAgregarEquipo" name="btnAgregarEquipo" onclick='agregarEquipos(({{listaTecnicos | tojson}}))'>
                     </td>
-                    <td>
-                        <label for="selectorDT">DT:</label>
-                        <select name="selectorDT" id="selectorDT" required>
-                            {% for dt in listaTecnicos %}
-                            <option value="{{dt[0]}}">{{dt[1]}}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                    <td>
-                        <label for="presupuestoEquipo" >Presupuesto Equipo:</label>
-                        <input type="number" name="presupuestoEquipo" id="presupuestoEquipo" placeholder="Presupuesto" required>
-                    </td>                    
-                </tr>                
+                </tr>          
             </tbody>
+        
         </table>
 
         <input type="submit" value="Crear Reset" href="{{url_for('partidosTemporada', codigo=0)}}">

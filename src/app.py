@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, request, render_template, url_for, request, session
+from flask import Flask, flash, json, jsonify, redirect, request, render_template, url_for, request, session
 from functools import wraps
 import random, string, clases
 
@@ -141,7 +141,7 @@ def crearReset(codigo):
 
 
 
-    return render_template("crearReset.html", codigo=codigo, listaTecnicos=clases.Tecnico.obtenerNombresTecnico())
+    return render_template("crearReset.html", codigo=codigo, listaTecnicos=(clases.Tecnico.obtenerNombresTecnico()))
 
 
 
