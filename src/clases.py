@@ -19,6 +19,17 @@ class Tecnico:
         self.setAdmin(admin)
         self.setPo(pO)        
 
+    def toJson(self):
+        return {
+            "id": self.id,
+            "idPais": self.idPais,
+            "nombre": self.nombre,
+            "apellido": self.apellido,
+            "contrasena": self.contrasena,
+            "admin": self.admin,
+            "pO": self.pO
+        }
+
 
     def setAdmin(self, admin):              
         if admin == 'admin':
@@ -53,6 +64,7 @@ class Tecnico:
 
     def obtenerTecnico(id: int):
         tecnicoTemp = None
+        con = None
         try:
             con = CRUD.Conexion()
             con.cur.execute(f"SELECT * FROM tecnico where IDTECNICO = {id}")
@@ -168,7 +180,5 @@ class Reset:
         cantidad = con.cur.fetchall()
         del con
         return cantidad[0][0]
-
-    def anadirTemporadas(temporada: Temporada):
-        temporada.guardarTemporada(self.id)
+    
 
