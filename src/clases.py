@@ -6,18 +6,17 @@ import time
 import CRUD
 
 class Tecnico:
-    def __init__(self, id: int, idPais: int ,nombre: str, apellido: str, contrasena: str, admin, pO):
+    def __init__(self, id: int, idPais: int ,nombre: str, apellido: str, contrasena: str, admin: bool, pO: bool):
         self.id = id
         self.idPais = idPais
         self.nombre = nombre
         self.apellido = apellido
         self.contrasena = contrasena
-        self.admin = None
-        self.pO = None
+        self.admin = admin
+        self.pO = pO
 
 
-        self.setAdmin(admin)
-        self.setPo(pO)        
+     
 
     def toJson(self):
         return {
@@ -98,6 +97,16 @@ class Tecnico:
         cantidad = con.cur.fetchone()[0]
         del con
         return cantidad
+
+    def obtenerNombresTecnico():
+        con = CRUD.Conexion()
+        con.cur.execute("SELECT IDTECNICO , NOMBRETECNICO, APELLIDOTECNICO FROM tecnico")
+        dts = con.cur.fetchall()
+        listaNombres = []
+        for dt in dts:
+            listaNombres.append([ dt[0], f"{dt[1]} {dt[2]}"])
+        del con
+        return listaNombres
 
 class Equipo:
     def __init__(self, id: int, nombre: str, escudo):
@@ -182,3 +191,4 @@ class Reset:
         return cantidad[0][0]
     
 
+print (Tecnico.obtenerNombresTecnico())

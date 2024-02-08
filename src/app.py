@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, render_template, url_for, request, session
+from flask import Flask, flash, redirect, request, render_template, url_for, request, session
 from functools import wraps
 import random, string, clases
 
@@ -30,14 +30,15 @@ def inicio():
     return render_template("index.html")    
 
 
-'''
+
 @app.context_processor
 def variablesGlobales():
     if 'codigoDt' in session:        
         return {'datosDt': clases.Tecnico.obtenerTecnico(int(session['codigoDt']))}
     else:
         return {'datosDt': None}
-'''
+    
+
 @app.route("/iniciarSesion", methods=["GET", "POST"])
 def iniciarSesion():
     if 'codigoDt' in session:
@@ -45,12 +46,17 @@ def iniciarSesion():
     else:
         if request.method == "POST":        
             ##agregamos el usuario
-            password = clases.Tecnico.obtenerContrasena(int(request.form.get("codigoDt")))
-            if password != None and password == request.form.get("contrasenaDt"):
-                session['codigoDt'] = request.form.get("codigoDt")
-
-            return redirect(url_for("inicio"))
-
+            password = clases.Tecnico.obtenerContrasena(int(request.form.get("codigoDt")))            
+            if password != None:
+                if password == request.form.get("contrasenaDt"):                    
+                    session['codigoDt'] = request.form.get("codigoDt")                
+                    return redirect(url_for("inicio"))
+                else:
+                    flash("Contraseña incorrecta")
+                    return render_template("inicioSesion.html")
+            else:
+                flash("Usuario no encontrado")
+                return render_template("inicioSesion.html")
         app.logger.info(f"Se ha cargado la página de inicio de sesi?n {request.path}")
         return render_template("inicioSesion.html")
 
@@ -63,8 +69,8 @@ def salir():
 
 @app.route("/registro")
 @sesionRequerida
-def registro():
-
+def registro():    
+    
     app.logger.info(f"Se ha cargado la p?gina de registro {request.path}")
     contrasena = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))           
     app.logger.info(f"{contrasena} es la contrase?a generada {request.path}")
@@ -72,12 +78,15 @@ def registro():
 
 @app.route("/registrandoDt", methods=["POST"])
 @sesionRequerida
-def registrando_dt():
+def registrandoDt():
     if request.method == "POST":
-        dtTemp = clases.Tecnico(0, request.form.get('paisNacimiento') ,request.form["nombreDt"], request.form["apellidoDt"], request.form["contrasenaDt"], request.form.get("esAdmin"), request.form.get("esPropietario"))
+        dtTemp = clases.Tecnico(0, request.form.get('paisNacimiento') ,request.form["nombreDt"], request.form["apellidoDt"], request.form["contrasenaDt"], None, None)
+        dtTemp.setAdmin(request.form.get("esAdmin"))
+        dtTemp.setPo(request.form.get("esPropietario"))
+
         print(dtTemp)
-        dtTemp.guardarDTecnico()
-        return redirect(url_for("iniciarSesion"))
+        dtTemp.guardarDTecnico()      
+        return redirect(url_for("inicio"))
 
 
 @app.route("/temporada/<codigo>")
@@ -130,7 +139,9 @@ def reset(codigo):
 def crearReset(codigo):
     app.logger.info(f"Se ha cargado la página de reset {request.path}")
 
-    return render_template("crearReset.html", codigo=codigo)
+
+
+    return render_template("crearReset.html", codigo=codigo, listaTecnicos=clases.Tecnico.obtenerNombresTecnico())
 
 
 

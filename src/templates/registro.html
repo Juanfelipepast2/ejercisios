@@ -2,7 +2,7 @@
 {% block title %}Añadir DT{% endblock %} 
 
 {% block content %}
-<div>
+<div>  
     <form autocomplete="off" method="POST" action="{{url_for('registrandoDt')}}">
         <div class="contenedorElementosRegistro">
           <h1 style="padding-bottom: 20px">Registrar DT</h1>
@@ -54,12 +54,13 @@
               <input type="checkbox" id="esAdmin" name="esAdmin" value="admin" />
               <label for="esAdmin">Administrador</label>
             </div>
-      
+            
+            {% if datosDt.pO == True %}
             <div class="checkboxRegistro">
               <input type="checkbox" id="esPropietario" name="esPropietario" value="owner" />
               <label for="esPropietario">Propietario</label>
             </div>
-      
+            {% endif %}
             <div class="elementoDerechoRegistro">
               <input type="submit" value="Registrar"/>
             </div>
