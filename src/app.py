@@ -143,6 +143,20 @@ def crearReset(codigo):
 
     return render_template("crearReset.html", codigo=codigo, listaTecnicos=(clases.Tecnico.obtenerNombresTecnico()))
 
+@app.route("/reset/<codigo>/creandoReset", methods=["POST"])
+@sesionRequerida
+def creandoReset(codigo):
+    listaEquipos = []
+    if request.method == "POST":
+        resetTemp = clases.Reset(0, request.form.get("fechaInicio"), request.form.get("fechaFin"))
+        cantEquipos = int(request.form.get("cantidadEquipos"))
+        for i in range(1, cantEquipos+1):            
+            equipoTemp = clases.Equipo((request.form.get(f'numeroDeEquipo{i}')), request.form.get(f'nombreEquipo{i}'), None)
+            print(equipoTemp)
+            listaEquipos.append(equipoTemp)            
+        return redirect(url_for("reset", codigo=codigo))
+    return redirect(url_for("reset", codigo=codigo))
+
 
 
 

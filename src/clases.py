@@ -134,6 +134,9 @@ class Equipo:
         con.conexion.commit()
         del con
 
+    def __str__(self) -> str:
+        return f'{self.id} {self.nombre} {self.escudo}'
+
 class Temporada:
     def __init__(self, id: int, fechaInicio, fechaFin, idPais):
         self.id = id
@@ -190,5 +193,3 @@ class Reset:
         del con
         return cantidad[0][0]
     
-
-print (Tecnico.obtenerNombresTecnico())

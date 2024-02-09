@@ -5,7 +5,7 @@
 
 <div class="contenedorGenerico">
     <h1>Reset {{"inserte id reset"}}</h1>
-    <form method="POST" class="formularioReset">
+    <form method="POST" class="formularioReset" action="{{url_for('creandoReset', codigo=codigo)}}">
         <!--contenedor horizontal 1-->
         <div class="contenedorSuperior">
             <div class="contenedorCalendario">
@@ -14,8 +14,8 @@
             </div>
             <div class="contenedorCalendario">
                 <input type="checkbox" name="checkFechaFin" id="checkFechaFin" value="1">
-                <label for="fechaFin">Fecha Inicio</label>
-                <input type="date" name="fechaFin" id="fechaFin" required>
+                <label for="fechaFin">Fecha Fin</label>
+                <input type="date" name="fechaFin" id="fechaFin" >
             </div>
         </div>
         <div class="contenedorInferior">
