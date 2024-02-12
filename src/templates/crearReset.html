@@ -4,8 +4,8 @@
 
 
 <div class="contenedorGenerico">
-    <h1>Reset {{"inserte id reset"}}</h1>
-    <form method="POST" class="formularioReset" action="{{url_for('creandoReset', codigo=codigo)}}">
+    <h1>Id del reset a crear: {{idReset}}</h1>
+    <form method="POST" class="formularioReset" action="{{url_for('creandoReset', idReset=idReset)}}" autocomplete="off">
         <!--contenedor horizontal 1-->
         <div class="contenedorSuperior">
             <div class="contenedorCalendario">
@@ -24,29 +24,30 @@
                 <input type="number" name="cantidadEquipos" id="cantidadEquipos" onkeydown="return false" min="1" max = 25 value="0">
             </div>
             <div>
-                <input type="checkbox" name="presupuestoGeneral" id="presupuestoGeneral" value="1">
+                <input type="checkbox" name="presupuestoGeneralCheck" id="presupuestoGeneralCheck" onclick='checkPresupuesto(this)'>
                 <label for="presupuestoGeneral">Presupuesto General:</label>
-                <input type="number" name="presupuestoGeneral" id="presupuestoGeneral" placeholder="Presupuesto">
+                <input type="number" name="presupuestoGeneral" id="presupuestoGeneral" placeholder="Presupuesto" >
             </div>            
             
         </div>
         <table id="tablaCreacionEquipo">
             <tbody id="cuerpoTablaCreacionEquipos" name="cuerpoTablaCreacionEquipos">       
-                <script>
-                    window.onload = (agregarEquipos(({{listaTecnicos | tojson}})));
-                </script>                                              
+                                                            
                 <tr>
                     <td>
                         <input type="button" value="+" id="btnAgregarEquipo" name="btnAgregarEquipo" onclick='agregarEquipos(({{listaTecnicos | tojson}}))'>
-                    </td>
+                        <input type="button" value="-" id="btnAgregarEquipo" name="btnAgregarEquipo" onclick="eliminarEquipos()">
+                    </td>                    
                 </tr>          
             </tbody>
         
         </table>
 
-        <input type="submit" value="Crear Reset" href="{{url_for('partidosTemporada', codigo=0)}}">
+        <input type="submit" value="Crear Reset">
     </form>
-
+    <script>
+        window.onload = (agregarEquipos(({{listaTecnicos | tojson}})));        
+    </script>  
 </div>
 
 

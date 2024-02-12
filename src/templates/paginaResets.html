@@ -1,30 +1,38 @@
 {% extends "index.html" %}
-{% import "index.html" as ind with context %}
-{% block title %}Resets{{codigo}}{% endblock %} 
+{% block title %}Resets{% endblock %} 
 {% block content %}
 
 <div class="contenedorGenerico">
     <h1>Resets</h1>
     <table id="tablaContenedorTemporadas">
-        <tbody>
-            {% for i in range (0,1) %}
-            <tr>                
-                {% for j in range (0,1) %}
+        <tbody>            
+            <tr>                                
+                {% for i in range (0, resets|count) %}
                 <td>                    
-                    <a class='contenedorBotonGenerico' href="{{url_for('reset', codigo=j)}}">
+                    <a class='contenedorBotonGenerico' href="{{url_for('reset', idReset=resets[i].id)}}">
                         <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
-                        <h1>Reset {{j}}</h1>                        
-                        <h4>Campeón {{"Jugador 2"}}</h4>
+                        <h1>Reset {{ resets[i].id }}</h1> 
+                        <h4>Inicio: {{ resets[i].fechaInicio }}</h4>       
+                        <br>                 
+                        {% if resets[i].fechaFin == None %}
+                            <h4>Final: Desconocida</h4>
+                        {% else %}
+                            <h4>Final: {{ resets[i].fechaFin }}</h4>
+                        {% endif %}
+                        </h4>
                     </a>                    
-                </td>                                                                                
-                {% endfor %}                
+                </td>            
+                {% if i % 3 == 0 and i != 0 %}
             </tr>
-            {% endfor %}
-            <td>
-                <a class='contenedorBotonGenerico' href="{{url_for('crearReset', codigo= 1)}}">                        
-                    <h1>+ Nuevo reset</h1>                                                
-                </a>
-            </td>  
+            <tr>
+                {% endif %}
+                {% endfor %}                                        
+                <td>
+                    <a class='contenedorBotonGenerico' href="{{url_for('crearReset')}}">                        
+                        <h1>+ Nuevo reset</h1>                                                
+                    </a>
+                </td> 
+            </tr>
         </tbody>
     </table>
 </div>

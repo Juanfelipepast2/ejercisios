@@ -1,29 +1,34 @@
 {% extends "index.html" %}
-{% block title %}Reset {{codigo}}{% endblock %} 
+{% block title %}Reset {{idReset}}{% endblock %} 
 {% block content %}
 
 <div class="contenedorGenerico">
-    <h1>Reset {{codigo}}</h1>
+    <h1>Reset {{idReset}}</h1>
     <table id="tablaContenedorTemporadas">
         <tbody>
-            {% for i in range (0,1) %}
+            
             <tr>                
-                {% for j in range (0,1) %}
+                {% for i in range (0, temporadas|count) %}
                 <td>                    
-                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', codigo=j)}}">
+                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', codigo=temporadas[i].id)}}">
                         <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
-                        <h1>Temporada {{j}}</h1>                        
-                        <h4>Campeón {{"Jugador 2"}}</h4>
+                        <h1>Temporada {{ temporadas[i].id }}</h1>                        
+                        <h4>Campeón {{"Desconocido"}}</h4>                                                
                     </a>                    
-                </td>                                                                                
-                {% endfor %}                
+                </td>  
+                {% if i % 3 == 0 and i != 0 %}
             </tr>
-            {% endfor %}
-            <td>
-                <div class='contenedorBotonGenerico'>                        
-                    <h1>+ Nueva temporada</h1>                                                
-                </div>
-            </td>  
+            <tr>
+                {% endif %}                                                                    
+                {% endfor %}                
+            </tr> 
+            <tr>           
+                <td>
+                    <a class='contenedorBotonGenerico' href="{{url_for('crearTemporada', idReset = idReset)}}">                        
+                        <h1>+ Nueva temporada</h1>                                                
+                    </a>
+                </td>  
+            </tr>
         </tbody>
     </table>
 </div>

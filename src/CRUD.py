@@ -1,24 +1,26 @@
-import mysql.connector
+#import mysql.connector
 import traceback
-
+import sqlite3
 
 class Conexion:
     
     def __init__(self):
-        self.__hostBD = "localhost"
-        self.__usuarioBD = "user"
-        self.__contrasenaBD = '1234' #type: ignore
-        self.__dataBase = "dblce"
-        self.__portBD = "3306"
+        
+        #self.__hostBD = "\src\db\dbLce.sqlite"
+        #self.__usuarioBD = "user"
+        
+        #self.__contrasenaBD = '1234' #type: ignore
+        self.__dataBase = "db\\dbLce.sqlite"
+        #self.__portBD = "3306"
         
         try:
-            self.conexion = mysql.connector.connect(user=self.__usuarioBD, password=self.__contrasenaBD, host=self.__hostBD, database=self.__dataBase, port=self.__portBD)
-            self.cur = self.conexion.cursor()
+            self.conexion: sqlite3.connect = sqlite3.connect(self.__dataBase)
+            self.cur: sqlite3.Cursor = self.conexion.cursor()
             print("conexion exitosa")  
         except :
             
             print("Error de conexion, No se pudo conectar a la base de datos")
-            traceback.print_exc()          
+            print(traceback.format_exc())
             
 
     def __del__(self):
@@ -27,3 +29,6 @@ class Conexion:
         print("conexion cerrada")
 
 
+#cl = Conexion()
+#cl.cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+#print("XDDD", cl.cur.fetchall())

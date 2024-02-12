@@ -29,8 +29,11 @@
               />
             </div>
             <div class="elementoIzquierdoRegistro">
-              <input type="text" id="contrasenaDt" name="contrasenaDt" placeholder="Contraseña" required="true" readonly value="{{contrasena}}"/>
-              <a href="{{url_for('registro')}}">Generar</a>
+              <input type="text" id="contrasenaDt" name="contrasenaDt" placeholder="Contraseña" required="true" readonly"/>
+              <br>
+              <button type="button" id="botonGenerarContrasena" onclick="contrasenaAleatoria()">
+                <img src="{{url_for('static', filename='img/reload.png')}}" alt="Generar contrasena" />
+              </button>
             </div>
           </div>
       
@@ -67,6 +70,9 @@
           </div>
         </div>
       </form>
+      <script>
+        window.onload = contrasenaAleatoria;
+      </script>
 </div>
 {% endblock %}
 

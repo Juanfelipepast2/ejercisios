@@ -49,7 +49,7 @@ a{
 
 
 
-input[type="number"], input[type="password"], input[type="text"]{            
+input[type="number"], input[type="password"], input[type="text"] {            
     background: transparent;
     border: none;
     border-bottom: rgb(212, 198, 0) 2px solid;
@@ -61,7 +61,7 @@ input[type="number"], input[type="password"], input[type="text"]{
 
 
 input[type="number"]::placeholder, input[type="password"]::placeholder, input[type="text"]::placeholder{
-    color: #ffffff;    
+    color: #cccccc;    
 }
 
 input[type="number"]:focus, input[type="password"]:focus, input[type="text"]:focus{
@@ -88,7 +88,7 @@ select:focus{
 
 
 
-input[type="submit"], button, input[type="button"]{    
+input[type="submit"], button, input[type="button"], #labelBotonImagen{    
     height: 40px;
     width: 300px;
     border-radius: 8px;
@@ -102,8 +102,8 @@ input[type="submit"], button, input[type="button"]{
 }
 
 
-input[type="submit"]:hover, button:hover, input[type="button"]:hover{
-    background: #a06b00;    
+input[type="submit"]:hover, button:hover, input[type="button"]:hover #labelBotonImagen:hover{
+    background: #885b00;    
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
@@ -229,6 +229,18 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     align-content: center;
     
     
+}
+
+.contenedorIzquierdoRegistro button{
+    margin-top: 20px;
+    max-width: 50px;
+    display: grid;
+    
+}
+.contenedorIzquierdoRegistro button img{    
+    max-width: 30px;
+    align-self: center;
+    justify-self: center;
 }
  
 .elementoIzquierdoRegistro{    
@@ -595,6 +607,35 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #tablaCreacionEquipo #btnAgregarEquipo{
     width: 50px;
 }
+#tablaCreacionEquipo #btnAgregarEquipo:hover{
+    background-color: #885b00;
+}
+
+#tablaCreacionEquipo input::file-selector-button{
+    
+    width: 60px;
+}
+
+#tablaCreacionEquipo input[type='file'] {
+    display: none;
+}
+
+#tablaCreacionEquipo #labelBotonImagen{
+    padding: 10px;    
+    align-items: center;
+    justify-content: center;  
+}
+
+#tablaCreacionEquipo #labelBotonImagen:hover{
+    background-color: #885b00;
+}
+
+#tablaCreacionEquipo img{
+    display: none;
+    max-width: 40px;
+    align-items: center;
+    justify-content: center;    
+}
 
 /*pagina selector de temporadas*/
 
@@ -834,4 +875,25 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     
     grid-row: 1;
     grid-column: 1;  
+}
+
+/*PAGINA CREACION DE TEMPORADA */
+
+.contenedorCreacionTemporada{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: left;
+    margin: 30px;
+    background-color: #373737;
+    padding: 30px;
+    border-radius: 10px;
+    grid-gap: 20px;
+    
+}
+
+.contenedorCreacionTemporada button{    
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
 }
