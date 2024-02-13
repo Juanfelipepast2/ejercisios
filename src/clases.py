@@ -1,7 +1,5 @@
-import random
 import traceback
 
-import string
 import time
 import CRUD
 
@@ -15,7 +13,8 @@ class Tecnico:
         self.admin = admin
         self.pO = pO
 
-
+    def __str__(self):
+        return f"{self.id} {self.idPais} {self.nombre} {self.apellido} {self.contrasena} {self.admin} {self.pO}"
      
 
     def toJson(self):
@@ -41,17 +40,14 @@ class Tecnico:
             self.pO = True
         elif po == None:
             self.pO = False
-
-    def __str__(self):
-        return f"{self.id} {self.idPais} {self.nombre} {self.apellido} {self.contrasena} {self.admin} {self.pO}"
     
     def iniciarSesion(self, id, contrasena):
-        if self.id == id and self.contrasena == contrasena:
+        if self.__obtenerContrasena(id) == contrasena:
             return True
         else:
             return False
     
-    def guardarDTecnico(self):
+    def guardarTecnico(self):
         try:
             con = CRUD.Conexion()
             con.cur.execute("INSERT INTO TECNICO (IDPAIS , NOMBRETECNICO, APELLIDOTECNICO, CONTRASENATECNICO, ADMINTECNICO, OWNERTECNICO) VALUES (? , ?, ?, ?, ?, ?)", (self.idPais, self.nombre, self.apellido, self.contrasena, self.admin, self.pO))
@@ -60,6 +56,18 @@ class Tecnico:
         except:
             print("Error al guardar el tecnico")
             print(traceback.print_exc())
+
+    def guardarTecnicoTemporada(self, idTemporada: int, idEquipo: int):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute("INSERT INTO TECNICOTEMPORADA (IDTECNICO, IDEQUIPO, IDTEMPORADA) VALUES (?, ?, ?)", (self.id, idEquipo, idTemporada))
+            con.conexion.commit()
+            
+        except:
+            print("Error al guardar el tecnico")
+            print(traceback.print_exc())
+        finally:
+            del con
 
 
     def obtenerTecnico(id: int):
@@ -80,7 +88,7 @@ class Tecnico:
             del con
         return tecnicoTemp
 
-    def obtenerContrasena(id: int):
+    def __obtenerContrasena(id: int):
         contraDt = None
         try:
             con = CRUD.Conexion()
@@ -110,8 +118,8 @@ class Tecnico:
         return listaNombres
 
 class Equipo:
-    def __init__(self, id: int, idReset: int, idTecnico: int, nombre: str, escudo, presupuesto: int, ):
-        self.id = None
+    def __init__(self, id: int, idReset: int, idTecnico: int, nombre: str, escudo, presupuesto: int):
+        self.id = id
         self.nombre = nombre
         self.escudo = escudo        
         self.idReset = idReset
@@ -120,62 +128,64 @@ class Equipo:
         #ATRIBUTOS CON METODOS
         self.setTecnico(idTecnico)
         ##ATRIBUTOS SIN USAR
-        
-        
-        
-        self.idTemporada = None        
-
-    
-    
-
+                
     def setTecnico(self, idTecnico: int) -> Tecnico:
-        self.tecnico = Tecnico.obtenerTecnico(idTecnico)
+        self.tecnico: Tecnico = Tecnico.obtenerTecnico(idTecnico)
 
     def __str__(self) -> str:
         return f'{self.id} {self.nombre} {self.escudo} {self.idReset} {self.presupuesto} {self.tecnico}'
     
     def guardarJugadores():
         pass
-    
-    
 
-class Temporada:
-    def __init__(self, id: int, idResest: int, fechaInicio, fechaFin):
-        self.id = id
-        self.nombreTemporada = ''
-        self.fechaInicio = fechaInicio
-        self.fechaFin = fechaFin      
-
-
-        ###ATRIBUTOS SIN USAR
-        self.listaEquipos = []  
-
-
-
-    def __str__(self):
-        return f"{self.id} {self.fechaInicio} {self.fechaFin} "
-
-    def guardarTemporada(self, idReset):
+    def guardarEquipo(self):
         try:
             con = CRUD.Conexion()
-            con.cur.execute("INSERT INTO TEMPORADA (IDTEMPORADA, IDRESET, NOMBRETEMPORADA, FECHAINICIOTEMPORADA, FECHAFINTEMPORADA) VALUES (?, ?, ?, ?, ?)", (self.id ,idReset, self.nombreTemporada ,self.fechaInicio, self.fechaFin))
+            con.cur.execute("INSERT INTO EQUIPO (IDRESET, IDTECNICO, NOMBREEQUIPO, ESCUDOEQUIPO, PRESUPUESTOINICIAL) VALUES (?, ?, ?, ?, ?)", (self.idReset, self.tecnico.id, self.nombre, self.escudo, self.presupuesto))
             con.conexion.commit()
         except:
             print(traceback.print_exc())
         finally:
             del con
 
-    def cantidadTemporadas():
+
+    def guardarEquipoTemporada(self, idTemporada):
         try:
             con = CRUD.Conexion()
-            con.cur.execute("SELECT COUNT(*) FROM TEMPORADA")
-            cantidad = con.cur.fetchall()
-            
+            con.cur.execute("INSERT INTO EQUIPOPORTEMPORADA (IDTEMPORADA, IDEQUIPO, PRESUPUESTO) VALUES (?, ?, ?)", (idTemporada, self.id, self.presupuesto))
+            con.conexion.commit()
+            del con
         except:
             print(traceback.print_exc())
         finally:
             del con
-        return cantidad[0][0]
+
+    
+    
+    
+
+class Temporada:
+    def __init__(self, id: int, idResest: int, fechaInicio, fechaFin):
+        self.id = id
+        self.idReset = idResest
+        self.nombreTemporada = ''
+        self.fechaInicio = fechaInicio
+        self.fechaFin = fechaFin      
+
+
+
+    def __str__(self):
+        return f"{self.id} {self.idReset} {self.fechaInicio} {self.fechaFin} "
+
+    def guardarTemporada(self):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute("INSERT INTO TEMPORADA (IDTEMPORADA, IDRESET, NOMBRETEMPORADA, FECHAINICIOTEMPORADA, FECHAFINTEMPORADA) VALUES (?, ?, ?, ?, ?)", (self.id, self.idReset, self.nombreTemporada ,self.fechaInicio, self.fechaFin))
+            con.conexion.commit()
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
     
     def obtenerTemporadas(idReset: int):
         try:
@@ -184,34 +194,23 @@ class Temporada:
             temporadas = con.cur.fetchall()
             listaTemporadas = []
             for(temporada) in temporadas:
-                listaTemporadas.append(Temporada(temporada[0], temporada[3], temporada[4]))
+                listaTemporadas.append(Temporada(temporada[0], temporada[1], temporada[3], temporada[4]))
         except:
             print(traceback.print_exc())
         finally:
             del con
         return listaTemporadas
-
-    def anadirTecnicoTemporada(self, tecnico: Tecnico):
+    
+    def obtenerCantidadTemporadas(idReset: int):
         try:
             con = CRUD.Conexion()
-            con.cur.execute("INSERT INTO TECNICOTEMPORADA (IDTECNICO, IDEQUIPO, IDTEMPORADA) VALUES (?, ?, ?)", (tecnico.tecnico.id, tecnico.id, self.id))
-            con.conexion.commit()
-            del con
+            con.cur.execute(F"SELECT COUNT(*) FROM TEMPORADA WHERE IDRESET = {idReset}")
+            cantidad = con.cur.fetchall()
         except:
             print(traceback.print_exc())
         finally:
             del con
-
-    def anadirEquipoTemporada(self, equipo: Equipo):
-        try:
-            con = CRUD.Conexion()
-            con.cur.execute("INSERT INTO EQUIPOPORTEMPORADA (IDTEMPORADA, IDEQUIPO, PRESUPUESTO) VALUES (?, ?, ?)", (self.id, equipo.id, equipo.presupuesto))
-            con.conexion.commit()
-            del con
-        except:
-            print(traceback.print_exc())
-        finally:
-            del con
+        return cantidad[0][0]
 
     
 
@@ -266,17 +265,7 @@ class Reset:
             del con
         return listaResets
     
-    def anadirEquipo(self, equipo: Equipo):
-        try:
-            print(equipo)
-            con = CRUD.Conexion()
-            con.cur.execute("INSERT INTO EQUIPO (`NOMBREEQUIPO`, `ESCUDOEQUIPO`, `IDRESET`, `PRESUPUESTOINICIAL`, `IDTECNICO`) VALUES (?, ?, ?, ?, ?)", (equipo.nombre, equipo.escudo, equipo.idReset, equipo.presupuesto, equipo.tecnico.id))
-            con.conexion.commit()
-            
-        except:
-            print(traceback.print_exc())
-        finally:
-            del con
+
     
     def obtenerUltimoIdReset():
         id = None
@@ -304,13 +293,4 @@ class Reset:
             del con
         return listaEquipos
     
-    def obtenerCantidadTemporadas(idReset: int):
-        try:
-            con = CRUD.Conexion()
-            con.cur.execute(F"SELECT COUNT(*) FROM TEMPORADA WHERE IDRESET = {idReset}")
-            cantidad = con.cur.fetchall()
-        except:
-            print(traceback.print_exc())
-        finally:
-            del con
-        return cantidad[0][0]
+    
