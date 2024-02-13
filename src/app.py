@@ -111,7 +111,7 @@ def creandoTemporada(idReset):
                     temporadaTemp.anadirEquipoTemporada(equipo)
 
                     #añadimos tecnicos a la temporada
-                    temporadaTemp.anadirTecnicoTemporada(clases.Tecnico.obtenerTecnico(equipo.idTecnico))
+                    temporadaTemp.anadirTecnicoTemporada(clases.Tecnico.obtenerTecnico(equipo.tecnico.id))
 
                 temporadaTemp.guardarTemporada(idReset)
             return redirect(url_for("reset", idReset=idReset))

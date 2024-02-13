@@ -110,7 +110,7 @@ class Tecnico:
         return listaNombres
 
 class Equipo:
-    def __init__(self, nombre: str, escudo, idReset: int, presupuesto: int, idTecnico: int):
+    def __init__(self, id: int, idReset: int, idTecnico: int, nombre: str, escudo, presupuesto: int, ):
         self.id = None
         self.nombre = nombre
         self.escudo = escudo        
@@ -134,10 +134,13 @@ class Equipo:
     def __str__(self) -> str:
         return f'{self.id} {self.nombre} {self.escudo} {self.idReset} {self.presupuesto} {self.tecnico}'
     
+    def guardarJugadores():
+        pass
+    
     
 
 class Temporada:
-    def __init__(self, id: int, fechaInicio, fechaFin):
+    def __init__(self, id: int, idResest: int, fechaInicio, fechaFin):
         self.id = id
         self.nombreTemporada = ''
         self.fechaInicio = fechaInicio
@@ -146,6 +149,8 @@ class Temporada:
 
         ###ATRIBUTOS SIN USAR
         self.listaEquipos = []  
+
+
 
     def __str__(self):
         return f"{self.id} {self.fechaInicio} {self.fechaFin} "
