@@ -25,7 +25,7 @@ def sesionRequerida(f):
 @app.route("/")
 @sesionRequerida
 def inicio():
-    
+    flash("Bienvenido")
     app.logger.info(f"Se ha cargado la página de inicio {request.path}")
     return render_template("index.html")    
 
@@ -46,9 +46,9 @@ def iniciarSesion():
     else:
         if request.method == "POST":        
             ##agregamos el usuario
-            password = clases.Tecnico.obtenerContrasena(int(request.form.get("codigoDt")))            
-            if password != None:
-                if password == request.form.get("contrasenaDt"):                    
+            autenticador = clases.Tecnico.iniciarSesion(request.form.get("codigoDt"), request.form.get("contrasenaDt"))
+            if autenticador != None:
+                if autenticador == True:
                     session['codigoDt'] = request.form.get("codigoDt")                
                     return redirect(url_for("inicio"))
                 else:
@@ -98,24 +98,27 @@ def crearTemporada(idReset):
 def creandoTemporada(idReset):
     try:
         if request.method == "POST":
-            if clases.Reset.obtenerCantidadTemporadas(idReset) == 0:
+            
+            if clases.Temporada.obtenerCantidadTemporadas(idReset) == 0:
                 #obtenemos los equipos
-                equipos = clases.Reset.obtenerEquipos(idReset)            
+                equipos = clases.Equipo.obtenerEquipos(idReset)            
 
                 #creamos temporada
-                temporadaTemp = clases.Temporada(int(request.form['idTemporada']), request.form.get("fechaInicio"), request.form.get("fechaFin"))
+                temporadaTemp = clases.Temporada(int(request.form['idTemporada']), idReset, request.form.get("fechaInicio"), request.form.get("fechaFin"))
 
                 
                 for equipo in equipos:
-                    #añadimos equipos a la temporada            
-                    temporadaTemp.anadirEquipoTemporada(equipo)
+                    #añadimos equipos a la temporada    
+                    equipo.guardarEquipoTemporada(temporadaTemp.id)
 
                     #añadimos tecnicos a la temporada
-                    temporadaTemp.anadirTecnicoTemporada(clases.Tecnico.obtenerTecnico(equipo.tecnico.id))
+                    clases.Tecnico.obtenerTecnico(equipo.tecnico.id).guardarTecnicoTemporada(temporadaTemp.id, equipo.id)
+                    pass
+                    
 
-                temporadaTemp.guardarTemporada(idReset)
+                temporadaTemp.guardarTemporada()
             return redirect(url_for("reset", idReset=idReset))
-    except:
+    except: 
         return f"ERROR CREANDO TEMPORADA {traceback.print_exc()}"
     return redirect(url_for("temporada"))
 
@@ -189,9 +192,9 @@ def creandoReset(idReset):
             resetTemp.guardarReset() #guardamos el reset
             cantEquipos = int(request.form.get("cantidadEquipos"))
             for i in range(1, cantEquipos+1):                            
-                equipoTemp = clases.Equipo(request.form[f'nombreEquipo{i}'], None, int(idReset), request.form[f'presupuestoEquipo{i}'], int(request.form.get(f'selectorDT{i}')))
+                equipoTemp = clases.Equipo(None, int(idReset), int(request.form.get(f'selectorDT{i}')), request.form[f'nombreEquipo{i}'], None, request.form[f'presupuestoEquipo{i}'])
                 print(equipoTemp)
-                resetTemp.anadirEquipo(equipoTemp)
+                equipoTemp.guardarEquipo()
                 
             
             return redirect(url_for("crearTemporada", idReset=idReset))

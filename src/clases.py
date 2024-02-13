@@ -41,11 +41,7 @@ class Tecnico:
         elif po == None:
             self.pO = False
     
-    def iniciarSesion(self, id, contrasena):
-        if self.__obtenerContrasena(id) == contrasena:
-            return True
-        else:
-            return False
+    
     
     def guardarTecnico(self):
         try:
@@ -70,7 +66,8 @@ class Tecnico:
             del con
 
 
-    def obtenerTecnico(id: int):
+    @classmethod
+    def obtenerTecnico(cls, id: int):
         tecnicoTemp = None
         con = None
         try:
@@ -88,7 +85,8 @@ class Tecnico:
             del con
         return tecnicoTemp
 
-    def __obtenerContrasena(id: int):
+    @classmethod
+    def __obtenerContrasena(cls, id: int):
         contraDt = None
         try:
             con = CRUD.Conexion()
@@ -99,6 +97,16 @@ class Tecnico:
         finally:
             del con
         return contraDt
+    
+    @classmethod
+    def iniciarSesion(cls, id, contrasena):
+        if contrasena == None:
+            return None
+        elif cls.__obtenerContrasena(id) == contrasena:            
+            return True        
+        return False
+        
+            
 
     def cantidadTecnicos():
         con = CRUD.Conexion()
@@ -152,13 +160,27 @@ class Equipo:
     def guardarEquipoTemporada(self, idTemporada):
         try:
             con = CRUD.Conexion()
-            con.cur.execute("INSERT INTO EQUIPOPORTEMPORADA (IDTEMPORADA, IDEQUIPO, PRESUPUESTO) VALUES (?, ?, ?)", (idTemporada, self.id, self.presupuesto))
-            con.conexion.commit()
-            del con
+            con.cur.execute("INSERT INTO EQUIPOTEMPORADA (IDTEMPORADA, IDEQUIPO, PRESUPUESTO) VALUES (?, ?, ?)", (idTemporada, self.id, self.presupuesto))
+            con.conexion.commit()            
         except:
             print(traceback.print_exc())
         finally:
             del con
+
+    @classmethod
+    def obtenerEquipos(cls, idReset: int):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDRESET = {idReset}")
+            equipos = con.cur.fetchall()
+            listaEquipos = []
+            for(equipo) in equipos:
+                listaEquipos.append(Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4], equipo[5]))
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+        return listaEquipos
 
     
     
@@ -279,18 +301,6 @@ class Reset:
             del con
         return id
 
-    def obtenerEquipos(idReset: int):
-        try:
-            con = CRUD.Conexion()
-            con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDRESET = {idReset}")
-            equipos = con.cur.fetchall()
-            listaEquipos = []
-            for(equipo) in equipos:
-                listaEquipos.append(Equipo(equipo[1], equipo[2], equipo[3], equipo[4], equipo[5]))
-        except:
-            print(traceback.print_exc())
-        finally:
-            del con
-        return listaEquipos
+    
     
     
