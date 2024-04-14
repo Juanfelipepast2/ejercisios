@@ -1,0 +1,65 @@
+{% extends "index.html" %} {% block title %}{{equipo.nombre}}{% endblock %} {%
+block content %}
+
+<div class="contenedorGenerico">
+    <div>
+        <h1>{{equipo.nombre}}</h1>
+        {% if equipo.escudo == None %}
+        <img src="{{ url_for('static', filename='img/logo-lce.png') }}" , id="escudoPartidoLocal" />
+        {% else %}
+        <h2>XD</h2>
+        {% endif %}
+
+        <h3>Reset :{{equipo.idReset}}</h3>
+        <h3>
+            Tecnico actual: {{equipo.tecnico.nombre}} {{equipo.tecnico.apellido}}
+        </h3>
+    </div>
+
+
+    <div>
+        
+        <!-- TODO dinamizar TABLA PARA VER LOS TITULOS DEL EQUIPO EN EL RESET -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Titulos</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Liga</th>
+                    <th>Copa</th>
+                    <th>Super Copa/Super liga</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Campeonatos</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Subcampeonatos</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+        </table>
+
+        <!-- TODO BUSCAR LOS DTS ANTERIORES O NO PONER NADA SI NO HAY -->
+
+
+
+        <!--TODO JUGADORES para equipo-->
+        <div>
+            <form method="POST" class="añadir jugadores" action="{{url_for('creandoReset', idReset=idReset)}}" autocomplete="off">
+       
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</div>

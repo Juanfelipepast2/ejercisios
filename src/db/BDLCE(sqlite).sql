@@ -71,11 +71,11 @@ create table GOL
 (
    IDGOL                INTEGER PRIMARY KEY,
    IDPARTIDO            int not null,
-   IDJUGADOR            int not null,
+   IDJUGADOR            int,
    IDTEMPORADA          int not null,
    IDEQUIPO             int not null,
    constraint FK_ANOTADOR foreign key (IDJUGADOR, IDTEMPORADA, IDEQUIPO)
-      references JUGADORTEMPORADA (IDJUGADOR, IDTEMPORADA, IDEQUIPO) on delete restrict on update restrict,
+      references JUGADORTEMPORADA (IDJUGADOR, IDTEMPORADA, IDEQUIPO),
 	constraint FK_SE_ANOTO_EN foreign key (IDPARTIDO)
       references PARTIDO (IDPARTIDO) on delete restrict on update restrict
 );

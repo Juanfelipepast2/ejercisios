@@ -1,77 +1,80 @@
 {% extends "index.html" %}
-{% block title %}Partido {{codigoPartido}}{% endblock %} 
+{% block title %}Partido{% endblock %} 
 {% block content %}
 <div class="contenedorGenerico">    
-    <div class="contenedorVistaPartido">
-        <h1>Temporada {{codigo}} fecha tal</h1>        
+    <form action="{{url_for('creandoPartido', idTemporada=idTemporada)}}" method="post">
+        <div class="contenedorVistaPartido">
+            
+            <h1>Temporada {{idTemporada}} fecha tal</h1>        
+                        
+            <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoLocal"/>        
         
-
-        <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoLocal"/>        
-    
-        <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoVisitante"/>        
-        <!--CONTENEDOR MARCADOR-->        
-        <div class="equipoLocal">
-            <h3 class="nombreEquipo">Equipo 1</h1>                        
-            <h3 class="nombreDT">Dt 1</h1>    
+            <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoVisitante"/>        
+            <!--CONTENEDOR MARCADOR-->        
+            <div class="equipoLocal">
+                <h3>Equipo Local</h1>
+                <select name="selectorLocal">
+                {% for i in range (0, listaEquipos|count) %}
+                    <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+                {% endfor %}
+                </select>                       
+                <h3>Dt</h1>    
+                <select name="selectorDTLocal">
+                {% for i in range (0, listaTecnicos|count) %}
+                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}} {{listaTecnicos[i].apellido}}</option>
+                {% endfor %}
+                </select> 
+            </div>
+            
+            <input type="hidden" name="contadorAmarillasLocal" id="contadorAmarillasLocal" value="0">
+            <input type="hidden" name="contadorRojasLocal" id="contadorRojasLocal" value="0">
+            <input type="hidden" name="contadorAmarillasVisitante" id="contadorAmarillasVisitante" value="0">
+            <input type="hidden" name="contadorRojasVisitante" id="contadorRojasVisitante" value="0">
+            <div class="marcador">
+                <h1 id="marcador">0 - 0</h1>                    
+            </div>
+            <div class="equipoVisitante">
+                <h3>Equipo Visitante</h1>
+                <select name="selectorVisitante">
+                {% for i in range (0, listaEquipos|count) %}
+                    <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+                {% endfor %}
+                </select>
+                <h3>Dt</h1>
+                <select name="selectorDTVisitante" >
+                {% for i in range (0, listaTecnicos|count) %}
+                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}} {{listaTecnicos[i].apellido}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            
+            <!--CONTENEDOR ESTADISTICAS-->
+            <div id="estadisticasLocal">
+                <div class="botonesAñadirEstadisticas">
+                    <ul>
+                        <li><input type="button" onclick="botonGol(true)" value="Gol"></li>
+                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla')" value="Amarilla"></li>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja')" value="Roja"></li>
+                    </ul>
+                </div>             
+            </div>
+                
+                        
+            
+            <div id="estadisticasVisitante">
+                <div class="botonesAñadirEstadisticas">
+                    <ul>
+                        <li><input type="button" onclick="botonGol(false)" value="Gol"></li>
+                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla')" value="Amarilla"></li>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja')" value="Roja"></li>
+                    </ul>
+                </div> 
+                
+            </div>      
+                    
+            <input type="submit" class="botonGuardarPartido" value="Guardar partido"> 
         </div>
-        
-        
-        <div class="marcador">
-            <h1>2 - 1</h1>                    
-        </div>
-        <div class="equipoVisitante">            
-            <h3 class="nombreEquipo">Equipo 1</h1>                        
-            <h3 class="nombreDT">Dt 1</h1>            
-        </div>
-        
-        <!--CONTENEDOR ESTADISTICAS-->
-        <ul class="estadisticasLocal">
-            <a>
-                <li>                
-                    <h3>Gol: edison toloza</h3>                                                
-                </li>                            
-            </a>
-            <a>
-                <li>                
-                    <h3>Gol: edison toloza</h3>                                                
-                </li>                            
-            </a>
-            <a>
-                <li>                
-                    <h3>Amarilla</h3>                                                
-                </li>                            
-            </a>
-            <li class="botonesAñadirEstadisticas">
-                <ul>
-                    <li><button>Gol</button></li>
-                    <li><button>Amarilla</button></li>
-                    <li><button id="botonTarjetaRoja">Roja</button></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul class="estadisticasVisitante">
-            <a>
-                <li>                
-                    <h3>Gol: Omar Duarte</h3>                                                
-                </li>                            
-            </a>            
-            <a>
-                <li style="background-color: red;">                
-                    <h3>Roja</h3>                                                
-                </li>                            
-            </a>
-            <li class="botonesAñadirEstadisticas">
-                <ul>
-                    <li><button>Gol</button></li>
-                    <li><button>Amarilla</button></li>
-                    <li><button id="botonTarjetaRoja">Roja</button></li>
-                </ul>
-            </li>
-        </ul>                
-        <button class="botonGuardarPartido">Guardar partido</button> 
-    </div>
-    
+    </form>
 </div>
 
 {% endblock %}

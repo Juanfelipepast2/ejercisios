@@ -1,7 +1,7 @@
 {% extends "index.html" %}
-{% block title %}Temporada {{codigo}}{% endblock %} 
+{% block title %}Temporada {{idTemporada}}{% endblock %} 
 {% block content %}
-<h1 id="tituloTemporada">Temporada: {{codigo}}</h1>
+<h1 id="tituloTemporada">Temporada: {{idTemporada}}</h1>
 <div class="contenidoTemporada">
   <!--CONTENEDOR TABLA-->
   <div id="contenedorTabla">
@@ -30,26 +30,23 @@
       </thead>
       <tbody>
         <!--Cuerpo tabla-->
-        {% for i in range (1,2) %} 
-        {% set primaryColor = NONE %} 
-        {% set secondaryColor = NONE %} 
-        {% if i <= 8 %} 
-        {% set primaryColor = '#9A6C00' %} 
-        {% set secondaryColor = '#FFB400' %} 
-        {% endif %} 
-        {% if i > 8 %} 
-        {% set primaryColor = '#444444' %}
-        {% set secondaryColor = '#848484' %} 
-        {% endif %}
+        {% for i in range (0, listaEquipos|count) %} 
+          {% set primaryColor = NONE %} 
+          {% set secondaryColor = NONE %} 
+          {% if i <= 8 %} 
+          {% set primaryColor = '#9A6C00' %} 
+          {% set secondaryColor = '#FFB400' %} 
+          {% endif %} 
+          {% if i > 8 %} 
+          {% set primaryColor = '#444444' %}
+          {% set secondaryColor = '#848484' %} 
+          {% endif %}
         <tr>
           <td><button id="botonBorrarEquipo">Borrar</button></td>
-          <td style="background-color: {{ primaryColor }};">{{i}}</td>
-          <td
-            id="equipoYEscudoTabla"
-            style="background-color: {{ secondaryColor }};"
-          >
-            Equipo {{i}}
-          </td>
+          <td style="background-color: {{ primaryColor }};">{{i+1}}</td>
+
+          <td id="equipoYEscudoTabla" style="background-color: {{ secondaryColor }};">{{listaEquipos[i].nombre}}</td>
+
           <td style="background-color: {{ primaryColor }};">14</td>
           <td style="background-color: {{ secondaryColor }};">8</td>
           <td style="background-color: {{ primaryColor }};">3</td>
@@ -78,23 +75,22 @@
     </div>
 
     <h1>Partidos</h1>    
-    <select id="selectorFechas" name="selctorFechas">
-      <option value="Fecha1"><h1>Fecha 1</h1></option>
-      {% for i in range(0,13) %}
-      <option value="Fecha{{i+2}}"><h1>Fecha {{i+2}}</h1></option>
+    <select id="selectorFechas" name="selctorFechas">      
+      {% for i in range(0, cantFechas) %}
+      <option value="Fecha{{i+1}}"><h1>Fecha {{i+1}}</h1></option>
       {% endfor %}
     </select>      
     {% set grdc = 1 %} 
     <div id="contenedorPartidos">
       <!--CONTENEDOR POR PARTIDO-->
              
-      {% for i in range (0,1) %}         
+      {% for i in range (0, listaPartidos|count) %}         
 
-      <a href="{{ url_for('partido', codigo=codigo, codigoPartido=i) }}">
+      <a href="{{ url_for('partido', idTemporada=idTemporada) }}">
         <div class="contenedorPartido">
           <div class="equipo">
             <img src="{{ url_for('static', filename='img/escudo.png') }}"alt=""/>
-            <h4>Equipo 1 {{grdc}}</h4>
+            <h4>{{listaPartidos[i].equipoLocal.nombre}}</h4>
           </div>
           <div class="resultado">
             <h4>2 - 1</h4>
@@ -105,15 +101,17 @@
               src="{{ url_for('static', filename='img/escudo.png') }}"
               alt=""
             />
-            <h4>Equipo 2</h4>
+            <h4>{{listaPartidos[i].equipoVisitante.nombre}}</h4>
           </div>
         </div>
       </a>
       
       {% endfor %}
-      <div class="contenedorPartido">
-        <h3>+ Agregar Partido</h3>
-      </div>
+      <a href="{{ url_for('partido', idTemporada=idTemporada) }}">
+        <div class="contenedorPartido">
+          <h3>+ Agregar Partido</h3>
+        </div>
+      </a>
     </div>
   </div>
 </div>

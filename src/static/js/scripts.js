@@ -109,3 +109,71 @@ function subirEscudo(botonSelEscudo){
         previewEscudo.style.display = 'flex';
     }
 }
+var tumama= "tumama";
+
+//FUNCIONES PARA CREAR PARTIDO
+function botonGol(localia){
+    //true = estadistica local; false= estadistica visitante    
+    let idLista = '';
+    localia == true ? idLista = 'estadisticasLocal' : idLista = 'estadisticasVisitante';
+
+    let marcador = document.getElementById('marcador');
+    let lista = document.getElementById(idLista);
+    
+    
+    let elemento = document.createElement('a');
+
+    golAlMarcador(localia);
+    elemento.innerHTML = `<h3>Gol</h3>
+    <h4>Autor   :</h4>                    
+    <select name="selectorGolLocal" style="max-width : 200px">
+        <option value="0">`+ tumama+ `</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>`;    
+    elemento.classList.add('estadisticas');    
+
+
+
+    lista.appendChild(elemento);
+    
+
+}
+
+function golAlMarcador(equipoBool){
+    let marcador = document.getElementById('marcador');
+    let arrMarcador = marcador.innerHTML.split('');
+    equipoBool == true ? arrMarcador[0]++ : arrMarcador[4]++;
+    marcador.innerHTML = arrMarcador.join('');
+
+}
+
+function botonTarjeta(localia, tarjeta){
+    //true = estadistica local; false= estadistica visitante    
+    let idLista = '';
+    localia == true ? idLista = 'estadisticasLocal' : idLista = 'estadisticasVisitante';
+
+    let llamarContador = '';
+    tarjeta == "Amarilla" && localia == true? llamarContador = "contadorAmarillasLocal" : tarjeta == "Amarilla" && localia == false ? llamarContador = "contadorAmarillasVisitante" : tarjeta == "Roja" && localia == true ? llamarContador = "contadorRojasLocal" : llamarContador = "contadorRojasVisitante";
+    let contador = document.getElementById(llamarContador);
+
+    let lista = document.getElementById(idLista);
+    let elemento = document.createElement('a');    
+
+
+    elemento.innerHTML = `<h3>` + tarjeta + `</h3>`;    
+    elemento.classList.add('estadisticas');    
+    
+    tarjeta == "Amarilla" ? elemento.style.backgroundColor = "yellow" : elemento.style.backgroundColor = "red";
+    contador.value++;
+
+    lista.appendChild(elemento);
+}

@@ -10,7 +10,7 @@
             <tr>                
                 {% for i in range (0, temporadas|count) %}
                 <td>                    
-                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', codigo=temporadas[i].id)}}">
+                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', idTemporada=temporadas[i].id)}}">
                         <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
                         <h1>Temporada {{ temporadas[i].id }}</h1>                        
                         <h4>Campeón {{"Desconocido"}}</h4>                                                

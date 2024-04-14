@@ -714,15 +714,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     justify-content: center;           
 }
 
-.contenedorVistaPartido li{
-    min-width: 300px;
-    padding: 10px;
-    text-align: center;
-    background-color: #FFB400;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    
-}
+
 
 .contenedorVistaPartido .botonesAñadirEstadisticas{
     background-color: transparent;
@@ -741,22 +733,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     align-items: center;        
 }
 
-
-.contenedorVistaPartido .nombreEquipo{
-    width: 500px;
-    background-color: #686868;
-    text-align: center;        
-    height: 30px;
-}
-
-.contenedorVistaPartido .nombreDT{
-    width: 300px;
-    background-color: #1E1E1E;
-    text-align: center; 
-    border-radius: 0px 0px 10px 10px;   
-    height: 30px;
-    
-}
 #escudoPartidoLocal{
     grid-column: 1;
     
@@ -777,9 +753,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     flex-direction: column;    
 }
 
-.nombreEquipo{
-    border-radius: 10px;
-}
 
 .equipoVisitante{
     grid-column: 3;
@@ -798,24 +771,44 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     grid-row: 3;
     align-items: center;
     padding: 30px;
+    margin: 40px;
 }
 
-.estadisticasLocal{
+#estadisticasLocal{
     grid-row: 4;
     grid-column: 1;
 }
 
-.estadisticasVisitante{
+#estadisticasVisitante{
     grid-row: 4;
     grid-column: 3;
 }
 
-.botonGuardarPartido{
-    grid-column: 2;
-    grid-row: 5;
+.estadisticas{
+    display: grid;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #FFB400;
 }
 
-.contenedorVistaPartido .botonesAñadirEstadisticas button{
+.botonGuardarPartido{
+    grid-column: 2;
+    grid-row: 4;
+    margin-top: 30px;
+    max-width: 170px;
+}
+
+
+.contenedorVistaPartido .botonesAñadirEstadisticas{
+    grid-row: 5;
+    grid-column: 1;
+}
+
+.contenedorVistaPartido .botonesAñadirEstadisticas input[type='button']{
     width: 100px;
 
 }
@@ -825,6 +818,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .contenedorVistaPartido .botonesAñadirEstadisticas li{
     background-color: transparent;
 }
+
+
 
 
 .botonesAñadirEstadisticas #botonTarjetaRoja{

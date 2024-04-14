@@ -23,6 +23,7 @@ def sesionRequerida(f):
 
 
 @app.route("/")
+@app.route("/inicio")
 @sesionRequerida
 def inicio():
     flash("Bienvenido")
@@ -101,7 +102,7 @@ def creandoTemporada(idReset):
             
             if clases.Temporada.obtenerCantidadTemporadas(idReset) == 0:
                 #obtenemos los equipos
-                equipos = clases.Equipo.obtenerEquipos(idReset)            
+                equipos = clases.Equipo.obtenerEquiposReset(idReset)            
 
                 #creamos temporada
                 temporadaTemp = clases.Temporada(int(request.form['idTemporada']), idReset, request.form.get("fechaInicio"), request.form.get("fechaFin"))
@@ -123,19 +124,41 @@ def creandoTemporada(idReset):
     return redirect(url_for("temporada"))
 
 
-@app.route("/temporada/<codigo>")
+@app.route("/temporada/<int:idTemporada>")
 @sesionRequerida
-def partidosTemporada(idTemporada):
+def partidosTemporada(idTemporada):        
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("temporada.html", idTemporada=idTemporada)
+    listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada)
+    cantFechas = len(listaEquipos) - 1 if len(listaEquipos) % 2 == 0 else len(listaEquipos)
+    print(cantFechas)
+    
+    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosTemporada(idTemporada), cantFechas=cantFechas)
+    
+
+        
 
 
-@app.route("/temporada")
-@app.route("/temporada/<codigo>/<codigoPartido>")
+
+@app.route("/temporada/<int:idTemporada>/partido/crear")
 @sesionRequerida
-def partido(codigo, codigoPartido):
+def partido(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("partido.html", codigo=codigo, codigoPartido=codigoPartido)
+    return render_template("partido.html", idTemporada=idTemporada, listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
+
+@app.route("/<int:idTemporada>/partido/creandoPartido", methods=["POST"])
+@sesionRequerida
+def creandoPartido(idTemporada):
+    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    if request.method == "POST":
+        partidoTemp = clases.Partido(None, clases.Equipo.obtenerEquipo(int(request.form.get("selectorLocal"))), clases.Equipo.obtenerEquipo(int(request.form.get("selectorVisitante"))), idTemporada, 1, int(request.form["contadorAmarillasLocal"]), int(request.form["contadorRojasLocal"]), int(request.form["contadorAmarillasVisitante"]), int(request.form["contadorRojasVisitante"]), 'tct')
+        partidoTemp.equipoLocal.setTecnico(int(request.form.get("selectorDTLocal")))
+        partidoTemp.equipoVisitante.setTecnico(int(request.form.get("selectorDTVisitante")))
+        print(partidoTemp)
+        print(partidoTemp.equipoLocal)
+        print(partidoTemp.equipoVisitante)
+        partidoTemp.guardarPartido()
+    return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
+
 
 
 @app.route("/temporada")
@@ -202,6 +225,19 @@ def creandoReset(idReset):
         print(e.with_traceback())
         return redirect(url_for("crearReset"))
     return redirect(url_for("reset", codigo=idReset))
+
+
+
+@app.route("/reset/<int:idReset>/equipo/<int:idEquipo>")
+@sesionRequerida
+def equipos(idReset, idEquipo):
+    
+    equipo = clases.Equipo.obtenerEquipo(idEquipo)
+    app.logger.info(f"Se ha cargado la página de equipos {request.path}")
+    print(equipo)
+    return render_template("vistaEquipo.html", equipo=equipo, idReset=idReset)
+    
+    
 
 
 
