@@ -399,7 +399,7 @@ class Reset:
             del con
         return id
 
-class gol:
+class Gol:
     def __init__(self, id: int, idPartido: int, idJugador: int, idTemporada: int, idEquipo: int):
         self.id = id
         self.idPartido = idPartido
@@ -433,5 +433,127 @@ class gol:
         finally:
             del con
         return listaGoles
+
+class Stats:
+    def __init__(self, idJugador: int):
+        self.idJugador = idJugador
+        self.ataque: int = 0
+        self.defensa: int = 0
+        self.estabilidad: int = 0
+        self.resistencia: int = 0
+        self.velMax: int = 0
+        self.aceleracion: int = 0
+        self.respuesta: int = 0
+        self.agilidad: int = 0
+        self.precisionConduccion: int = 0 
+        self.velconduccion: int = 0
+        self.precPaseCorto: int = 0
+        self.velPaseCorto: int = 0
+        self.precPaseLargo: int = 0
+        self.velPaseLargo: int = 0
+        self.precTiro: int = 0        
+        self.potTiro: int = 0
+        self.tecDisparo: int = 0
+        self.precSaqueFalta: int = 0
+        self.efecto: int = 0
+        self.cabezazo: int = 0
+        self.salto: int = 0
+        self.tecnica: int = 0
+        self.agresividad: int = 0
+        self.mentalidad: int = 0
+        self.cualidadPortero: int = 0
+        self.trabajoEquipo: int = 0
+        self.estadoForma: int = 0
+        self.precPieMalo: int = 0
+        self.frecPieMalo: int = 0
+        self.resistenciaLesion: str = "" #o consistencia
+
+
+        #habilidades
+        self.habRegate: bool = False
+        self.habRegateHabil: bool = False
+        self.habCapPosicion: bool = False
+        self.habReaccion: bool = False
+        self.habCapMando: bool = False
+        self.habPases: bool = False
+        self.habGoleadora: bool = False
+        self.habGola1: bool = False
+        self.habJugadorPoste: bool = False
+        self.habLinea: bool = False
+        self.habTiroLejano: bool = False
+        self.habLado: bool = False
+        self.habCentro: bool = False
+        self.habLanzaPenales: bool = False
+        self.habPase1Toque: bool = False
+        self.habExterior: bool = False
+        self.habMarcarHombre: bool = False
+        self.habBarrida: bool = False
+        self.habMarcaje: bool = False
+        self.habLineaDefensiva: bool = False
+        self.habPoorteroPenales: bool = False
+        self.habPortero1v1: bool = False
+        self.habaSaqueLargo: bool = False
+
+        
+
+class Jugador:
+    def __init__(self, idJugador: int, idPais: int, nombre: str, fechaNacimiento, linkTransfermarkt: str, pie: bool, estatura: int, fotoJugador, estadoJugador: bool, bandaJugador):
+        self.idJugador = idJugador
+        self.idPais = idPais
+        
+        self.setNombresYApellidos(nombre)
+        self.fechaNacimiento = fechaNacimiento
+        self.linkTransfermarkt = linkTransfermarkt
+        self.pie = pie
+        self.estatura = estatura
+        self.fotoJugador = fotoJugador
+        self.estadoJugador = estadoJugador        
+        self.bandaJugador = bandaJugador
+
+        
+
+        
+
+    def __str__(self):
+        return f"{self.idJugador} {self.idPais} {self.nombre} {self.apellido} {self.fechaNacimiento} {self.linkTransfermarkt} {self.pie} {self.estatura} {self.fotoJugador} {self.estadoJugador} {self.bandaJugador}"
     
+    def setStats(self, stats: Stats):
+        self.stats = stats
+
+
+    def toJson(self):
+        return {
+            "idJugador": self.idJugador,
+            "idPais": self.idPais,
+            "nombre": self.nombre,
+            "apellido": self.apellido,
+            "fechaNacimiento": self.fechaNacimiento,
+            "linkTransfermarkt": self.linkTransfermarkt,
+            "pie": self.pie,
+            "estatura": self.estatura,
+            "fotoJugador": self.fotoJugador,
+            "estadoJugador": self.estadoJugador,
+            "bandaJugador": self.bandaJugador
+        }
     
+    def setNombresYApellidos(self, texto):
+        nombres = texto.split(" ")
+        self.nombre = ""
+        self.apellido = "" 
+        for i in range(len(nombres)):
+            if i == 0:
+                self.nombre = nombres[i]
+            else:
+                self.apellido += nombres[i] + " "
+
+    def guardarJugador(self):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute("INSERT INTO JUGADOR (IDPAIS, NOMBREJUGADOR, APELLIDOJUGADOR, FECHANACIMIENTOJUGADOR, LINKTRANSFERMARKTJUGADOR, PIEJUGADOR, ESTATURAJUGADOR, FOTOJUGADOR, ESTADOJUGADOR, BANDAJUGADOR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (self.idPais, self.nombre, self.apellido, self.fechaNacimiento, self.linkTransfermarkt, self.pie, self.estatura, self.fotoJugador, self.estadoJugador, self.bandaJugador))
+            con.conexion.commit()
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+        
+
