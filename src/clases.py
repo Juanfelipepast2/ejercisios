@@ -490,14 +490,23 @@ class Stats:
         self.habBarrida: bool = False
         self.habMarcaje: bool = False
         self.habLineaDefensiva: bool = False
-        self.habPoorteroPenales: bool = False
+        self.habPorteroPenales: bool = False
         self.habPortero1v1: bool = False
         self.habaSaqueLargo: bool = False
 
         
+class Posicion:
+    def __init__(self, abreviatura: str, idJugador: int, posicionPrincipal:bool) -> None:
+        self.abreviatura = abreviatura
+        self.idJugador = idJugador
+        self.posicionPrincipal = posicionPrincipal
+
+    def __str__(self) -> str:
+        return f"{self.abreviatura} {self.idJugador} {self.posicionPrincipal}"
+        
 
 class Jugador:
-    def __init__(self, idJugador: int, idPais: int, nombre: str, fechaNacimiento, linkTransfermarkt: str, pie: bool, estatura: int, fotoJugador, estadoJugador: bool, bandaJugador):
+    def __init__(self, idJugador: int, idPais: int, nombre: str, fechaNacimiento, linkTransfermarkt: str, pie: bool, estatura: int, fotoJugador, estadoJugador: bool, bandaJugador: str):
         self.idJugador = idJugador
         self.idPais = idPais
         
@@ -509,6 +518,7 @@ class Jugador:
         self.fotoJugador = fotoJugador
         self.estadoJugador = estadoJugador        
         self.bandaJugador = bandaJugador
+        self.posiciones: list = []        
 
         
 
