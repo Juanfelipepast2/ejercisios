@@ -253,13 +253,6 @@ def statsJugador():
     return render_template("jugadoresReales.html", jugador = jugador)
 
 
-'''
-@app.route("/stats/<hayStats>")
-@sesionRequerida
-def statsJugador(hayStats):
-    app.logger.info(f"Se ha cargado la página de stats {request.path}")
-    return render_template("jugadorReal.html", hayStats=hayStats)
-'''
 
 
 
