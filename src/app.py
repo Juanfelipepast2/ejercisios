@@ -1,7 +1,7 @@
 from flask import Flask, flash, json, jsonify, redirect, request, render_template, url_for, request, session
 from functools import wraps
 import random, string, clases, traceback
-
+import ScrapperSofifa as scrapper
 
 
 app = Flask(__name__)
@@ -238,9 +238,28 @@ def equipos(idReset, idEquipo):
     return render_template("vistaEquipo.html", equipo=equipo, idReset=idReset)
     
     
+@app.route("/stats")
+@sesionRequerida
+def stats():
+    app.logger.info(f"Se ha cargado la página de stats {request.path}")
+        
+    return render_template("jugadoresReales.html", jugador=None)
+
+@app.route("/statsanadidos", methods=["POST"])
+@sesionRequerida
+def statsJugador():
+    app.logger.info(f"Se ha cargado la página de stats {request.path}")
+    jugador = scrapper.recibirCodigo(int(request.form["codigoSofifa"]), request.form["linkTransfermarkt"])
+    return render_template("jugadoresReales.html", jugador = jugador)
 
 
-
+'''
+@app.route("/stats/<hayStats>")
+@sesionRequerida
+def statsJugador(hayStats):
+    app.logger.info(f"Se ha cargado la página de stats {request.path}")
+    return render_template("jugadorReal.html", hayStats=hayStats)
+'''
 
 
 

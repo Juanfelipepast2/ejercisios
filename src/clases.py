@@ -1,6 +1,6 @@
 import traceback
+import datetime
 
-import time
 import CRUD
 
 class Tecnico:
@@ -469,7 +469,8 @@ class Stats:
         self.resistenciaLesion: str = "" #o consistencia
 
 
-        #habilidades
+        self.habilidades = []
+        '''habilidades        
         self.habRegate: bool = False
         self.habRegateHabil: bool = False
         self.habCapPosicion: bool = False
@@ -493,7 +494,7 @@ class Stats:
         self.habPorteroPenales: bool = False
         self.habPortero1v1: bool = False
         self.habaSaqueLargo: bool = False
-
+        '''
         
 class Posicion:
     def __init__(self, abreviatura: str, idJugador: int, posicionPrincipal:bool) -> None:
@@ -502,33 +503,36 @@ class Posicion:
         self.posicionPrincipal = posicionPrincipal
 
     def __str__(self) -> str:
-        return f"{self.abreviatura} {self.idJugador} {self.posicionPrincipal}"
+        return f"{self.abreviatura}" 
         
 
 class Jugador:
-    def __init__(self, idJugador: int, idPais: int, nombre: str, fechaNacimiento, linkTransfermarkt: str, pie: bool, estatura: int, fotoJugador, estadoJugador: bool, bandaJugador: str):
+    def __init__(self, idJugador: int, idPais: int, nombre: str, fechaNacimiento, linkTransfermarkt: str, estatura: int, peso:int, foto, estadoJugador: bool, banda: str):
         self.idJugador = idJugador
         self.idPais = idPais
         
         self.setNombresYApellidos(nombre)
         self.fechaNacimiento = fechaNacimiento
         self.linkTransfermarkt = linkTransfermarkt
-        self.pie = pie
+        self.pie = None #DEBEN AGREGARSE DESPUES
         self.estatura = estatura
-        self.fotoJugador = fotoJugador
+        self.peso = peso
+        self.foto = foto
         self.estadoJugador = estadoJugador        
-        self.bandaJugador = bandaJugador
+        self.banda = banda
         self.posiciones: list = []        
-
         
-
-        
+        self.stats = None #DEBEN AGREGARSE DESPUES                
 
     def __str__(self):
-        return f"{self.idJugador} {self.idPais} {self.nombre} {self.apellido} {self.fechaNacimiento} {self.linkTransfermarkt} {self.pie} {self.estatura} {self.fotoJugador} {self.estadoJugador} {self.bandaJugador}"
-    
-    def setStats(self, stats: Stats):
-        self.stats = stats
+        return f"{self.idJugador} {self.idPais} {self.nombre} {self.apellido} {self.fechaNacimiento} {self.linkTransfermarkt} {self.pie} {self.estatura} {self.fotoJugador} {self.estadoJugador} {self.banda}"
+        
+    def obtenerEdad(self):
+        diferencia = datetime.datetime.now() - datetime.datetime.strptime(self.fechaNacimiento, "%d/%m/%Y")
+        return int(diferencia.days / 365.25)
+
+        
+        
 
 
     def toJson(self):
@@ -565,5 +569,10 @@ class Jugador:
             print(traceback.print_exc())
         finally:
             del con
+
+    def guardarStats(self):
+        #TODO guardar stats
+        pass
+            
         
 

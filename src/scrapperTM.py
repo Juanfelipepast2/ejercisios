@@ -1,9 +1,9 @@
-#TODO ENCONTRAR FOTO DE JUGADOR
+#TODO ENCONTRAR NACIONALIDAD
 import requests
 import clases
 from bs4 import BeautifulSoup
-
-def obtenerJugadorTM(link):
+from PIL import Image
+def obtenerJugadorTM(link) -> clases.Jugador:
     try:
         headers = {'User-Agent': 
            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
@@ -12,22 +12,25 @@ def obtenerJugadorTM(link):
         
         
         sopa = BeautifulSoup(resultado.content, "html.parser")
+
         
+                
         nombre = sopa.select_one('h1[class="data-header__headline-wrapper"]').text.split("\n")[-1].strip()
         fechaNacimiento = sopa.select_one('span[itemprop="birthDate"]').text.strip().split(" ")[0]
-        estatura = int(float(sopa.select_one('span[itemprop="height"]').text.strip().split(" ")[0].replace(",", ".")) * 100)
-        pie = True if sopa.find('span', string='Pie:').find_next('span').text.strip() == "ambidiestro" or "derecho" else False
+        estatura = int(float(sopa.select_one('span[itemprop="height"]').text.strip().split(" ")[0].replace(",", ".")) * 100)        
         estado = True if sopa.select_one('span[itemprop="affiliation"]').text.strip() != "Retirado" else False
-        print(nombre)
-        print(fechaNacimiento)
-        print(estatura)
-        print(pie)
-        print(estado)
+        #print(nombre)
+        #print(fechaNacimiento)
+        #print(estatura)        
+        #print(estado)
         
-        jugador = clases.Jugador(None, 2, nombre, fechaNacimiento, link, pie, estatura, None, estado, None)
+        jugador = clases.Jugador(None, 2, nombre, fechaNacimiento, link, estatura, 0 ,None, estado, None)
 
         arregloPosicionesSoup = sopa.find_all('dd', {"class": "detail-position__position"})
 
+        #TODO OBTENER BINARIOS DE LA FOTO, POR AHORA SERVIRÁ PARA MOSTRARLA ONLINE
+        jugador.foto = sopa.select_one('img[class="data-header__profile-image"]').attrs['src']
+           
         #iterador                
         i = 0
 
@@ -72,11 +75,8 @@ def obtenerJugadorTM(link):
         del(contadorDerechos)   
         del(contadorIzquierdos)
         del(posicionesAnadidas)
-
-        print(jugador.banda)
         
-        for x in jugador.posiciones:
-            print(x.abreviatura)
+        
         return jugador
 
     except (requests.exceptions.RequestException, requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
@@ -106,5 +106,5 @@ def traducirAbreviatura(pos):
     else:
         return None
     
-#obtenerJugadorTM("https://www.transfermarkt.co/konrad-laimer/profil/spieler/223967", 2)
+obtenerJugadorTM("https://www.transfermarkt.co/konrad-laimer/profil/spieler/223967")
     

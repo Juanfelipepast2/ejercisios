@@ -1,0 +1,122 @@
+{% extends "index.html" %}
+{% block title %}stats{% endblock %} 
+{% block content %}
+<!--TODO CREAR LA VISTA HTML DEL SCRAPPER
+ 
+ -->
+<div class="contenedorGenerico">
+    <h1>Página stats</h1>
+
+    
+    <form action="{{url_for("statsJugador")}}" method="post">
+        <h4>Inserte link de Transfermarkt</h4>
+        <input type="text" name="linkTransfermarkt" id="link">
+
+        <h4>Inserte codigo sofifa</h4>
+        <input type="number" name="codigoSofifa" id="codigo"><br>
+        <input type="submit" value="Enviar">      
+
+
+    </form>
+
+    {% if jugador != None %}
+    <div>
+        <h2>Estadisticas</h2>
+        <img src="{{jugador.foto}}" alt="foto jugador" style="width: 200px; height: 200px;"><br>
+        <p>
+            Nacionalidad<br>
+            Nombre: {{jugador.nombre}} {{jugador.apellido}}<br>        
+            NombreCamiseta<br>
+            Posiciones:
+            {% for pos in jugador.posiciones: %}
+                
+                {{pos}}
+                {% if pos.posicionPrincipal == True %}
+                    <span style="color: yellow">★</span>
+                {% endif %}
+                ,            
+            {% endfor %}<br><br>
+            Edad: {{jugador.obtenerEdad()}}<br>
+            Estatura: {{jugador.estatura}}<br>
+            Peso: {{jugador.peso}}<br><br>
+
+            Tolerancia a lesiones: {{jugador.stats.resistenciaLesion}}<br>
+            {% if jugador.pie == True %}
+            Pie: D<br>
+            {% else %}
+            Pie: I<br>
+            {% endif %}
+            Banda: {{jugador.banda}}<br><br>
+
+            Ataque: {{jugador.stats.ataque}}<br>
+            Defensa: {{jugador.stats.defensa}}<br>
+            Estabilidad: {{jugador.stats.estabilidad}}<br>
+            Resistencia: {{jugador.stats.resistencia}}<br>
+            Velocidad: {{jugador.stats.velMax}}<br>
+            Aceleracion: {{jugador.stats.aceleracion}}<br>
+            Respuesta: {{jugador.stats.respuesta}}<br>
+            Agilidad: {{jugador.stats.agilidad}}<br>
+            Precisión de regate: {{jugador.stats.precisionConduccion}}<br>
+            Velocidad de regate: {{jugador.stats.velconduccion}}<br>
+            Precision Pase corto: {{jugador.stats.precPaseCorto}}<br>
+            Velocidad de pase corto: {{jugador.stats.velPaseCorto}}<br>
+            Precision Pase largo: {{jugador.stats.precPaseLargo}}<br>
+            Velocidad de pase largo: {{jugador.stats.velPaseLargo}}<br>
+            Precision de tiro: {{jugador.stats.precTiro}}<br>
+            Potencia de tiro: {{jugador.stats.potTiro}}<br>
+            Tecnica de tiro: {{jugador.stats.tecDisparo}}<br>
+            Precision de tiro libre: {{jugador.stats.precSaqueFalta}}<br>
+            Efecto: {{jugador.stats.efecto}}<br>
+            Cabezazo: {{jugador.stats.cabezazo}}<br>
+            salto: {{jugador.stats.salto}}<br>
+            Tecnica: {{jugador.stats.tecnica}}<br>
+            Agresividad: {{jugador.stats.agresividad}}<br>
+            Mentalidad: {{jugador.stats.mentalidad}}<br>
+            Habilidad de portero: {{jugador.stats.cualidadPortero}}<br>
+            Trabajo en equipo: {{jugador.stats.trabajoEquipo}}<br><br>
+
+            Estado de forma: {{jugador.stats.estadoForma}}<br>
+            Precision pie malo: {{jugador.stats.precPieMalo}}<br>
+            Frecuencia de pie malo: {{jugador.stats.frecPieMalo}}<br><br>
+
+            Habilidades especiales:<br>
+            {% for hab in jugador.stats.habilidades: %}
+                {{hab}}<br>
+                
+            {% endfor %}<br><br>
+            
+
+
+        </p>
+        <!--
+        Attack: 77
+Defence: 53
+Balance: 72
+Stamina: 73
+Speed: 86
+Acceleration: 83
+Response: 77
+Agility: 83
+Dribble Accuracy: 84
+Dribble Speed: 86
+Short Pass Accuracy: 81
+Short Pass Speed: 78
+Long Pass Accuracy: 76
+Long Pass Speed: 75
+Shot Accuracy: 79
+Shot Power: 76
+Shot Technique: 78
+Free Kick Accuracy: 76
+Swerve: 78
+Heading: 69
+Jump: 76
+Technique: 83
+Aggression: 77
+Mentality: 69
+GK Skills: 50
+Team work: 74
+ -->
+    </div>      
+    {% endif %}
+</div>
+{% endblock %}
