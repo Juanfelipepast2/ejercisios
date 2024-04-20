@@ -25,8 +25,7 @@
         <img src="{{jugador.foto}}" alt="foto jugador" style="width: 200px; height: 200px;"><br>
         <p>
             Nacionalidad<br>
-            Nombre: {{jugador.nombre}} {{jugador.apellido}}<br>        
-            NombreCamiseta<br>
+            Nombre: {{jugador.nombre}} {{jugador.apellido}}<br>                    
             Posiciones:
             {% for pos in jugador.posiciones: %}
                 
@@ -34,7 +33,7 @@
                 {% if pos.posicionPrincipal == True %}
                     <span style="color: yellow">★</span>
                 {% endif %}
-                ,            
+                            
             {% endfor %}<br><br>
             Edad: {{jugador.obtenerEdad()}}<br>
             Estatura: {{jugador.estatura}}<br>
