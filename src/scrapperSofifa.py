@@ -18,9 +18,9 @@ def recibirCodigo(codigo, linkTm):
         sopa = BeautifulSoup(resultado.content, "html.parser")
         
 
-
-        #cambiando cositas del jugador
-        jugador.peso = int(sopa.find('div', class_='profile clearfix').findChild("p").text.split(" ")[9].strip().replace("kg", ""))        
+        
+        #cambiando cositas del jugador        
+        jugador.peso = int(sopa.find('div', class_='profile clearfix').findChild("p").text.strip().split("y.o.")[-1].strip().split()[6].strip().replace("kg", ""))
         jugador.pie = True if sopa.find('label', string='Preferred foot').find_parent("p").text.split(" ", 2)[-1].strip() == "Right" else False
 
         stats.ataque = int(sopa.find('span', string='Att. Position').find_previous_sibling('em').text.strip())
