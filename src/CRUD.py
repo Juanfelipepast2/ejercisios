@@ -10,7 +10,7 @@ class Conexion:
         #self.__usuarioBD = "user"
         
         #self.__contrasenaBD = '1234' #type: ignore
-        self.__dataBase = "db\\dbLce.sqlite"
+        self.__dataBase = "src\\db\\dbLce.sqlite"
         #self.__portBD = "3306"
         
         try:

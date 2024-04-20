@@ -1,7 +1,7 @@
 import traceback
 import datetime
 
-import CRUD
+from . import CRUD
 
 class Tecnico:
     def __init__(self, id: int, idPais: int ,nombre: str, apellido: str, contrasena: str, admin: bool, pO: bool):

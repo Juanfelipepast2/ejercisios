@@ -1,7 +1,7 @@
 from flask import Flask, flash, json, jsonify, redirect, request, render_template, url_for, request, session
 from functools import wraps
-import random, string, clases, traceback
-import ScrapperSofifa as scrapper
+import src.clases as clases
+import src.scrapperSofifa as scrapper
 
 
 app = Flask(__name__)
@@ -119,8 +119,8 @@ def creandoTemporada(idReset):
 
                 temporadaTemp.guardarTemporada()
             return redirect(url_for("reset", idReset=idReset))
-    except: 
-        return f"ERROR CREANDO TEMPORADA {traceback.print_exc()}"
+    except Exception as e: 
+        return f"ERROR CREANDO TEMPORADA {e.with_traceback()}"
     return redirect(url_for("temporada"))
 
 

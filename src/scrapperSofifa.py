@@ -1,9 +1,9 @@
 
 from bs4 import BeautifulSoup
 import requests
-import clases
+from . import clases
 import math
-import ScrapperTM
+from . import scrapperTM as ScrapperTM
 
 def recibirCodigo(codigo, linkTm):
     try:        
@@ -86,7 +86,7 @@ def recibirCodigo(codigo, linkTm):
         if (("CCD" in jugador.posiciones or "CC" in jugador.posiciones or "MP" in jugador.posiciones or "SD" in jugador.posiciones) and stats.respuesta >= 80): stats.habilidades.append("Centre")                    ##HAB CENTRO
         if (("#FK specialist" in listaEspeciales and stats.precSaqueFalta >=85) or ("#Distance shooter" in listaEspeciales or "#FK specialist" in listaEspeciales)): stats.habilidades.append("Penalties")                    ##HAB LANZA PENALES
         if ("#Playmaker" in listaEspeciales and stats.precPaseCorto >= 82): stats.habilidades.append("1-Touch pass")                    ##HAB PASE 1 TOQUE
-        if (stats.precTiro > 85, stats.agilidad >=85): stats.habilidades.append("Outside")                    ##HAB EXTERIOR
+        if (stats.velMax > 82 and stats.agilidad >=85): stats.habilidades.append("Outside")                    ##HAB EXTERIOR
         if ("#Tackling" in listaEspeciales or stats.defensa >= 87): stats.habilidades.append("Marking")                    ##HAB MARCAR HOMBRE
         if ("#Tackling" in listaEspeciales): stats.habilidades.append("Sliding tackle")                    ##HAB BARRIDA
         if ("Positioning" in stats.habilidades or stats.defensa >= 83): stats.habilidades.append("Covering")                    ##HAB MARCAJE

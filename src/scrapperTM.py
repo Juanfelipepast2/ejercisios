@@ -1,6 +1,6 @@
 #TODO ENCONTRAR NACIONALIDAD
 import requests
-import clases
+from . import clases
 from bs4 import BeautifulSoup
 from PIL import Image
 def obtenerJugadorTM(link) -> clases.Jugador:
