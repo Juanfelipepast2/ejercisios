@@ -1,6 +1,7 @@
 #import mysql.connector
 import traceback
 import sqlite3
+import os
 
 class Conexion:
     
@@ -10,7 +11,7 @@ class Conexion:
         #self.__usuarioBD = "user"
         
         #self.__contrasenaBD = '1234' #type: ignore
-        self.__dataBase = "src\\db\\dbLce.sqlite"
+        self.__dataBase = os.getenv("DB_PATH")
         #self.__portBD = "3306"
         
         try:
