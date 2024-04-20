@@ -84,7 +84,7 @@ def registrandoDt():
         dtTemp.setPo(request.form.get("esPropietario"))
 
         print(dtTemp)
-        dtTemp.guardarDTecnico()      
+        dtTemp.guardarTecnico()      
         return redirect(url_for("inicio"))
 
 
