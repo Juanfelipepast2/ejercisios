@@ -240,7 +240,7 @@ def equipos(idReset, idEquipo):
     print(equipo)
     return render_template("vistaEquipo.html", equipo=equipo, idReset=idReset)
 '''
-    
+@app.route("/")
 @app.route("/stats")
 @sesionRequerida
 def stats():
