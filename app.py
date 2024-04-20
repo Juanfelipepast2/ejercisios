@@ -21,7 +21,7 @@ def sesionRequerida(f):
 
 
 
-
+'''
 @app.route("/")
 @app.route("/inicio")
 @sesionRequerida
@@ -29,6 +29,7 @@ def inicio():
     flash("Bienvenido")
     app.logger.info(f"Se ha cargado la página de inicio {request.path}")
     return render_template("index.html")    
+'''
 
 
 
@@ -43,7 +44,7 @@ def variablesGlobales():
 @app.route("/iniciarSesion", methods=["GET", "POST"])
 def iniciarSesion():
     if 'codigoDt' in session:
-        return redirect(url_for("inicio"))
+        return redirect(url_for("stats"))
     else:
         if request.method == "POST":        
             ##agregamos el usuario
@@ -51,7 +52,7 @@ def iniciarSesion():
             if autenticador != None:
                 if autenticador == True:
                     session['codigoDt'] = request.form.get("codigoDt")                
-                    return redirect(url_for("inicio"))
+                    return redirect(url_for("stats"))
                 else:
                     flash("Contraseña incorrecta")
                     return render_template("inicioSesion.html")
@@ -66,8 +67,10 @@ def iniciarSesion():
 @sesionRequerida
 def salir():
     session.pop('codigoDt')
-    return redirect(url_for("inicio"))
+    return redirect(url_for("iniciarSesion"))
 
+
+'''
 @app.route("/registro")
 @sesionRequerida
 def registro():    
@@ -236,7 +239,7 @@ def equipos(idReset, idEquipo):
     app.logger.info(f"Se ha cargado la página de equipos {request.path}")
     print(equipo)
     return render_template("vistaEquipo.html", equipo=equipo, idReset=idReset)
-    
+'''
     
 @app.route("/stats")
 @sesionRequerida
