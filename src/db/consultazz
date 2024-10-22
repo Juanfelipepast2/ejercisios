@@ -1,0 +1,1 @@
+select idequipo, nombreequipo, dt.IDTECNICO, nombretecnico from ((equipo as e inner join TECNICOTEMPORADA as tt on e.IDEQUIPO = tt.IDEQUIPO) as equipos inner join tecnico as dt on tt.IDTECNICO = dt.IDTECNICO)
