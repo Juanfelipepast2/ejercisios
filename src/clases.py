@@ -256,7 +256,7 @@ class Temporada:
         self.fechaInicio = fechaInicio
         self.fechaFin = fechaFin      
 
-
+    
 
     def __str__(self):
         return f"{self.id} {self.idReset} {self.fechaInicio} {self.fechaFin} "
@@ -297,20 +297,36 @@ class Temporada:
         return cantidad[0][0]
 
 class Partido:
-    def __init__(self, id: int, equipoLocal: Equipo, equipoVisitante: Equipo, idTemporada: int, fecha: int, amarillasLocal: int, rojasLocal: int, amarillasVisitante: int, rojasVisitante: int, fase: str):
+    def __init__(self, id: int, equipoLocal: Equipo, equipoVisitante: Equipo, idTemporada: int, fecha: int, amarillasLocal: int, rojasLocal: int, amarillasVisitante: int, rojasVisitante: int, fase: str, resultado: str):
         self.id = id
         self.equipoLocal = equipoLocal
         self.equipoVisitante = equipoVisitante
         self.idTemporada = idTemporada
         self.fecha = fecha
+        self.resultado = resultado
         self.amarillasLocal = amarillasLocal
         self.rojasLocal = rojasLocal
         self.amarillasVisitante = amarillasVisitante
         self.rojasVisitante = rojasVisitante
         self.fase = fase
 
+
+    def serializar(self):
+        return {
+            "id": self.id,
+            "equipoLocal": self.equipoLocal.nombre,
+            "equipoVisitante": self.equipoVisitante.nombre,
+            "idTemporada": self.idTemporada,
+            "fecha": self.fecha,
+            "resultado": self.resultado,
+            "amarillasLocal": self.amarillasLocal,
+            "rojasLocal": self.rojasLocal,
+            "amarillasVisitante": self.amarillasVisitante,}                            
+
+
     def __str__(self):
-        return f"{self.id} {self.equipoLocal} {self.equipoVisitante} {self.idTemporada} {self.fecha} {self.amarillasLocal} {self.rojasLocal} {self.amarillasVisitante} {self.rojasVisitante} {self.fase}"
+        return f"{self.id} {self.equipoLocal} {self.equipoVisitante} {self.idTemporada} {self.fecha} {self.amarillasLocal} {self.rojasLocal} {self.amarillasVisitante} {self.rojasVisitante} {self.fase}"    
+
     
     def guardarPartido(self):
         try:
@@ -322,14 +338,17 @@ class Partido:
         finally:
             del con
 
-    def obtenerPartidosTemporada(idTemporada: int):
+    
+    def obtenerPartidosVista(idTemporada: int) -> list:
         try:
             con = CRUD.Conexion()
-            con.cur.execute(f"SELECT * FROM PARTIDO WHERE IDTEMPORADA = {idTemporada}")
+            con.cur.execute(f"SELECT * FROM PARTIDOCOMPLETO WHERE IDTEMPORADA = {idTemporada}")
             partidos = con.cur.fetchall()
             listaPartidos = []
             for(partido) in partidos:
-                listaPartidos.append(Partido(partido[0], Equipo.obtenerEquipo(partido[2]), Equipo.obtenerEquipo(partido[4]), partido[5], partido[6], partido[7], partido[8], partido[9], partido[10], partido[11]))
+                equipoTempLocal = Equipo(partido[5], None, partido[4], None, None)
+                equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None)
+                listaPartidos.append(Partido(partido[0], equipoTempLocal, equpoTempVisitante, partido[1], partido[2], partido[14], partido[16], partido[15], partido[17], partido[3], resultado = f"{partido[8]} - {partido[9]}")) 
         except:
             print(traceback.print_exc())
         finally:
@@ -576,4 +595,3 @@ class Jugador:
         pass
             
         
-

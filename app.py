@@ -132,7 +132,7 @@ def partidosTemporada(idTemporada):
     cantFechas = len(listaEquipos) - 1 if len(listaEquipos) % 2 == 0 else len(listaEquipos)
     print(cantFechas)
     
-    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosTemporada(idTemporada), cantFechas=cantFechas)
+    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), cantFechas=cantFechas)
     
 
         
@@ -254,10 +254,12 @@ def statsJugador():
 
 
 
-@app.route("/api/testing", methods=["GET"])
-def testing():
-    temp = (clases.Equipo.obtenerEquipo(1))
-    return jsonify(temp.__dict__)
+@app.route("/api/temporada/<int:idtemporada>", methods=["GET"])
+def testing(idtemporada: int):
+    temp: list = (clases.Partido.obtenerPartidosVista(idtemporada))
+    print(temp)
+    return jsonify(eqtls=[e.serializar() for e in temp])
+
 
 if __name__ == "__main__":
     app.run(debug=True)
