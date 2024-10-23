@@ -158,7 +158,7 @@ class Tecnico:
         
 
 class Equipo:
-    def __init__(self, id: int, idReset: int, idTecnico: int, nombre: str, escudo, presupuesto: int):
+    def __init__(self, id: int, idReset: int, nombre: str, escudo, presupuesto: int):
         self.id = id
         self.nombre = nombre
         self.escudo = escudo        
@@ -166,7 +166,7 @@ class Equipo:
         self.presupuesto = presupuesto
         
         #ATRIBUTOS CON METODOS
-        self.setTecnico(idTecnico)
+        #self.setTecnico(idTecnico)
         ##ATRIBUTOS SIN USAR
                 
     def setTecnico(self, idTecnico: int) -> Tecnico:
@@ -201,13 +201,14 @@ class Equipo:
 
     @classmethod
     def obtenerEquipo(cls, id):
+        equipoTemp = None
         try:
             con = CRUD.Conexion()
             con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDEQUIPO = {id}")
             equipo = con.cur.fetchone()
-            equipoTemp = Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4], equipo[5])              
-        except:
-            print(traceback.print_exc())
+            equipoTemp = Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4])              
+        except Exception as e:
+            print(e)
         finally:
             del con
         return equipoTemp

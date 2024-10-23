@@ -1,0 +1,7 @@
+SELECT partido.IDPARTIDO, local.nombreequipo as Local,  count(distinct glocal.IDGOL), count(distinct gvisita.idgol), visitante.NOMBREEQUIPO as Visitante 
+ FROM
+ (((PARTIDO left join EQUIPO as Local
+  on Partido.IDEQUIPOLOCAL = Local.IDEQUIPO) as total 
+ 
+  left join equipo as visitante on visitante.IDEQUIPO = partido.IDEQUIPOVISITANTE) left join gol as glocal on
+  (partido.IDPARTIDO = glocal.IDPARTIDO and glocal.IDEQUIPO = local.idequipo) join gol as  gvisita on (PARTIDO.IDPARTIDO = gvisita.IDPARTIDO and gvisita.IDEQUIPO = partido.IDEQUIPOVISITANTE) ) group by partido.idpartido
