@@ -257,7 +257,7 @@ def statsJugador():
 @app.route("/api/testing", methods=["GET"])
 def testing():
     temp = (clases.Equipo.obtenerEquipo(1))
-    return jsonify(temp)
+    return jsonify(temp.__dict__)
 
 if __name__ == "__main__":
     app.run(debug=True)
