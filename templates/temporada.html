@@ -1,7 +1,7 @@
 {% extends "index.html" %}
-{% block title %}Temporada {{idTemporada}}{% endblock %} 
+{% block title %}Temporada {{partido.idTemporada}}{% endblock %} 
 {% block content %}
-<h1 id="tituloTemporada">Temporada: {{idTemporada}}</h1>
+<h1 id="tituloTemporada">Temporada: {{partido.idTemporada}}</h1>
 <div class="contenidoTemporada">
   <!--CONTENEDOR TABLA-->
   <div id="contenedorTabla">
@@ -86,7 +86,7 @@
              
       {% for i in range (0, listaPartidos|count) %}         
 
-      <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
+      <a href="{{ url_for('partido', idTemporada=partido.idTemporada, idPartido=listaPartidos[i].id) }}">
         <div class="contenedorPartido">
           <div class="equipo">
             <img src="{{ url_for('static', filename='img/escudo.png') }}"alt=""/>

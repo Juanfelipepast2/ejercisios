@@ -169,6 +169,8 @@ class Equipo:
         #self.setTecnico(idTecnico)
         ##ATRIBUTOS SIN USAR
                 
+
+        #TODO ARREGLAR LA AGREGACION DE TECNICOS
     def setTecnico(self, idTecnico: int) -> Tecnico:
         self.tecnico: Tecnico = Tecnico.obtenerTecnico(idTecnico)
 
@@ -231,6 +233,9 @@ class Equipo:
     
     @classmethod
     def obtenerEquiposTemporada(cls, idTemporada: int):
+
+
+        #TODO CORREGIR ESTE METODO, TIENE PROBLEMAS SQL
         try:
             con = CRUD.Conexion()
             con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDEQUIPO IN (SELECT IDEQUIPO FROM EQUIPOTEMPORADA WHERE IDTEMPORADA = {idTemporada})")

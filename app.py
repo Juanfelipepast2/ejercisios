@@ -139,6 +139,8 @@ def partidosTemporada(idTemporada):
 @sesionRequerida
 def partido(idTemporada,idPartido):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+
+    #   TODO mandar bien la lista de equpos y dts
     return render_template("partido.html", partido = clases.Partido.obtenerPartido(idPartido), listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
        
 

@@ -2,10 +2,10 @@
 {% block title %}Partido{% endblock %} 
 {% block content %}
 <div class="contenedorGenerico">    
-    <form action="{{url_for('creandoPartido', idTemporada=idTemporada)}}" method="post">
+    {# <form action="{{url_for('creandoPartido', idTemporada=idTemporada)}}" method="post"> #}
         <div class="contenedorVistaPartido">
             
-            <h1>Temporada {{idTemporada}} fecha tal</h1>        
+            <h1>Temporada {{partido.idTemporada}} fecha {{partido.fecha}}</h1>        
                         
             <img src="{{ url_for('static', filename='img/logo-lce.png') }}", id="escudoPartidoLocal"/>        
         
@@ -14,15 +14,18 @@
             <div class="equipoLocal">
                 <h3>Equipo Local</h1>
                 <select name="selectorLocal">
-                {% for i in range (0, listaEquipos|count) %}
+                <!--TODO ARREGLAR SELECTOR EQUIPOS LOCALES-->
+                    <option value="">{{partido.equipoLocal.nombre}}</option>
+                {# {% for i in range (0, listaEquipos|count) %}
                     <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                {% endfor %}
+                {% endfor %} #}
                 </select>                       
                 <h3>Dt</h1>    
                 <select name="selectorDTLocal">
-                {% for i in range (0, listaTecnicos|count) %}
+                <!--TODO ARREGLAR SELECTOR TECNICOS LOCALES-->
+                {# {% for i in range (0, listaTecnicos|count) %}
                     <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}} {{listaTecnicos[i].apellido}}</option>
-                {% endfor %}
+                {% endfor %} #}
                 </select> 
             </div>
             
@@ -31,20 +34,23 @@
             <input type="hidden" name="contadorAmarillasVisitante" id="contadorAmarillasVisitante" value="0">
             <input type="hidden" name="contadorRojasVisitante" id="contadorRojasVisitante" value="0">
             <div class="marcador">
-                <h1 id="marcador">0 - 0</h1>                    
+                <h1 id="marcador">{{partido.resultado}}</h1>                    
             </div>
             <div class="equipoVisitante">
                 <h3>Equipo Visitante</h1>
                 <select name="selectorVisitante">
-                {% for i in range (0, listaEquipos|count) %}
+                <!--TODO ARREGLAR SELECTOR EQUIPOS VISITANTES-->
+                {# {% for i in range (0, listaEquipos|count) %}
                     <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                {% endfor %}
+                {% endfor %} #}                    
+                    <option value="">{{partido.equipoVisitante.nombre}}</option>
                 </select>
                 <h3>Dt</h1>
                 <select name="selectorDTVisitante" >
-                {% for i in range (0, listaTecnicos|count) %}
+                <!--TODO ARREGLAR SELECTOR TECNICOS VISITANTES-->
+                {# {% for i in range (0, listaTecnicos|count) %}
                     <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}} {{listaTecnicos[i].apellido}}</option>
-                {% endfor %}
+                {% endfor %} #}
                 </select>
             </div>
             
