@@ -354,6 +354,23 @@ class Partido:
         finally:
             del con
         return listaPartidos
+    
+    @classmethod
+    def obtenerPartido(cls, idPartido: int) -> "Partido":	
+        partidoTemp = None
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"SELECT * FROM PARTIDOCOMPLETO WHERE IDPARTIDO = {idPartido}")
+            partido = con.cur.fetchone()
+            equipoTempLocal = Equipo(partido[5], None, partido[4], None, None)
+            equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None)
+            partidoTemp = Partido(partido[0], equipoTempLocal, equpoTempVisitante, partido[1], partido[2], partido[14], partido[16], partido[15], partido[17], partido[3], resultado = f"{partido[8]} - {partido[9]}") 
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+        return partidoTemp
+
 class Reset:
     def __init__(self, id: int, fechaInicio, fechaFin):
         self.id = id

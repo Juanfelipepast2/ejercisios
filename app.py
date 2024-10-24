@@ -135,15 +135,20 @@ def partidosTemporada(idTemporada):
     return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), cantFechas=cantFechas)
     
 
-        
+@app.route("/temporada/<int:idTemporada>/<int:idPartido>")
+@sesionRequerida
+def partido(idTemporada,idPartido):
+    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    return render_template("partido.html", partido = clases.Partido.obtenerPartido(idPartido), listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
+       
 
 
 
 @app.route("/temporada/<int:idTemporada>/partido/crear")
 @sesionRequerida
-def partido(idTemporada):
+def partidoC(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("partido.html", idTemporada=idTemporada, listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
+    return render_template("partido.html", idTemporada=idTemporada)
 
 @app.route("/<int:idTemporada>/partido/creandoPartido", methods=["POST"])
 @sesionRequerida

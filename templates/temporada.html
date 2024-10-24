@@ -86,7 +86,7 @@
              
       {% for i in range (0, listaPartidos|count) %}         
 
-      <a href="{{ url_for('partido', idTemporada=idTemporada) }}">
+      <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
         <div class="contenedorPartido">
           <div class="equipo">
             <img src="{{ url_for('static', filename='img/escudo.png') }}"alt=""/>
@@ -106,10 +106,11 @@
       </a>
       
       {% endfor %}
-      <a href="{{ url_for('partido', idTemporada=idTemporada) }}">
+      {# CODIGO PARA AGREGAR PARTIDO  #}
+      {# <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
         <div class="contenedorPartido">
           <h3>+ Agregar Partido</h3>
-        </div>
+        </div> #}
       </a>
     </div>
   </div>
