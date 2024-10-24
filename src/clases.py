@@ -302,6 +302,7 @@ class Temporada:
         return cantidad[0][0]
 
 class Partido:
+    #TODO AGREGAR GOLES
     def __init__(self, id: int, equipoLocal: Equipo, equipoVisitante: Equipo, idTemporada: int, fecha: int, amarillasLocal: int, rojasLocal: int, amarillasVisitante: int, rojasVisitante: int, fase: str, resultado: str):
         self.id = id
         self.equipoLocal = equipoLocal
@@ -315,6 +316,9 @@ class Partido:
         self.fase = fase
         self.resultado = resultado
 
+        self.golesLocal = []
+        self.golesVisitante = []
+
     def serializar(self):
         return {
             "id": self.id,
@@ -325,7 +329,10 @@ class Partido:
             "resultado": self.resultado,
             "amarillasLocal": self.amarillasLocal,
             "rojasLocal": self.rojasLocal,
-            "amarillasVisitante": self.amarillasVisitante,}                            
+            "amarillasVisitante": self.amarillasVisitante,
+            "rojasVisitante": self.rojasVisitante,
+            "fase": self.fase
+            }                            
 
 
     def __str__(self):
@@ -390,6 +397,13 @@ class Partido:
             equipoTempLocal = Equipo(partido[5], None, partido[4], None, None)
             equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None)
             partidoTemp = Partido(partido[0], equipoTempLocal, equpoTempVisitante, partido[1], partido[2], partido[14], partido[16], partido[15], partido[17], partido[3], resultado = f"{partido[8]} - {partido[9]}") 
+            partidoTemp.golesLocal = Gol.obtenerGolesPartido(idPartido, partidoTemp.equipoLocal.id)
+            
+            partidoTemp.golesVisitante = Gol.obtenerGolesPartido(idPartido, partidoTemp.equipoVisitante.id)
+
+            Gol.mostrarGoles(partidoTemp.golesLocal)
+            Gol.mostrarGoles(partidoTemp.golesVisitante)
+
         except:
             print(traceback.print_exc())
         finally:
@@ -463,6 +477,7 @@ class Reset:
 
 class Gol:
     def __init__(self, id: int, idPartido: int, idJugador: int, idTemporada: int, idEquipo: int):
+        #TODO GESTIONAR EL NOMBRE DEL JUGADOR QUE ANOTA
         self.id = id
         self.idPartido = idPartido
         self.idJugador = idJugador        
@@ -492,19 +507,26 @@ class Gol:
         finally:
             del con
 
-    def obtenerGolesPartido(idPartido: int):
+
+    @classmethod
+    def obtenerGolesPartido(cls, idPartido: int, idEquipoAnotador: int): #idEquipoAnotador es el id del equipo que anota
         try:
             con = CRUD.Conexion()
-            con.cur.execute(f"SELECT * FROM GOL WHERE IDPARTIDO = {idPartido}")
+            con.cur.execute(f"SELECT * FROM GOL WHERE IDPARTIDO = {idPartido} AND IDEQUIPO = {idEquipoAnotador}")
             goles = con.cur.fetchall()
             listaGoles = []
             for(gol) in goles:
-                listaGoles.append(gol(gol[0], gol[1], gol[2], gol[3], gol[4]))
+                listaGoles.append(Gol(gol[0], gol[1], gol[2], gol[3], gol[4]))
         except:
             print(traceback.print_exc())
         finally:
             del con
         return listaGoles
+    
+    @classmethod
+    def mostrarGoles(cls, listaGoles):
+        for gol in listaGoles:
+            print(gol)
 
 class Stats:
     def __init__(self, idJugador: int):
