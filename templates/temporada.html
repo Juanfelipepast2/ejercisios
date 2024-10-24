@@ -89,6 +89,7 @@
       <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
         <div class="contenedorPartido">
           <div class="equipo">
+          <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
             <img src="{{ url_for('static', filename='img/escudo.png') }}"alt=""/>
             <h4>{{listaPartidos[i].equipoLocal.nombre}}</h4>
           </div>
