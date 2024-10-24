@@ -262,6 +262,7 @@ def equipos(idReset, idEquipo):
 @app.route("/stats")
 @sesionRequerida
 def stats():
+    #CORREGIR PAGINA DE STATS, CORREGIR EL SCRAPPER DE TRANSFERMARKT
     app.logger.info(f"Se ha cargado la página de stats {request.path}")
         
     return render_template("jugadoresReales.html", jugador=None)
