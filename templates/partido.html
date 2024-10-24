@@ -58,11 +58,18 @@
             <div id="estadisticasLocal">
                 <div class="botonesAñadirEstadisticas">
                     <ul>
-                        <li><input type="button" onclick="botonGol(true)" value="Gol"></li>
-                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla')" value="Amarilla"></li>
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja')" value="Roja"></li>
+
+                        <li><input type="button" onclick="botonGol(true, true)" value="Gol+"></li>
+                        <li><input type="button" onclick="botonGol(true, false)" value="Gol-"></li>   
+                        <br>                     
+                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla', true)" value="Amarilla + 0"></li>
+                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla', false)" value="Amarilla - 0"></li>
+                        <br>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja', true)" value="Roja + 0"></li>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja', false)" value="Roja - 0"></li>
                     </ul>
-                </div>             
+                </div>   
+                
             </div>
                 
                         
@@ -70,9 +77,15 @@
             <div id="estadisticasVisitante">
                 <div class="botonesAñadirEstadisticas">
                     <ul>
-                        <li><input type="button" onclick="botonGol(false)" value="Gol"></li>
-                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla')" value="Amarilla"></li>
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja')" value="Roja"></li>
+                        <li><input type="button" onclick="botonGol(false, true)" value="Gol+"></li>
+                        <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>     
+                        <br>                   
+                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla', true)" value="Amarilla + 0"></li>
+                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla', false)" value="Amarilla - 0"></li>
+
+                        <br>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja', true)" value="Roja + 0"></li>
+                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja', false)" value="Roja - 0"></li>
                     </ul>
                 </div> 
                 

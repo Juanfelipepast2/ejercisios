@@ -308,13 +308,12 @@ class Partido:
         self.equipoVisitante = equipoVisitante
         self.idTemporada = idTemporada
         self.fecha = fecha
-        self.resultado = resultado
         self.amarillasLocal = amarillasLocal
         self.rojasLocal = rojasLocal
         self.amarillasVisitante = amarillasVisitante
         self.rojasVisitante = rojasVisitante
         self.fase = fase
-
+        self.resultado = resultado
 
     def serializar(self):
         return {
@@ -343,6 +342,18 @@ class Partido:
         finally:
             del con
 
+    def actualizarPartido(self):
+        try:
+            con = CRUD.Conexion()
+            
+            con.cur.execute(f"UPDATE PARTIDO SET ,AMARILLASLOCALPARTIDO = {self.amarillasLocal}, ROJASLOCALPARTIDO = {self.rojasLocal}, AMARILLASVISITANTEPARTIDO = {self.amarillasVisitante}, ROJASVISITANTEPARTIDO = {self.rojasVisitante}, FASEPARTIDO = {self.fase} WHERE IDPARTIDO = {self.id}")
+            con.conexion.commit()
+            
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+
     
     def obtenerPartidosVista(idTemporada: int) -> list:
         try:
@@ -359,6 +370,15 @@ class Partido:
         finally:
             del con
         return listaPartidos
+    
+    def separarResultado(resultado: str) -> list:
+        listaResultados = []
+        resultados = resultado.split("-")
+        for res in resultados:
+            res = res.strip()
+            listaResultados.append(int(res))
+
+        return listaResultados
     
     @classmethod
     def obtenerPartido(cls, idPartido: int) -> "Partido":	
@@ -451,6 +471,16 @@ class Gol:
 
     def __str__(self):
         return f"{self.id} {self.idPartido} {self.idJugador} {self.idTemporada} {self.idEquipo}"
+
+    def eliminarGolesPartido(idPartido: int):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"DELETE FROM GOL WHERE IDPARTIDO = {idPartido}")
+            con.conexion.commit()
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
 
     def guardarGol(self):
         try:

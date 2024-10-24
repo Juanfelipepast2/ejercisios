@@ -166,6 +166,20 @@ def creandoPartido(idTemporada):
         partidoTemp.guardarPartido()
     return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
 
+@app.route("/<int:idTemporada>/partido/editandoPartido", methods=["POST"])
+@sesionRequerida
+def editandoPartido(idTemporada):
+    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    if request.method == "POST":
+        partidoTemp = clases.Partido(None, clases.Equipo.obtenerEquipo(int(request.form.get("selectorLocal"))), clases.Equipo.obtenerEquipo(int(request.form.get("selectorVisitante"))), idTemporada, 1, int(request.form["contadorAmarillasLocal"]), int(request.form["contadorRojasLocal"]), int(request.form["contadorAmarillasVisitante"]), int(request.form["contadorRojasVisitante"]), 'tct')
+        partidoTemp.equipoLocal.setTecnico(int(request.form.get("selectorDTLocal")))
+        partidoTemp.equipoVisitante.setTecnico(int(request.form.get("selectorDTVisitante")))
+        print(partidoTemp)
+        print(partidoTemp.equipoLocal)
+        print(partidoTemp.equipoVisitante)
+        partidoTemp.guardarPartido()
+    return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
+
 
 
 @app.route("/temporada")
