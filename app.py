@@ -276,6 +276,7 @@ def statsJugador():
 
 
 @app.route("/api/temporada/<int:idtemporada>", methods=["GET"])
+@sesionRequerida
 def testing(idtemporada: int):
     temp: list = (clases.Partido.obtenerPartidosVista(idtemporada))
     print(temp)
