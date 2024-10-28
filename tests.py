@@ -1,4 +1,5 @@
 from src import clases
 import app
 
-#clases.Equipo.obtenerEquiposTemporada(151)
+clases.Partido.obtenerPartido(1)
+

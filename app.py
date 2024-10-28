@@ -170,17 +170,41 @@ def creandoPartido(idTemporada):
 @app.route("/<int:idTemporada>/partido/editandoPartido", methods=["POST"])
 @sesionRequerida
 def editandoPartido(idTemporada):
-    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    partidoTemp = None
+    app.logger.info(f"SE ESTÁ EDITANDO EL PARTIDO {request.path}")
+    print("XDDDDDD")
     if request.method == "POST":
+        
         partidoTemp = clases.Partido(None, None, None, None, None, None, None, None, None, None, None)
         partidoTemp.id = request.form["idPartido"]
         partidoTemp.equipoLocal = clases.Equipo.obtenerEquipo(request.form.get("selectorLocal"))
-        
-        print("----------------------------")
+        partidoTemp.equipoVisitante = clases.Equipo.obtenerEquipo(request.form.get("selectorVisitante"))
+        partidoTemp.idTemporada = idTemporada
+        partidoTemp.amarillasLocal = int(request.form["cantidadAmarillasLocal"]) if request.form["cantidadAmarillasLocal"] != "" else 0
+        partidoTemp.rojasLocal = int(request.form["cantidadRojasLocal"]) if request.form["cantidadRojasLocal"] != "" else 0
+        partidoTemp.amarillasVisitante = int(request.form["cantidadAmarillasVisitante"]) if request.form["cantidadAmarillasVisitante"] != "" else 0
+        partidoTemp.rojasVisitante = int(request.form["cantidadRojasVisitante"]) if request.form["cantidadRojasVisitante"] != "" else 0
+        partidoTemp.fecha = int(request.form["fechaPartido"]) if request.form["fechaPartido"] != "" else  0
+        partidoTemp.fase = request.form["fasePartido"]
+        partidoTemp.resultado = request.form.get("contadorGolesLocal") + "-" + request.form.get("contadorGolesVisitante")
         print(partidoTemp)
+
+
         
-        # partidoTemp.guardarPartido()
-    return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
+        clases.Gol.eliminarGolesPartido(partidoTemp.id)
+
+        for i in range(1, int(request.form["contadorGolesLocal"]) + 1):
+            partidoTemp.golesLocal.append(clases.Gol(id=None, idPartido=partidoTemp.id, idJugador = None, idTemporada=partidoTemp.id, idEquipo=partidoTemp.equipoLocal.id)) #TODO CAMBIAR EL ID DEL JUGADOR
+
+        for i in range(1, int(request.form["contadorGolesVisitante"]) + 1):
+            partidoTemp.golesVisitante.append(clases.Gol(id=None, idPartido=partidoTemp.id, idJugador = None, idTemporada=partidoTemp.id, idEquipo=partidoTemp.equipoVisitante.id))
+        
+        partidoTemp.actualizarPartido() #TODO SI VOY A COPIAR ESTO A CREAR PARTIDO, ESTO DEBE ESTAR MÁS ARRIBA Y OBTENER EL ID DESPUES
+        partidoTemp.guardarGoles()        
+    else:
+        print("No se ha enviado nada")
+    # return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
+    return jsonify(partidoTemp.serializar())
 
 
 
@@ -262,7 +286,7 @@ def equipos(idReset, idEquipo):
     
     
 
-#TODO DESCOMENTAR ESTAS RUTAS
+#TODO DESCOMENTAR ESTAS RUTAS Y TRATARLAS
 # @app.route("/stats")
 # @sesionRequerida
 # def stats():

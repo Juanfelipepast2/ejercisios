@@ -3,7 +3,7 @@
 {% block content %}
 <div class="contenedorGenerico">
 <!--TODO ARREGLAR EL FORMULARIO-->
-    <form action="{{url_for('editandoPartido', idTemporada=partido.idTemporada)}}" method="post">
+    <form action="{{url_for('editandoPartido', idTemporada=partido.idTemporada)}}" method="POST">
         <div class="contenedorVistaPartido">
             <input type="hidden" value="{{partido.id}}" name="idPartido">
             <li>
@@ -12,6 +12,9 @@
                                    
                     <h2>fecha:</h2>
                     <input type="number" name="fechaPartido" placeholder="Fecha del partido" value="{{partido.fecha}}">
+                    <br>
+                    <h2>fase:</h2>
+                    <input type="text" name="fasePartido" placeholder="Fase del partido" value="{{partido.fase}}">
                 </ul>
             </li>
             
@@ -46,12 +49,14 @@
                         </select>
             </div>            
             <div class="marcador">
-                <h1 id="marcador">{{partido.resultado}}</h1>
+                <input type="hidden" id="contadorGolesLocal" name="contadorGolesLocal" value="0">
+                <input type="hidden" id="contadorGolesVisitante" name="contadorGolesVisitante" value="0">
+                <h1 id="marcador" >{{partido.resultado}}</h1>
             </div>
             <div class="equipoVisitante">
                 <h3>Equipo Visitante</h1>
                     <select title="Equipo visitante" name="selectorVisitante">
-                        <!--TODO ARREGLAR SELECTOR EQUIPOS VISITANTES-->
+
                         {% for i in range (0, listaEquipos|count) %}
                             {% if partido.equipoVisitante.id == listaEquipos[i].id %}
                                 <option value="{{listaEquipos[i].id}}" selected>{{listaEquipos[i].nombre}}</option>

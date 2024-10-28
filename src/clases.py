@@ -209,9 +209,9 @@ class Equipo:
         equipoTemp = None
         try:
             con = CRUD.Conexion()
-            con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDEQUIPO = {id}")
+            con.cur.execute(f"SELECT * FROM EQUIPOTEMPORADACOMPLETO WHERE IDEQUIPO = {id}")
             equipo = con.cur.fetchone()
-            equipoTemp = Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4])              
+            equipoTemp = Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4], equipo[5])
         except Exception as e:
             print(e)
         finally:
@@ -342,7 +342,7 @@ class Partido:
 
 
     def __str__(self):
-        return f"{self.id} {self.equipoLocal} {self.equipoVisitante} {self.idTemporada} {self.fecha} {self.amarillasLocal} {self.rojasLocal} {self.amarillasVisitante} {self.rojasVisitante} {self.fase}"    
+        return f"-------------{self.id} {self.equipoLocal} {self.equipoVisitante} {self.idTemporada} {self.fecha} {self.amarillasLocal} {self.rojasLocal} {self.amarillasVisitante} {self.rojasVisitante} {self.fase}"    
 
     
     def guardarPartido(self):
@@ -359,7 +359,7 @@ class Partido:
         try:
             con = CRUD.Conexion()
             
-            con.cur.execute(f"UPDATE PARTIDO SET ,AMARILLASLOCALPARTIDO = {self.amarillasLocal}, ROJASLOCALPARTIDO = {self.rojasLocal}, AMARILLASVISITANTEPARTIDO = {self.amarillasVisitante}, ROJASVISITANTEPARTIDO = {self.rojasVisitante}, FASEPARTIDO = {self.fase} WHERE IDPARTIDO = {self.id}")
+            con.cur.execute(f"UPDATE PARTIDO SET ,AMARILLASLOCALPARTIDO = {self.amarillasLocal}, ROJASLOCALPARTIDO = {self.rojasLocal}, AMARILLASVISITANTEPARTIDO = {self.amarillasVisitante}, ROJASVISITANTEPARTIDO = {self.rojasVisitante}, FASEPARTIDO = {self.fase}, IDEQUIPOLOCAL = {self.equipoLocal.id}, IDTECNICOLOCAL = {self.equipoLocal.tecnico.id}, IDEQUIPOVISITANTE = {self.equipoVisitante} ,IDTECNICOVISITANTE = {self.equipoVisitante.tecnico.id} WHERE IDPARTIDO = {self.id}")
             con.conexion.commit()
             
         except:
@@ -393,6 +393,12 @@ class Partido:
 
         return listaResultados
     
+    def guardarGoles(self):
+        for gol in self.golesLocal:
+            gol.guardarGol()
+        for gol in self.golesVisitante:
+            gol.guardarGol()
+
     @classmethod
     def obtenerPartido(cls, idPartido: int) -> "Partido":	
         partidoTemp = None
@@ -406,7 +412,7 @@ class Partido:
             partidoTemp.golesLocal = Gol.obtenerGolesPartido(idPartido, partidoTemp.equipoLocal.id)
             
             partidoTemp.golesVisitante = Gol.obtenerGolesPartido(idPartido, partidoTemp.equipoVisitante.id)
-
+            print("fase:" + partidoTemp.fase)
             Gol.mostrarGoles(partidoTemp.golesLocal)
             Gol.mostrarGoles(partidoTemp.golesVisitante)
 
@@ -415,6 +421,19 @@ class Partido:
         finally:
             del con
         return partidoTemp
+
+    @classmethod
+    def obtenerUiltimoIdPartido(cls) -> int:
+        id = None
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute("SELECT MAX(IDPARTIDO) FROM PARTIDO")
+            id = con.cur.fetchone()[0]
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+        return int(id)
 
 class Reset:
     def __init__(self, id: int, fechaInicio, fechaFin):
@@ -493,7 +512,8 @@ class Gol:
     def __str__(self):
         return f"{self.id} {self.idPartido} {self.idJugador} {self.idTemporada} {self.idEquipo}"
 
-    def eliminarGolesPartido(idPartido: int):
+    @classmethod
+    def eliminarGolesPartido(cls, idPartido: int):
         try:
             con = CRUD.Conexion()
             con.cur.execute(f"DELETE FROM GOL WHERE IDPARTIDO = {idPartido}")
