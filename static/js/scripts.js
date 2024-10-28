@@ -137,40 +137,28 @@ function subirEscudo(botonSelEscudo) {
 
 //FUNCIONES PARA CREAR PARTIDO
 function botonGol(localia, agregarQuitarBool) {
-  //true = estadistica local; false= estadistica visitante
-  let idLista = "";
-  localia == true
-    ? (idLista = "estadisticasLocal")
-    : (idLista = "estadisticasVisitante");
-  let lista = document.getElementById(idLista);
-  console.log(lista.childElementCount + " " + agregarQuitarBool);
-
   golAlMarcador(localia, agregarQuitarBool);
-  if (agregarQuitarBool == true) {
-    generarObjetoGol(idLista, localia);
-  } else if (agregarQuitarBool == false && lista.childElementCount > 1) {
-    lista.removeChild(lista.lastElementChild);
-  }
-  console.log(lista.childElementCount);
 }
 
-function generarObjetoGol(idLista, equipoBool) { //equipoBool = true -> local; equipoBool = false -> visitante
+
+
+function generarObjetoGol(equipoBool, agregarQuitar) { //equipoBool = true -> local; equipoBool = false -> visitante, agregarQuitar = true -> agregar gol; agregarQuitar = false -> quitar gol
   //TODO ESTO ES PROVISIONAL, EN REALIDAD SE DEBEN PERMITIR SELECCIONAR JUGADORES EN EL SELECTOR,ESTO SOLO ES POSIBLE DESDE LA VISTA HTML
-  let lista = document.getElementById(idLista);
+  
+  let lista = null;
   let localia = "";
-  let variablex = "Jugador 1";
   let contadorGoles = "";
   let elemento = document.createElement("a");
 
   equipoBool == true ? (contadorGoles = document.getElementById("contadorGolesLocal")) : (contadorGoles = document.getElementById("contadorGolesVisitante"));
   equipoBool == true ? (localia = "Local") : (localia = "Visitante");
-  elemento.innerHTML =
+  equipoBool == true ? (lista = document.getElementById("estadisticasLocal")) : (lista = document.getElementById("estadisticasVisitante"));
+  if (agregarQuitar){
+    elemento.innerHTML =
     `<h3>Gol</h3> 
       <h4>Autor   :</h4>                    
       <select name="selectorGol` + localia + contadorGoles.value + `" style="max-width : 200px">
-      <option value="0">` +
-    variablex +
-    `</option>
+      
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -182,8 +170,14 @@ function generarObjetoGol(idLista, equipoBool) { //equipoBool = true -> local; e
       <option value="9">9</option>
       <option value="10">10</option>
       </select>`;
-  elemento.classList.add("estadisticas");
-  lista.appendChild(elemento);
+    elemento.classList.add("estadisticas");
+    lista.appendChild(elemento);
+  } else {
+    if(lista.childElementCount > 1){
+      lista.removeChild(lista.lastElementChild);
+  }
+  
+  }
 }
 
 function golAlMarcador(equipoBool, agregarQuitarBool) {
@@ -195,18 +189,17 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
   // equipoBool == true ? arrMarcador[0]++ : arrMarcador[4]++;
   if (equipoBool == true && agregarQuitarBool == true) {
     console.log("un gol más para el local");
+    generarObjetoGol(true, true);
     golesLocal.value++;
     arrMarcador[0]++;
-  } else if (
-    equipoBool == true &&
-    agregarQuitarBool == false &&
-    arrMarcador[0] > 0
-  ) {
+  } else if (equipoBool == true && agregarQuitarBool == false && arrMarcador[0] > 0) {
     console.log("un gol menos para el local");
+    generarObjetoGol(true, false);
     arrMarcador[0]--;
     golesLocal.value--;
   } else if (equipoBool == false && agregarQuitarBool == true) {
     console.log("un gol más para el visitante");
+    generarObjetoGol(false, true);
     arrMarcador[2]++;
     golesVisitante.value++;
   } else if (
@@ -215,6 +208,7 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
     arrMarcador[2] > 0
   ) {
     console.log("un gol menos para el visitante");
+    generarObjetoGol(false, false);
     arrMarcador[2]--;
     golesVisitante.value--;
   }

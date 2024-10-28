@@ -51,7 +51,7 @@
             <div class="marcador">
                 <input type="hidden" id="contadorGolesLocal" name="contadorGolesLocal" value="0">
                 <input type="hidden" id="contadorGolesVisitante" name="contadorGolesVisitante" value="0">
-                <h1 id="marcador" >{{partido.resultado}}</h1>
+                <h1 id="marcador" >0 - 0</h1>
             </div>
             <div class="equipoVisitante">
                 <h3>Equipo Visitante</h1>
@@ -128,14 +128,18 @@
             <input type="submit" class="botonGuardarPartido" value="Guardar partido">
         </div>
     </form>
-    {% for i in range(0, partido.golesVisitante|count) %}
-    <script>window.onload = generarObjetoGol("estadisticasVisitante");window.onload = textoTarjetas("cajaAmarillas");window.onload = textoTarjetas("cajaRojas")</script>
-    {% endfor %}
+    <script>
+        window.onload = textoTarjetas("cajaAmarillas");
+        window.onload = textoTarjetas("cajaRojas");
+        {% for i in range(0, partido.golesLocal|count) %}
+            window.onload = golAlMarcador(true, true);
+        {% endfor %}
 
-    {% for i in range(0, partido.golesLocal|count) %}
-    <script>generarObjetoGol("estadisticasLocal")</script>
-    {% endfor %}
+        {% for i in range(0, partido.golesVisitante|count) %}
+            window.onload = golAlMarcador(false, true);
+        {% endfor %}
     
+        </script>
     
     
     

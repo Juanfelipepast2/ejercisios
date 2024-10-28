@@ -179,6 +179,8 @@ def editandoPartido(idTemporada):
         partidoTemp.id = request.form["idPartido"]
         partidoTemp.equipoLocal = clases.Equipo.obtenerEquipo(request.form.get("selectorLocal"))
         partidoTemp.equipoVisitante = clases.Equipo.obtenerEquipo(request.form.get("selectorVisitante"))
+        partidoTemp.equipoLocal.setTecnico(request.form.get("selectorDTLocal"))
+        partidoTemp.equipoVisitante.setTecnico(request.form.get("selectorDTVisitante"))
         partidoTemp.idTemporada = idTemporada
         partidoTemp.amarillasLocal = int(request.form["cantidadAmarillasLocal"]) if request.form["cantidadAmarillasLocal"] != "" else 0
         partidoTemp.rojasLocal = int(request.form["cantidadRojasLocal"]) if request.form["cantidadRojasLocal"] != "" else 0
@@ -186,7 +188,7 @@ def editandoPartido(idTemporada):
         partidoTemp.rojasVisitante = int(request.form["cantidadRojasVisitante"]) if request.form["cantidadRojasVisitante"] != "" else 0
         partidoTemp.fecha = int(request.form["fechaPartido"]) if request.form["fechaPartido"] != "" else  0
         partidoTemp.fase = request.form["fasePartido"]
-        partidoTemp.resultado = request.form.get("contadorGolesLocal") + "-" + request.form.get("contadorGolesVisitante")
+        partidoTemp.resultado = f"{request.form.get("contadorGolesLocal")} - {request.form.get("contadorGolesVisitante")}"
         print(partidoTemp)
 
 

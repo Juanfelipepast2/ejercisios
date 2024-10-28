@@ -358,8 +358,9 @@ class Partido:
     def actualizarPartido(self):
         try:
             con = CRUD.Conexion()
-            
-            con.cur.execute(f"UPDATE PARTIDO SET ,AMARILLASLOCALPARTIDO = {self.amarillasLocal}, ROJASLOCALPARTIDO = {self.rojasLocal}, AMARILLASVISITANTEPARTIDO = {self.amarillasVisitante}, ROJASVISITANTEPARTIDO = {self.rojasVisitante}, FASEPARTIDO = {self.fase}, IDEQUIPOLOCAL = {self.equipoLocal.id}, IDTECNICOLOCAL = {self.equipoLocal.tecnico.id}, IDEQUIPOVISITANTE = {self.equipoVisitante} ,IDTECNICOVISITANTE = {self.equipoVisitante.tecnico.id} WHERE IDPARTIDO = {self.id}")
+            query = f"UPDATE PARTIDO SET AMARILLASLOCALPARTIDO = {self.amarillasLocal}, ROJASLOCALPARTIDO = {self.rojasLocal}, AMARILLASVISITANTEPARTIDO = {self.amarillasVisitante}, ROJASVISITANTEPARTIDO = {self.rojasVisitante}, FASEPARTIDO = '{self.fase}', IDEQUIPOLOCAL = {self.equipoLocal.id}, IDTECNICOLOCAL = {self.equipoLocal.tecnico.id}, IDEQUIPOVISITANTE = {self.equipoVisitante.id} ,IDTECNICOVISITANTE = {self.equipoVisitante.tecnico.id} WHERE IDPARTIDO = {self.id}"
+            print(query)
+            con.cur.execute(query)
             con.conexion.commit()
             
         except:
