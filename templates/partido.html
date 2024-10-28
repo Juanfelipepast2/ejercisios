@@ -5,7 +5,7 @@
 <!--TODO ARREGLAR EL FORMULARIO-->
     <form action="{{url_for('editandoPartido', idTemporada=partido.idTemporada)}}" method="post">
         <div class="contenedorVistaPartido">
-
+            <input type="hidden" value="{{partido.id}}" name="idPartido">
             <li>
                 <ul>
                     <h1>Temporada {{partido.idTemporada}}</h1>
@@ -23,19 +23,26 @@
             <div class="equipoLocal">
                 <h3>Equipo Local</h1>
                     <select title="Equipo Local" name="selectorLocal">
-                        <!--TODO ARREGLAR SELECTOR EQUIPOS LOCALES-->
-                        <option value="{{ partido.equipoLocal.id }}">{{partido.equipoLocal.nombre}}</option>
-                        {# {% for i in range (0, listaEquipos|count) %}
-                        <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                        {% endfor %} #}
+                                            
+                        {% for i in range (0, listaEquipos|count) %}
+                            {% if partido.equipoLocal.id == listaEquipos[i].id %}
+                                <option value="{{listaEquipos[i].id}}" selected>{{listaEquipos[i].nombre}}</option>
+                            {% else %}
+                                <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+                            {% endif %}
+                        {% endfor %}
                     </select>
                     <h3>Dt</h1>
                         <select title="DT equipo local" name="selectorDTLocal">
-                            <!--TODO ARREGLAR SELECTOR TECNICOS LOCALES-->
-                            {# {% for i in range (0, listaTecnicos|count) %}
-                            <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
-                                {{listaTecnicos[i].apellido}}</option>
-                            {% endfor %} #}
+                            {% for i in range (0, listaTecnicos|count) %}
+                                {% if listaTecnicos[i].id == partido.equipoLocal.tecnico.id %}
+                                    <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
+                                        {{listaTecnicos[i].apellido}}</option>
+                                {% else %}
+                                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
+                                        {{listaTecnicos[i].apellido}}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
             </div>            
             <div class="marcador">
@@ -45,18 +52,26 @@
                 <h3>Equipo Visitante</h1>
                     <select title="Equipo visitante" name="selectorVisitante">
                         <!--TODO ARREGLAR SELECTOR EQUIPOS VISITANTES-->
-                        {# {% for i in range (0, listaEquipos|count) %}
-                        <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                        {% endfor %} #}
-                        <option value="{{partido.equipoVisitante.id}}">{{partido.equipoVisitante.nombre}}</option>
+                        {% for i in range (0, listaEquipos|count) %}
+                            {% if partido.equipoVisitante.id == listaEquipos[i].id %}
+                                <option value="{{listaEquipos[i].id}}" selected>{{listaEquipos[i].nombre}}</option>
+                            {% else %}
+                                <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+                            {% endif %}
+                        {% endfor %}                    
                     </select>
                     <h3>Dt</h1>
                         <select title="DT equipo visitante" name="selectorDTVisitante">
                             <!--TODO ARREGLAR SELECTOR TECNICOS VISITANTES-->
-                            {# {% for i in range (0, listaTecnicos|count) %}
-                            <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
-                                {{listaTecnicos[i].apellido}}</option>
-                            {% endfor %} #}
+                            {% for i in range (0, listaTecnicos|count) %}
+                                {% if listaTecnicos[i].id == partido.equipoVisitante.tecnico.id %}
+                                    <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
+                                        {{listaTecnicos[i].apellido}}</option>
+                                {% else %}
+                                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
+                                        {{listaTecnicos[i].apellido}}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
             </div>
 

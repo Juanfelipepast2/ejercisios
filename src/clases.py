@@ -12,10 +12,13 @@ class Tecnico:
         self.contrasena = contrasena
         self.admin = admin
         self.pO = pO
+    
 
     def __str__(self):
         return f"{self.id} {self.idPais} {self.nombre} {self.apellido} {self.contrasena} {self.admin} {self.pO}"
-     
+
+    def getNombreCompleto(self):    
+        return f"{self.nombre} {self.apellido}"
 
     def toJson(self):
         return {
@@ -158,7 +161,7 @@ class Tecnico:
         
 
 class Equipo:
-    def __init__(self, id: int, idReset: int, nombre: str, escudo, presupuesto: int):
+    def __init__(self, id: int, idReset: int, nombre: str, escudo, presupuesto: int, idTecnico: int):
         self.id = id
         self.nombre = nombre
         self.escudo = escudo        
@@ -166,7 +169,7 @@ class Equipo:
         self.presupuesto = presupuesto
         
         #ATRIBUTOS CON METODOS
-        #self.setTecnico(idTecnico)
+        self.setTecnico(idTecnico)
         ##ATRIBUTOS SIN USAR
                 
 
@@ -238,11 +241,11 @@ class Equipo:
         #TODO CORREGIR ESTE METODO, TIENE PROBLEMAS SQL
         try:
             con = CRUD.Conexion()
-            con.cur.execute(f"SELECT * FROM EQUIPO WHERE IDEQUIPO IN (SELECT IDEQUIPO FROM EQUIPOTEMPORADA WHERE IDTEMPORADA = {idTemporada})")
+            con.cur.execute(f"SELECT * FROM EQUIPOTEMPORADACOMPLETO WHERE IDTEMPORADA = {idTemporada}")
             equipos = con.cur.fetchall()
             listaEquipos = []
             for(equipo) in equipos:
-                equipoTemp = Equipo(equipo[0], equipo[1], None, equipo[3], equipo[4], equipo[5])                
+                equipoTemp = Equipo(equipo[0], equipo[1], equipo[2], equipo[3], equipo[4], equipo[5])                
                 equipoTemp.tecnico = Tecnico.obtenerTecnicosTemporada(idTemporada, equipoTemp.id)
                 listaEquipos.append(equipoTemp)
 
@@ -319,6 +322,9 @@ class Partido:
         self.golesLocal = []
         self.golesVisitante = []
 
+    
+
+
     def serializar(self):
         return {
             "id": self.id,
@@ -369,8 +375,8 @@ class Partido:
             partidos = con.cur.fetchall()
             listaPartidos = []
             for(partido) in partidos:
-                equipoTempLocal = Equipo(partido[5], None, partido[4], None, None)
-                equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None)
+                equipoTempLocal = Equipo(partido[5], None, partido[4], None, None, partido[5])
+                equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None, partido[6])
                 listaPartidos.append(Partido(partido[0], equipoTempLocal, equpoTempVisitante, partido[1], partido[2], partido[14], partido[16], partido[15], partido[17], partido[3], resultado = f"{partido[8]} - {partido[9]}")) 
         except:
             print(traceback.print_exc())
@@ -394,8 +400,8 @@ class Partido:
             con = CRUD.Conexion()
             con.cur.execute(f"SELECT * FROM PARTIDOCOMPLETO WHERE IDPARTIDO = {idPartido}")
             partido = con.cur.fetchone()
-            equipoTempLocal = Equipo(partido[5], None, partido[4], None, None)
-            equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None)
+            equipoTempLocal = Equipo(partido[5], None, partido[4], None, None, partido[6])
+            equpoTempVisitante = Equipo(partido[11], None, partido[10], None, None, partido[12])
             partidoTemp = Partido(partido[0], equipoTempLocal, equpoTempVisitante, partido[1], partido[2], partido[14], partido[16], partido[15], partido[17], partido[3], resultado = f"{partido[8]} - {partido[9]}") 
             partidoTemp.golesLocal = Gol.obtenerGolesPartido(idPartido, partidoTemp.equipoLocal.id)
             

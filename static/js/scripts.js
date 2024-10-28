@@ -214,7 +214,6 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
 function textoTarjetas(classElemento){ //tipoTarjeta = true -> amarilla; tipoTarjeta = false -> roja
   let caja = document.getElementsByClassName(classElemento);
   for(let i = 0; i < caja.length; i++){
-    console.log(caja[i].ariaPlaceholder);
     if(caja[i].value == "0"){
       classElemento == "cajaAmarillas" ? caja[i].value = null : caja[i].value = null;
     }

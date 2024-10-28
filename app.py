@@ -139,8 +139,6 @@ def partidosTemporada(idTemporada):
 @sesionRequerida
 def partido(idTemporada,idPartido):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-
-    #   TODO mandar bien la lista de equpos y dts
     return render_template("partido.html", partido = clases.Partido.obtenerPartido(idPartido), listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
        
 
@@ -166,18 +164,22 @@ def creandoPartido(idTemporada):
         partidoTemp.guardarPartido()
     return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
 
+
+
+#TODO ARREGLAR ESTE FORMULARIO
 @app.route("/<int:idTemporada>/partido/editandoPartido", methods=["POST"])
 @sesionRequerida
 def editandoPartido(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
     if request.method == "POST":
-        partidoTemp = clases.Partido(None, clases.Equipo.obtenerEquipo(int(request.form.get("selectorLocal"))), clases.Equipo.obtenerEquipo(int(request.form.get("selectorVisitante"))), idTemporada, 1, int(request.form["contadorAmarillasLocal"]), int(request.form["contadorRojasLocal"]), int(request.form["contadorAmarillasVisitante"]), int(request.form["contadorRojasVisitante"]), 'tct')
-        partidoTemp.equipoLocal.setTecnico(int(request.form.get("selectorDTLocal")))
-        partidoTemp.equipoVisitante.setTecnico(int(request.form.get("selectorDTVisitante")))
+        partidoTemp = clases.Partido(None, None, None, None, None, None, None, None, None, None, None)
+        partidoTemp.id = request.form["idPartido"]
+        partidoTemp.equipoLocal = clases.Equipo.obtenerEquipo(request.form.get("selectorLocal"))
+        
+        print("----------------------------")
         print(partidoTemp)
-        print(partidoTemp.equipoLocal)
-        print(partidoTemp.equipoVisitante)
-        partidoTemp.guardarPartido()
+        
+        # partidoTemp.guardarPartido()
     return redirect(url_for("partidosTemporada", idTemporada=idTemporada))
 
 
