@@ -135,38 +135,37 @@ function subirEscudo(botonSelEscudo) {
   }
 }
 
-
 //FUNCIONES PARA CREAR PARTIDO
 function botonGol(localia, agregarQuitarBool) {
   //true = estadistica local; false= estadistica visitante
   let idLista = "";
-  localia == true    ? (idLista = "estadisticasLocal")  : (idLista = "estadisticasVisitante");
+  localia == true
+    ? (idLista = "estadisticasLocal")
+    : (idLista = "estadisticasVisitante");
   let lista = document.getElementById(idLista);
   console.log(lista.childElementCount + " " + agregarQuitarBool);
 
   golAlMarcador(localia, agregarQuitarBool);
   if (agregarQuitarBool == true) {
-      
     generarObjetoGol(idLista);
-    } else if (agregarQuitarBool == false && lista.childElementCount > 1) {        
-        lista.removeChild(lista.lastElementChild);
-    }
-    console.log(lista.childElementCount);
-
+  } else if (agregarQuitarBool == false && lista.childElementCount > 1) {
+    lista.removeChild(lista.lastElementChild);
+  }
+  console.log(lista.childElementCount);
 }
-  
 
-function generarObjetoGol(idLista){//TODO ESTO ES PROVISIONAL, EN REALIDAD SE DEBEN PERMITIR SELECCIONAR JUGADORES EN EL SELECTOR,ESTO SOLO ES POSIBLE DESDE LA VISTA HTML
+function generarObjetoGol(idLista) {
+  //TODO ESTO ES PROVISIONAL, EN REALIDAD SE DEBEN PERMITIR SELECCIONAR JUGADORES EN EL SELECTOR,ESTO SOLO ES POSIBLE DESDE LA VISTA HTML
   let lista = document.getElementById(idLista);
-    let variablex = "Jugador 1";
-    let elemento = document.createElement("a");
-      elemento.innerHTML =
-      `<h3>Gol</h3> 
+  let variablex = "Jugador 1";
+  let elemento = document.createElement("a");
+  elemento.innerHTML =
+    `<h3>Gol</h3> 
       <h4>Autor   :</h4>                    
       <select name="selectorGolLocal" style="max-width : 200px">
       <option value="0">` +
-      variablex +
-      `</option>
+    variablex +
+    `</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -178,29 +177,48 @@ function generarObjetoGol(idLista){//TODO ESTO ES PROVISIONAL, EN REALIDAD SE DE
       <option value="9">9</option>
       <option value="10">10</option>
       </select>`;
-      elemento.classList.add("estadisticas");
-      lista.appendChild(elemento);
+  elemento.classList.add("estadisticas");
+  lista.appendChild(elemento);
 }
-  
-  
 
 function golAlMarcador(equipoBool, agregarQuitarBool) {
-    let marcador = document.getElementById("marcador");
-    let arrMarcador = marcador.innerHTML.split(" ");
-    console.log(arrMarcador);
+  let marcador = document.getElementById("marcador");
+  let arrMarcador = marcador.innerHTML.split(" ");
+  console.log(arrMarcador);
   // equipoBool == true ? arrMarcador[0]++ : arrMarcador[4]++;
   if (equipoBool == true && agregarQuitarBool == true) {
     console.log("un gol más para el local");
     arrMarcador[0]++;
-} else if (equipoBool == true && agregarQuitarBool == false && arrMarcador[0] > 0) {
+  } else if (
+    equipoBool == true &&
+    agregarQuitarBool == false &&
+    arrMarcador[0] > 0
+  ) {
     console.log("un gol menos para el local");
     arrMarcador[0]--;
-} else if (equipoBool == false && agregarQuitarBool == true) {
+  } else if (equipoBool == false && agregarQuitarBool == true) {
     console.log("un gol más para el visitante");
     arrMarcador[2]++;
-} else if (    equipoBool == false && agregarQuitarBool == false && arrMarcador[2] > 0 ) {
-      console.log("un gol menos para el visitante");
+  } else if (
+    equipoBool == false &&
+    agregarQuitarBool == false &&
+    arrMarcador[2] > 0
+  ) {
+    console.log("un gol menos para el visitante");
     arrMarcador[2]--;
   }
   marcador.innerHTML = arrMarcador.join(" ");
+}
+
+
+function textoTarjetas(classElemento){ //tipoTarjeta = true -> amarilla; tipoTarjeta = false -> roja
+  let caja = document.getElementsByClassName(classElemento);
+  for(let i = 0; i < caja.length; i++){
+    console.log(caja[i].ariaPlaceholder);
+    if(caja[i].value == "0"){
+      classElemento == "cajaAmarillas" ? caja[i].value = null : caja[i].value = null;
+    }
+  }
+  
+
 }

@@ -3,6 +3,7 @@ import requests
 from . import clases
 from bs4 import BeautifulSoup
 from PIL import Image
+
 def obtenerJugadorTM(link) -> clases.Jugador:
     try:
         headers = {'User-Agent': 
@@ -105,6 +106,8 @@ def traducirAbreviatura(pos):
         return "DC"                
     else:
         return None
-    
-obtenerJugadorTM("https://www.transfermarkt.co/konrad-laimer/profil/spieler/223967")
+
+
+ #TODO DESCOMENTAR Y CORREGIR    
+#obtenerJugadorTM("https://www.transfermarkt.co/konrad-laimer/profil/spieler/223967")
     

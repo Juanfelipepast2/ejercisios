@@ -259,20 +259,22 @@ def equipos(idReset, idEquipo):
     return render_template("vistaEquipo.html", equipo=equipo, idReset=idReset)
     
     
-@app.route("/stats")
-@sesionRequerida
-def stats():
-    #CORREGIR PAGINA DE STATS, CORREGIR EL SCRAPPER DE TRANSFERMARKT
-    app.logger.info(f"Se ha cargado la página de stats {request.path}")
-        
-    return render_template("jugadoresReales.html", jugador=None)
 
-@app.route("/statsanadidos", methods=["POST"])
-@sesionRequerida
-def statsJugador():
-    app.logger.info(f"Se ha cargado la página de stats {request.path}")
-    jugador = scrapper.recibirCodigo(int(request.form["codigoSofifa"]), request.form["linkTransfermarkt"])
-    return render_template("jugadoresReales.html", jugador = jugador)
+#TODO DESCOMENTAR ESTAS RUTAS
+# @app.route("/stats")
+# @sesionRequerida
+# def stats():
+#     #CORREGIR PAGINA DE STATS, CORREGIR EL SCRAPPER DE TRANSFERMARKT
+#     app.logger.info(f"Se ha cargado la página de stats {request.path}")
+        
+#     return render_template("jugadoresReales.html", jugador=None)
+
+# @app.route("/statsanadidos", methods=["POST"])
+# @sesionRequerida
+# def statsJugador():
+#     app.logger.info(f"Se ha cargado la página de stats {request.path}")
+#     jugador = scrapper.recibirCodigo(int(request.form["codigoSofifa"]), request.form["linkTransfermarkt"])
+#     return render_template("jugadoresReales.html", jugador = jugador)
 
 
 
