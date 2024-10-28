@@ -6,7 +6,15 @@
     <form action="{{url_for('editandoPartido', idTemporada=partido.idTemporada)}}" method="post">
         <div class="contenedorVistaPartido">
 
-            <h1>Temporada {{partido.idTemporada}} fecha {{partido.fecha}}</h1>
+            <li>
+                <ul>
+                    <h1>Temporada {{partido.idTemporada}}</h1>
+                                   
+                    <h2>fecha:</h2>
+                    <input type="number" name="fechaPartido" placeholder="Fecha del partido" value="{{partido.fecha}}">
+                </ul>
+            </li>
+            
 
             <img src="{{ url_for('static', filename='img/logo-lce.png') }}" , id="escudoPartidoLocal" />
 
@@ -29,12 +37,7 @@
                                 {{listaTecnicos[i].apellido}}</option>
                             {% endfor %} #}
                         </select>
-            </div>
-
-            <input type="hidden" name="contadorAmarillasLocal" id="contadorAmarillasLocal" value="0">
-            <input type="hidden" name="contadorRojasLocal" id="contadorRojasLocal" value="0">
-            <input type="hidden" name="contadorAmarillasVisitante" id="contadorAmarillasVisitante" value="0">
-            <input type="hidden" name="contadorRojasVisitante" id="contadorRojasVisitante" value="0">
+            </div>            
             <div class="marcador">
                 <h1 id="marcador">{{partido.resultado}}</h1>
             </div>
@@ -64,16 +67,16 @@
 
                         <li><input type="button" onclick="botonGol(true, true)" value="Gol+"></li>
                         <li><input type="button" onclick="botonGol(true, false)" value="Gol-"></li>
-                        <br>
-                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla', true)" value="+">
-                        </li>
-                        <li><input type="button" onclick="botonTarjeta(true, 'Amarilla', false)" value="-">
-                        </li>
-                        <br>
-                        <li></li>
-                        <!--TODO CAMBIAR BOTONES DE TARJETAS POR UN CAMPO DE TEXTO, PARA ESCRIBIR LA CANTIDAD DE TARJETAS DE UNA VEZ-->
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja', true)" value="+"></li>
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(true, 'Roja', false)" value="-"></li>
+                    </ul>
+
+                    <ul>
+                        <li><label>Amarillas</label></li>
+                        <li><input type="number" name="cantidadAmarillasLocal" placeholder="Cantidad amarillas" value="{{partido.amarillasLocal}}"></li>
+                    </ul>
+                        
+                    <ul>
+                        <li><label>Rojas</label></li>
+                        <li><input type="number" name="cantidadRojasLocal" placeholder="Cantidad rojas" value="{{partido.rojasLocal}}"></li>
                     </ul>
                 </div>
 
@@ -86,18 +89,17 @@
                 <div class="botonesAñadirEstadisticas">
                     <ul>
                         <li><input type="button" onclick="botonGol(false, true)" value="Gol+"></li>
-                        <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>
-                        <br>
-                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla', true)" value="Amarilla + 0">
-                        </li>
-                        <li><input type="button" onclick="botonTarjeta(false, 'Amarilla', false)" value="Amarilla - 0">
-                        </li>
+                        <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>                        
+                    </ul>
 
-                        <br>
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja', true)"
-                                value="Roja + 0"></li>
-                        <li><input type="button" id="botonTarjetaRoja" onclick="botonTarjeta(false, 'Roja', false)"
-                                value="Roja - 0"></li>
+                    <ul>
+                        <li><label>Amarillas</label></li>
+                        <li><input type="number" name="cantidadAmarillasVisitante" placeholder="Cantidad amarillas"></li>
+                    </ul>
+                        
+                    <ul>
+                        <li><label>Rojas</label></li>
+                        <li><input type="number" name="cantidadRojasVisitante" placeholder="Cantidad rojas"></li>
                     </ul>
                 </div>
 
