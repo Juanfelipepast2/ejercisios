@@ -142,6 +142,11 @@ def partido(idTemporada,idPartido):
     return render_template("partido.html", partido = clases.Partido.obtenerPartido(idPartido), listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
        
 
+@app.route("/temporada/<int:idTemporada>/crearPartido")
+@sesionRequerida
+def crearPartido(idTemporada):
+    app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
+    return render_template("partido.html", listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
 
 
 @app.route("/temporada/<int:idTemporada>/partido/crear")
@@ -150,6 +155,8 @@ def partidoC(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
     return render_template("partido.html", idTemporada=idTemporada)
 
+
+#TODO EDITAR ESTA RUTA
 @app.route("/<int:idTemporada>/partido/creandoPartido", methods=["POST"])
 @sesionRequerida
 def creandoPartido(idTemporada):
@@ -166,7 +173,7 @@ def creandoPartido(idTemporada):
 
 
 
-
+#TODO CAMBIAR EL NOMBRE DE ESTA RUTA
 @app.route("/<int:idTemporada>/partido/editandoPartido", methods=["POST"])
 @sesionRequerida
 def editandoPartido(idTemporada):

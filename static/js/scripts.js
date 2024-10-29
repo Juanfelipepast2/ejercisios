@@ -19,6 +19,9 @@ function agregarEquipos(listaTecnicos) {
   const cuerpoTabla = document.getElementById("cuerpoTablaCreacionEquipos");
   const filas = cuerpoTabla.rows;
 
+
+
+
   cantidadEquipos.value++;
   let tr = document.createElement("tr");
 
@@ -144,7 +147,7 @@ function botonGol(localia, agregarQuitarBool) {
 
 function generarObjetoGol(equipoBool, agregarQuitar) { //equipoBool = true -> local; equipoBool = false -> visitante, agregarQuitar = true -> agregar gol; agregarQuitar = false -> quitar gol
   //TODO ESTO ES PROVISIONAL, EN REALIDAD SE DEBEN PERMITIR SELECCIONAR JUGADORES EN EL SELECTOR,ESTO SOLO ES POSIBLE DESDE LA VISTA HTML
-  
+
   let lista = null;
   let localia = "";
   let contadorGoles = "";
@@ -153,9 +156,9 @@ function generarObjetoGol(equipoBool, agregarQuitar) { //equipoBool = true -> lo
   equipoBool == true ? (contadorGoles = document.getElementById("contadorGolesLocal")) : (contadorGoles = document.getElementById("contadorGolesVisitante"));
   equipoBool == true ? (localia = "Local") : (localia = "Visitante");
   equipoBool == true ? (lista = document.getElementById("estadisticasLocal")) : (lista = document.getElementById("estadisticasVisitante"));
-  if (agregarQuitar){
+  if (agregarQuitar) {
     elemento.innerHTML =
-    `<h3>Gol</h3> 
+      `<h3>Gol</h3> 
       <h4>Autor   :</h4>                    
       <select name="selectorGol` + localia + contadorGoles.value + `" style="max-width : 200px">
       
@@ -173,10 +176,10 @@ function generarObjetoGol(equipoBool, agregarQuitar) { //equipoBool = true -> lo
     elemento.classList.add("estadisticas");
     lista.appendChild(elemento);
   } else {
-    if(lista.childElementCount > 1){
+    if (lista.childElementCount > 1) {
       lista.removeChild(lista.lastElementChild);
-  }
-  
+    }
+
   }
 }
 
@@ -216,13 +219,13 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
 }
 
 
-function textoTarjetas(classElemento){ //tipoTarjeta = true -> amarilla; tipoTarjeta = false -> roja
+function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTarjeta = false -> roja
   let caja = document.getElementsByClassName(classElemento);
-  for(let i = 0; i < caja.length; i++){
-    if(caja[i].value == "0"){
+  for (let i = 0; i < caja.length; i++) {
+    if (caja[i].value == "0") {
       classElemento == "cajaAmarillas" ? caja[i].value = null : caja[i].value = null;
     }
   }
-  
+
 
 }
