@@ -166,7 +166,7 @@ def creandoPartido(idTemporada):
 
 
 
-#TODO ARREGLAR ESTE FORMULARIO
+
 @app.route("/<int:idTemporada>/partido/editandoPartido", methods=["POST"])
 @sesionRequerida
 def editandoPartido(idTemporada):

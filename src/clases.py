@@ -173,7 +173,6 @@ class Equipo:
         ##ATRIBUTOS SIN USAR
                 
 
-        #TODO ARREGLAR LA AGREGACION DE TECNICOS
     def setTecnico(self, idTecnico: int) -> Tecnico:
         self.tecnico: Tecnico = Tecnico.obtenerTecnico(idTecnico)
 
@@ -238,7 +237,6 @@ class Equipo:
     def obtenerEquiposTemporada(cls, idTemporada: int):
 
 
-        #TODO CORREGIR ESTE METODO, TIENE PROBLEMAS SQL
         try:
             con = CRUD.Conexion()
             con.cur.execute(f"SELECT * FROM EQUIPOTEMPORADACOMPLETO WHERE IDTEMPORADA = {idTemporada}")
@@ -305,7 +303,6 @@ class Temporada:
         return cantidad[0][0]
 
 class Partido:
-    #TODO AGREGAR GOLES
     def __init__(self, id: int, equipoLocal: Equipo, equipoVisitante: Equipo, idTemporada: int, fecha: int, amarillasLocal: int, rojasLocal: int, amarillasVisitante: int, rojasVisitante: int, fase: str, resultado: str):
         self.id = id
         self.equipoLocal = equipoLocal
