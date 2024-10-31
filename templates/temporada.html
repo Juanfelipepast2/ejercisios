@@ -61,7 +61,7 @@
   <!--CONTENEDOR FECHAS-->
   <div id="contenedorFechas">
 
-    <!--ARREGLAR EL FUNCIONAMIENTO DE LAS FECHAS-->
+    <!--TODO ARREGLAR EL FUNCIONAMIENTO DE LAS FECHAS-->
     <!--CONTENEDOR SELECTOR FECHAS-->
     <div class="contenedorBotones">
 
@@ -71,37 +71,40 @@
     </div>
 
     <h1>Partidos</h1>
-    <select id="selectorFechas" name="selctorFechas">
-      {% for i in range(0, cantFechas) %}
-      <option value="Fecha{{i+1}}">
-        <h1>Fecha {{i+1}}</h1>
-      </option>
+    <select id="selectorFechas" name="selctorFechas" title="Selector de fechas" onchange="cambiarFechasTemporada(this.options[this.selectedIndex].value);">
+      {% for i in range(1, cantFechas+1) %}
+
+        {% if i == 1 %}
+        <option value="{{i}}" selected>Fecha {{i}}</option>
+        {% else %}
+        <option value="{{i}}">Fecha {{i}}</option>
+        {% endif %}
       {% endfor %}
     </select>
     {% set grdc = 1 %}
     <div id="contenedorPartidos">
       <!--CONTENEDOR POR PARTIDO-->
-
-      {% for i in range (0, listaPartidos|count) %}
-
-      <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
-        <div class="contenedorPartido">
-          <div class="equipo">
-            <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
-            <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
-            <h4>{{listaPartidos[i].equipoLocal.nombre}}</h4>
+      <!--TODO ARREGLAR EL FUNCIONAMIENTO DE LOS PARTIDOS EN JS-->
+      {# {% for i in range (0, listaPartidos|count) %}
+      {% if listaPartidos[] %}
+        <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
+          <div class="contenedorPartido">
+            <div class="equipo">
+              <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
+              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
+              <h4>{{listaPartidos[i].equipoLocal.nombre}}</h4>
+            </div>
+            <div class="resultado">
+              <h4>{{listaPartidos[i].resultado}}</h4>
+            </div>
+            <div class="equipo">
+              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
+              <h4>{{listaPartidos[i].equipoVisitante.nombre}}</h4>
+            </div>
           </div>
-          <div class="resultado">
-            <h4>{{listaPartidos[i].resultado}}</h4>
-          </div>
-          <div class="equipo">
-            <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
-            <h4>{{listaPartidos[i].equipoVisitante.nombre}}</h4>
-          </div>
-        </div>
-      </a>
-
-      {% endfor %}
+        </a>
+      
+      {% endfor %} #}
       {# TODO ARREGLAR ESTE BOTON #}
       {# CODIGO PARA AGREGAR PARTIDO #}
       {% if not((listaEquipos|count) / 2 <= listaPartidos|count) %} 
@@ -116,6 +119,10 @@
     </div>
   </div>
 </div>
+  <script>
+    let listaJson = {{listaJson|tojson}};
+    window.onload = cargarPartidosEnTemporada(1, listaJson);
+  </script>
 
 
 {% endblock %}

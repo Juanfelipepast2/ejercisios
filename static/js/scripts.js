@@ -226,6 +226,52 @@ function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTa
       classElemento == "cajaAmarillas" ? caja[i].value = null : caja[i].value = null;
     }
   }
+}
+
+function generarCuadroPartido(partido){
+  console.log(partido);
+  let cuadroPartido = document.createElement("a");
+  //cuadroPartido.href = "{{ url_for('partido', idTemporada= "+ partido.idTemporada + ", idPartido= " + partido.id + ") }}";
+  cuadroPartido.href = "/temporada/" + partido.idTemporada + "/" + partido.id;
+    cuadroPartido.innerHTML = `
+          <div class="contenedorPartido">
+            <div class="equipo">
+              <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
+              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
+              <h4>` + partido.equipoLocal + `</h4>
+            </div>
+            <div class="resultado">
+              <h4>` + partido.resultado + `</h4>
+            </div>
+            <div class="equipo">
+              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
+              <h4>` + partido.equipoVisitante + `</h4>
+            </div>
+          </div>
+        `;
+  return cuadroPartido;
+
+}
 
 
+function cargarPartidosEnTemporada(fecha) {
+  listaPartidos = listaJson
+  let contenedorPartidos = document.getElementById("contenedorPartidos");
+  console.log(listaPartidos.length);
+  for (let i = 0; i < listaPartidos.length; i++) {
+    console.log(fecha);
+    if(listaPartidos[i].fecha == fecha){
+      contenedorPartidos.appendChild(generarCuadroPartido(listaPartidos[i]));
+      
+    } 
+    
+
+  }
+}
+
+function cambiarFechasTemporada(fecha){
+  console.log(fecha);
+  let contenedorPartidos = document.getElementById("contenedorPartidos");
+  contenedorPartidos.innerHTML = "";
+  cargarPartidosEnTemporada(fecha, listaPartidos);
 }

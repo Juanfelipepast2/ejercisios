@@ -1,5 +1,7 @@
 from flask import Flask, flash, json, jsonify, redirect, request, render_template, url_for, request, session
 from functools import wraps
+
+import requests
 import src.clases as clases
 import src.scrapperSofifa as scrapper
 
@@ -131,8 +133,13 @@ def partidosTemporada(idTemporada):
     listaEquipos = clases.Equipoposiciones.obtenerListaPosiciones(151)
     cantFechas = len(listaEquipos) - 1 if len(listaEquipos) % 2 == 0 else len(listaEquipos)
     print(cantFechas)
+
+    try:
+        response = requests.get(f'http://127.0.0.1:5000/api/temporada/{idTemporada}')        
+    except requests.ConnectionError as e:
+        print(e)
     
-    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), cantFechas=cantFechas)
+    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), listaJson = response.json(),cantFechas=cantFechas)
     
 
 @app.route("/temporada/<int:idTemporada>/<int:idPartido>")
@@ -314,11 +321,11 @@ def equipos(idReset, idEquipo):
 
 
 @app.route("/api/temporada/<int:idtemporada>", methods=["GET"])
-@sesionRequerida
+#@sesionRequerida
 def testing(idtemporada: int):
     temp: list = (clases.Partido.obtenerPartidosVista(idtemporada))
     print(temp)
-    return jsonify(eqtls=[e.serializar() for e in temp])
+    return jsonify([e.serializar() for e in temp])
 
 
 if __name__ == "__main__":
