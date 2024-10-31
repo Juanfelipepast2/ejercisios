@@ -33,7 +33,7 @@
         {% for i in range (0, listaEquipos|count) %}
         {% set primaryColor = NONE %}
         {% set secondaryColor = NONE %}
-        {% if i <= 8 %} {% set primaryColor='#9A6C00' %} {% set secondaryColor='#FFB400' %} {% endif %} {% if i> 8 %}
+        {% if i < 8 %} {% set primaryColor='#9A6C00' %} {% set secondaryColor='#FFB400' %} {% endif %} {% if i>= 8 %}
           {% set primaryColor = '#444444' %}
           {% set secondaryColor = '#848484' %}
           {% endif %}
@@ -41,17 +41,17 @@
             <td><button id="botonBorrarEquipo">Borrar</button></td>
             <td style="background-color: {{ primaryColor }};">{{i+1}}</td>
 
-            <td id="equipoYEscudoTabla" style="background-color: {{ secondaryColor }};">{{listaEquipos[i].nombre}}</td>
+            <td id="equipoYEscudoTabla" style="background-color: {{ secondaryColor }};">{{listaEquipos[i].equipo.nombre}}</td>
 
-            <td style="background-color: {{ primaryColor }};">14</td>
-            <td style="background-color: {{ secondaryColor }};">8</td>
-            <td style="background-color: {{ primaryColor }};">3</td>
-            <td style="background-color: {{ secondaryColor }};">3</td>
-            <td style="background-color: {{ primaryColor }};">20</td>
-            <td style="background-color: {{ secondaryColor }};">10</td>
-            <td style="background-color: {{ primaryColor }};">10</td>
-            <td style="background-color: {{ secondaryColor }};">64.3</td>
-            <td style="background-color: {{ primaryColor }};">27</td>
+            <td style="background-color: {{ primaryColor }};">{{listaEquipos[i].partidosJugados}}</td>
+            <td style="background-color: {{ secondaryColor }};">{{listaEquipos[i].partidosGanados}}</td>
+            <td style="background-color: {{ primaryColor }};">{{listaEquipos[i].partidosEmpatados}}</td>
+            <td style="background-color: {{ secondaryColor }};">{{listaEquipos[i].partidosPerdidos}}</td>
+            <td style="background-color: {{ primaryColor }};">{{listaEquipos[i].golesFavor}}</td>
+            <td style="background-color: {{ secondaryColor }};">{{listaEquipos[i].golesContra}}</td>
+            <td style="background-color: {{ primaryColor }};">{{listaEquipos[i].diffGoles}}</td>
+            <td style="background-color: {{ secondaryColor }};">{{listaEquipos[i].rendimiento}}</td>
+            <td style="background-color: {{ primaryColor }};">{{listaEquipos[i].puntos}}</td>
           </tr>
           {% endfor %}
       </tbody>
@@ -104,10 +104,14 @@
       {% endfor %}
       {# TODO ARREGLAR ESTE BOTON #}
       {# CODIGO PARA AGREGAR PARTIDO #}
+      {% if not((listaEquipos|count) / 2 <= listaPartidos|count) %} 
+      <h1>{{listaEquipos|count / 2}}</h1>
+      <h1>{{listaPartidos|count}}</h1>
       <a href="{{ url_for('crearPartido', idTemporada=idTemporada) }}">
         <div class="contenedorPartido">
           <h3>+ Agregar Partido</h3>
         </div>
+      {% endif %}
       </a>
     </div>
   </div>

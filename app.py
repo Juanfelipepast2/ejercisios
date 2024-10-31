@@ -128,7 +128,7 @@ def creandoTemporada(idReset):
 @sesionRequerida
 def partidosTemporada(idTemporada):        
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada)
+    listaEquipos = clases.Equipoposiciones.obtenerListaPosiciones(151)
     cantFechas = len(listaEquipos) - 1 if len(listaEquipos) % 2 == 0 else len(listaEquipos)
     print(cantFechas)
     
