@@ -228,6 +228,9 @@ function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTa
   }
 }
 
+
+//FUNCIONES PARA CREAR TEMPORADA
+
 function generarCuadroPartido(partido){
   console.log(partido);
   let cuadroPartido = document.createElement("a");
