@@ -267,8 +267,6 @@ function cargarPartidosEnTemporada(fecha) {
     }
   }
   cantPartidosFecha = contenedorPartidos.childElementCount;
-  console.log("cantidad de pt por fecha"+cantPartidosFecha);
-  console.log("optimos" + partidosOptimos);
   if (cantPartidosFecha < partidosOptimos) {
     
     let cuadroPartido = document.createElement("a");
@@ -277,7 +275,7 @@ function cargarPartidosEnTemporada(fecha) {
           <h3>+ Agregar Partido</h3>
         </div>
         `;
-    cuadroPartido.href = "/temporada/" + fecha + "/crearPartido";
+    cuadroPartido.href = "/temporada/" + listaPartidos[0].idTemporada + "/crearPartido";
     contenedorPartidos.appendChild(cuadroPartido);
   }
 

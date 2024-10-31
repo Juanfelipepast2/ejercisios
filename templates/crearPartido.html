@@ -4,19 +4,19 @@
 <div class="contenedorGenerico">
     {# <form action="{{url_for('editandoPartido', idTemporada=idTemporada)}}" method="POST"> #}
         <div class="contenedorVistaPartido">
-            <input type="hidden" value="{{partido.id}}" name="idPartido">
+            <input type="hidden" value="" name="idPartido">
             <li>
                 <ul>
-                    <h1>Temporada {{partido.idTemporada}}</h1>
-                                   
+                    <h1>Temporada </h1>
+
                     <h2>fecha:</h2>
-                    <input type="number" name="fechaPartido" placeholder="Fecha del partido" value="{{partido.fecha}}">
+                    <input type="number" name="fechaPartido" placeholder="Fecha del partido" value="">
                     <br>
                     <h2>fase:</h2>
-                    <input type="text" name="fasePartido" placeholder="Fase del partido" value="{{partido.fase}}">
+                    <input type="text" name="fasePartido" placeholder="Fase del partido" value="">
                 </ul>
             </li>
-            
+
 
             <img src="{{ url_for('static', filename='img/logo-lce.png') }}" , id="escudoPartidoLocal" />
 
@@ -25,55 +25,54 @@
             <div class="equipoLocal">
                 <h3>Equipo Local</h1>
                     <select title="Equipo Local" name="selectorLocal">
-                                            
+                        <option value="0" selected>Seleccione un equipo</option>
+
                         {% for i in range (0, listaEquipos|count) %}
-                            {% if partido.equipoLocal.id == listaEquipos[i].id %}
-                                <option value="{{listaEquipos[i].id}}" selected>{{listaEquipos[i].nombre}}</option>
-                            {% else %}
-                                <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                            {% endif %}
+
+
+                        <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+
                         {% endfor %}
                     </select>
                     <h3>Dt</h1>
                         <select title="DT equipo local" name="selectorDTLocal">
+                            <option value="0" selected>Seleccione un DT</option>
                             {% for i in range (0, listaTecnicos|count) %}
-                                {% if listaTecnicos[i].id == partido.equipoLocal.tecnico.id %}
-                                    <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
-                                        {{listaTecnicos[i].apellido}}</option>
-                                {% else %}
-                                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
-                                        {{listaTecnicos[i].apellido}}</option>
-                                {% endif %}
+
+
+                            <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
+                                {{listaTecnicos[i].apellido}}</option>
+
                             {% endfor %}
                         </select>
-            </div>            
+            </div>
             <div class="marcador">
                 <input type="hidden" id="contadorGolesLocal" name="contadorGolesLocal" value="0">
                 <input type="hidden" id="contadorGolesVisitante" name="contadorGolesVisitante" value="0">
-                <h1 id="marcador" >0 - 0</h1>
+                <h1 id="marcador">0 - 0</h1>
             </div>
             <div class="equipoVisitante">
                 <h3>Equipo Visitante</h1>
                     <select title="Equipo visitante" name="selectorVisitante">
 
+                        <option value="0" selected>Seleccione un equipo</option>
+
                         {% for i in range (0, listaEquipos|count) %}
-                            {% if partido.equipoVisitante.id == listaEquipos[i].id %}
-                                <option value="{{listaEquipos[i].id}}" selected>{{listaEquipos[i].nombre}}</option>
-                            {% else %}
-                                <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
-                            {% endif %}
-                        {% endfor %}                    
+
+
+                        <option value="{{listaEquipos[i].id}}">{{listaEquipos[i].nombre}}</option>
+
+                        {% endfor %}
                     </select>
                     <h3>Dt</h1>
                         <select title="DT equipo visitante" name="selectorDTVisitante">
+                            <option value="0" selected>Seleccione un DT</option>
                             {% for i in range (0, listaTecnicos|count) %}
-                                {% if listaTecnicos[i].id == partido.equipoVisitante.tecnico.id %}
-                                    <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
-                                        {{listaTecnicos[i].apellido}}</option>
-                                {% else %}
-                                    <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
-                                        {{listaTecnicos[i].apellido}}</option>
-                                {% endif %}
+
+
+                            <option value="{{listaTecnicos[i].id}}">{{listaTecnicos[i].nombre}}
+                                {{listaTecnicos[i].apellido}}</option>
+
                             {% endfor %}
                         </select>
             </div>
@@ -89,12 +88,14 @@
 
                     <ul>
                         <li><label>Amarillas</label></li>
-                        <li><input type="number" name="cantidadAmarillasLocal" class="cajaAmarillas" placeholder="Cantidad amarillas" value="{{partido.amarillasLocal}}"></li>
+                        <li><input type="number" name="cantidadAmarillasLocal" class="cajaAmarillas"
+                                placeholder="Cantidad amarillas" value="0"></li>
                     </ul>
-                        
+
                     <ul>
                         <li><label>Rojas</label></li>
-                        <li><input type="number" name="cantidadRojasLocal" class="cajaRojas" placeholder="Cantidad rojas" value="{{partido.rojasLocal}}"></li>
+                        <li><input type="number" name="cantidadRojasLocal" class="cajaRojas"
+                                placeholder="Cantidad rojas" value="0"></li>
                     </ul>
                 </div>
 
@@ -107,17 +108,19 @@
                 <div class="botonesAñadirEstadisticas">
                     <ul>
                         <li><input type="button" onclick="botonGol(false, true)" value="Gol+"></li>
-                        <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>                        
+                        <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>
                     </ul>
 
                     <ul>
                         <li><label>Amarillas</label></li>
-                        <li><input type="number" name="cantidadAmarillasVisitante" class="cajaAmarillas" placeholder="Cantidad amarillas" value="{{partido.amarillasVisitante}}"></li>
+                        <li><input type="number" name="cantidadAmarillasVisitante" class="cajaAmarillas"
+                                placeholder="Cantidad amarillas" value="0"></li>
                     </ul>
-                        
+
                     <ul>
                         <li><label>Rojas</label></li>
-                        <li><input type="number" name="cantidadRojasVisitante" class="cajaRojas"  placeholder="Cantidad rojas" value="{{partido.rojasVisitante}}"></li>
+                        <li><input type="number" name="cantidadRojasVisitante" class="cajaRojas"
+                                placeholder="Cantidad rojas" value="0"></li>
                     </ul>
                 </div>
 
@@ -125,22 +128,25 @@
 
             <input type="submit" class="botonGuardarPartido" value="Guardar partido">
         </div>
-    {# </form> #}
+        {#
+    </form> #}
     <script>
         window.onload = textoTarjetas("cajaAmarillas");
         window.onload = textoTarjetas("cajaRojas");
-        {% for i in range(0, partido.golesLocal|count) %}
+        {# {% for i in range(0, partido.golesLocal | count) %}
             window.onload = golAlMarcador(true, true);
-        {% endfor %}
+            {% endfor %} #
+        }
 
-        {% for i in range(0, partido.golesVisitante|count) %}
+        {# {% for i in range(0, partido.golesVisitante | count) %}
             window.onload = golAlMarcador(false, true);
-        {% endfor %}
-    
-        </script>
-    
-    
-    
+            {% endfor %} #}
+        #}
+
+    </script>
+
+
+
 </div>
 
 {% endblock %}

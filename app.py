@@ -154,7 +154,7 @@ def partido(idTemporada,idPartido):
 @sesionRequerida
 def crearPartido(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
-    return render_template("partido.html", listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
+    return render_template("crearPartido.html", listaEquipos = clases.Equipo.obtenerEquiposTemporada(idTemporada), listaTecnicos = clases.Tecnico.obtenerTecnicos())
 
 
 @app.route("/temporada/<int:idTemporada>/partido/crear")

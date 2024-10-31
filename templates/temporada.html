@@ -83,39 +83,8 @@
     </select>
     {% set grdc = 1 %}
     <div id="contenedorPartidos">
-      <!--CONTENEDOR POR PARTIDO-->
-      <!--TODO ARREGLAR EL FUNCIONAMIENTO DE LOS PARTIDOS EN JS-->
-      {# {% for i in range (0, listaPartidos|count) %}
-      {% if listaPartidos[] %}
-        <a href="{{ url_for('partido', idTemporada=idTemporada, idPartido=listaPartidos[i].id) }}">
-          <div class="contenedorPartido">
-            <div class="equipo">
-              <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
-              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
-              <h4>{{listaPartidos[i].equipoLocal.nombre}}</h4>
-            </div>
-            <div class="resultado">
-              <h4>{{listaPartidos[i].resultado}}</h4>
-            </div>
-            <div class="equipo">
-              <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="" />
-              <h4>{{listaPartidos[i].equipoVisitante.nombre}}</h4>
-            </div>
-          </div>
-        </a>
+      <!--CONTENEDOR PARTIDOS: TODO ESTO ESTÁ EN JS POR LA FUNCION cargarPartidoTemporada-->
       
-      {% endfor %} #}
-      {# TODO ARREGLAR ESTE BOTON #}
-      {# CODIGO PARA AGREGAR PARTIDO #}
-      {% if not((listaEquipos|count) / 2 <= listaPartidos|count) %} 
-      <h1>{{listaEquipos|count / 2}}</h1>
-      <h1>{{listaPartidos|count}}</h1>
-      <a href="{{ url_for('crearPartido', idTemporada=idTemporada) }}">
-        <div class="contenedorPartido">
-          <h3>+ Agregar Partido</h3>
-        </div>
-      {% endif %}
-      </a>
     </div>
   </div>
 </div>
