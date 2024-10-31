@@ -121,7 +121,8 @@
 </div>
   <script>
     let listaJson = {{listaJson|tojson}};
-    window.onload = cargarPartidosEnTemporada(1, listaJson);
+    let partidosOptimos = {{cantPartidosOptimosPorFecha}};
+    window.onload = cargarPartidosEnTemporada(1, {{cantPartidosOptimosPorFecha}});
   </script>
 
 

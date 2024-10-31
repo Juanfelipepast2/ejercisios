@@ -132,6 +132,7 @@ def partidosTemporada(idTemporada):
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
     listaEquipos = clases.Equipoposiciones.obtenerListaPosiciones(151)
     cantFechas = len(listaEquipos) - 1 if len(listaEquipos) % 2 == 0 else len(listaEquipos)
+    cantPartidosOptimosPorFecha = len(listaEquipos) // 2
     print(cantFechas)
 
     try:
@@ -139,7 +140,7 @@ def partidosTemporada(idTemporada):
     except requests.ConnectionError as e:
         print(e)
     
-    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), listaJson = response.json(),cantFechas=cantFechas)
+    return render_template("temporada.html", idTemporada=idTemporada, listaEquipos = listaEquipos, listaPartidos = clases.Partido.obtenerPartidosVista(idTemporada), listaJson = response.json(), cantFechas=cantFechas, cantPartidosOptimosPorFecha=cantPartidosOptimosPorFecha)
     
 
 @app.route("/temporada/<int:idTemporada>/<int:idPartido>")

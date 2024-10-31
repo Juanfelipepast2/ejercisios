@@ -231,12 +231,12 @@ function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTa
 
 //FUNCIONES PARA CREAR TEMPORADA
 
-function generarCuadroPartido(partido){
+function generarCuadroPartido(partido) {
   console.log(partido);
   let cuadroPartido = document.createElement("a");
   //cuadroPartido.href = "{{ url_for('partido', idTemporada= "+ partido.idTemporada + ", idPartido= " + partido.id + ") }}";
   cuadroPartido.href = "/temporada/" + partido.idTemporada + "/" + partido.id;
-    cuadroPartido.innerHTML = `
+  cuadroPartido.innerHTML = `
           <div class="contenedorPartido">
             <div class="equipo">
               <!-- TODO CORREGIR IMAGENES DE ESCUDOS-->
@@ -260,21 +260,33 @@ function generarCuadroPartido(partido){
 function cargarPartidosEnTemporada(fecha) {
   listaPartidos = listaJson
   let contenedorPartidos = document.getElementById("contenedorPartidos");
-  console.log(listaPartidos.length);
   for (let i = 0; i < listaPartidos.length; i++) {
-    console.log(fecha);
-    if(listaPartidos[i].fecha == fecha){
+    if (listaPartidos[i].fecha == fecha) {
       contenedorPartidos.appendChild(generarCuadroPartido(listaPartidos[i]));
-      
-    } 
-    
 
+    }
   }
+  cantPartidosFecha = contenedorPartidos.childElementCount;
+  console.log("cantidad de pt por fecha"+cantPartidosFecha);
+  console.log("optimos" + partidosOptimos);
+  if (cantPartidosFecha < partidosOptimos) {
+    
+    let cuadroPartido = document.createElement("a");
+    cuadroPartido.innerHTML = `
+        <div class="contenedorPartido">
+          <h3>+ Agregar Partido</h3>
+        </div>
+        `;
+    cuadroPartido.href = "/temporada/" + fecha + "/crearPartido";
+    contenedorPartidos.appendChild(cuadroPartido);
+  }
+
+
 }
 
-function cambiarFechasTemporada(fecha){
+function cambiarFechasTemporada(fecha) {
   console.log(fecha);
   let contenedorPartidos = document.getElementById("contenedorPartidos");
   contenedorPartidos.innerHTML = "";
-  cargarPartidosEnTemporada(fecha, listaPartidos);
+  cargarPartidosEnTemporada(fecha);
 }
