@@ -692,4 +692,50 @@ class Jugador:
         #TODO guardar stats
         pass
             
-        
+class Equipoposiciones:
+    def __init__(self):
+        self.equipo = None
+        self.idTemporada = None
+        self.partidosJugados = 0
+        self.partidosGanados = 0
+        self.partidosEmpatados = 0
+        self.partidosPerdidos = 0
+        self.golesFavor = 0
+        self.golesContra = 0
+        self.diffGoles = 0
+        self.rendimiento = 0
+        self.puntos = 0
+
+    def __str__(self):
+        return f"{self.equipo} {self.idTemporada} {self.partidosJugados} {self.partidosGanados} {self.partidosEmpatados} {self.partidosPerdidos} {self.golesFavor} {self.golesContra} {self.diffGoles} {self.rendimiento} {self.puntos}"
+
+    def setEquipo(self, equipo):
+        self.equipo = equipo
+
+    @classmethod
+    def obtenerListaPosiciones(cls, idTemporada):
+        try:
+            con = CRUD.Conexion()
+            con.cur.execute(f"SELECT * FROM TABLAPOSICIONES WHERE IDTEMPORADA = {idTemporada}")
+            posiciones = con.cur.fetchall()
+            listaPosiciones = []
+            for(posicion) in posiciones:
+                posTemp = Equipoposiciones()
+                posTemp.equipo = Equipo.obtenerEquipo(posicion[1])
+                posTemp.idTemporada = posicion[0]
+                posTemp.partidosJugados = posicion[3]
+                posTemp.partidosGanados = posicion[4]
+                posTemp.partidosEmpatados = posicion[5]
+                posTemp.partidosPerdidos = posicion[6]
+                posTemp.golesFavor = posicion[7]
+                posTemp.golesContra = posicion[8]
+                posTemp.diffGoles = posicion[9]
+                posTemp.rendimiento = posicion[10]
+                posTemp.puntos = posicion[11]
+                listaPosiciones.append(posTemp)
+        except:
+            print(traceback.print_exc())
+        finally:
+            del con
+        return listaPosiciones
+    

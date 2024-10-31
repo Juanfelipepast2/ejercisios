@@ -1,5 +1,8 @@
 from src import clases
-import app
 
-clases.Partido.obtenerPartido(1)
+
+lista = clases.Equipoposiciones.obtenerListaPosiciones(151)
+
+for i in lista:
+    print(i)
 
