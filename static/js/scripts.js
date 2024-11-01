@@ -188,7 +188,7 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
   let arrMarcador = marcador.innerHTML.split(" ");
   let golesLocal = document.getElementById("contadorGolesLocal");
   let golesVisitante = document.getElementById("contadorGolesVisitante");
-  console.log(arrMarcador);
+  
   // equipoBool == true ? arrMarcador[0]++ : arrMarcador[4]++;
   if (equipoBool == true && agregarQuitarBool == true) {
     console.log("un gol más para el local");
@@ -216,6 +216,7 @@ function golAlMarcador(equipoBool, agregarQuitarBool) {
     golesVisitante.value--;
   }
   marcador.innerHTML = arrMarcador.join(" ");
+  console.log(arrMarcador);
 }
 
 
@@ -234,7 +235,6 @@ function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTa
 function generarCuadroPartido(partido) {
   console.log(partido);
   let cuadroPartido = document.createElement("a");
-  //cuadroPartido.href = "{{ url_for('partido', idTemporada= "+ partido.idTemporada + ", idPartido= " + partido.id + ") }}";
   cuadroPartido.href = "/temporada/" + partido.idTemporada + "/" + partido.id;
   cuadroPartido.innerHTML = `
           <div class="contenedorPartido">
@@ -275,7 +275,8 @@ function cargarPartidosEnTemporada(fecha) {
           <h3>+ Agregar Partido</h3>
         </div>
         `;
-    cuadroPartido.href = "/temporada/" + listaPartidos[0].idTemporada + "/crearPartido";
+        ///temporada/<int:idTemporada>/fecha/<int:fechaPartido>/crearPartido
+    cuadroPartido.href = "/temporada/" + listaPartidos[0].idTemporada + "/fecha/" + fecha + "/fase/tct" + "/crearPartido";
     contenedorPartidos.appendChild(cuadroPartido);
   }
 

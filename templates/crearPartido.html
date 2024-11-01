@@ -2,18 +2,17 @@
 {% block title %}Partido{% endblock %}
 {% block content %}
 <div class="contenedorGenerico">
-    {# <form action="{{url_for('editandoPartido', idTemporada=idTemporada)}}" method="POST"> #}
+    <form action="{{url_for('creandoPartido', idTemporada=idTemporada, fechaPartido=fechaPartido)}}" method="POST">
         <div class="contenedorVistaPartido">
             <input type="hidden" value="" name="idPartido">
             <li>
                 <ul>
-                    <h1>Temporada </h1>
-
-                    <h2>fecha:</h2>
-                    <input type="number" name="fechaPartido" placeholder="Fecha del partido" value="">
-                    <br>
-                    <h2>fase:</h2>
-                    <input type="text" name="fasePartido" placeholder="Fase del partido" value="">
+                    <h1>Temporada: {{idTemporada}} </h1>
+                    
+                    <input type="hidden" name="fechaPartido" placeholder="Fecha del partido" value="{{fechaPartido}}">
+                    <h2>Fecha: {{fechaPartido}}</h1>                    
+                    <h2>Fase: {{fasePartido}}</h2>
+                    <input type="hidden" name="fasePartido" placeholder="Fase del partido" value="{{fasePartido}}">
                 </ul>
             </li>
 
@@ -128,21 +127,11 @@
 
             <input type="submit" class="botonGuardarPartido" value="Guardar partido">
         </div>
-        {#
-    </form> #}
+
+    </form>
     <script>
         window.onload = textoTarjetas("cajaAmarillas");
         window.onload = textoTarjetas("cajaRojas");
-        {# {% for i in range(0, partido.golesLocal | count) %}
-            window.onload = golAlMarcador(true, true);
-            {% endfor %} #
-        }
-
-        {# {% for i in range(0, partido.golesVisitante | count) %}
-            window.onload = golAlMarcador(false, true);
-            {% endfor %} #}
-        #}
-
     </script>
 
 
