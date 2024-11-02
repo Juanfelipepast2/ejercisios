@@ -1,76 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-    
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/estilos.css') }}"/>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"/>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo-lce.png') }}" type="image/x-icon">
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
-    <title>{% block title %}{% endblock %}</title>
-    {% block head %}
-    {% endblock %}
-  </head>
-  <body>
-    <div class="contenedorMenu">
-      <a class="logoMenu">
-        <img
-          src="{{ url_for('static', filename='img/logo-lce.png') }}"
-          alt="Logo"
-          style="height: 44px"
-        />
-        <p>Liga Champions Europea</p>
-      </a>
+<head>
 
-      <a class="logoMenu">
-        <h4>{{datosDt.nombre}} {{datosDt.apellido}}</h4>
-      </a>
 
-      <nav>
-        <ul id="menuPrincipal">
-          <li>
-            <a>Temporada actual</a>           
-          </li>
-          <li>
-            <a>Historia</a>
-            <ul class="submenu">              
-              <li><a href="{{url_for('paginaResets')}}">Resets</a></li>
-              <li><a>Salon de la Fama</a></li>
-              <li><a>Partidos</a></li>
-              <li><a>DTs</a></li>
-            </ul>
-          </li>
-          <li>
-            <a>Perfil</a>
-            <ul class="submenu">
-              <li><a>Cuenta</a></li>
-              <li><a>Mi Equipo</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="{{url_for('registro')}}"">Registrar jugador</a>
-          </li>
-          <li><a href="{{url_for('salir')}}">Salir</a></li>
-        </ul>
-      </nav>
-    </div>
-    
-    <div id="content">
-      {% block content %}{% endblock %}  
-      
-      
-    </div>
-  </body>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo-lce.png') }}" type="image/x-icon">
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+  <title>{% block title %}{% endblock %}</title>
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body>
+  <div class="contenedorMenu">
+    <a class="logoMenu">
+      <img src="{{ url_for('static', filename='img/logo-lce.png') }}" alt="Logo" style="height: 44px" />
+      <p>Liga Champions Europea</p>
+    </a>
+
+    <a class="logoMenu">
+      <h4>{{datosDt.nombre}} {{datosDt.apellido}}</h4>
+    </a>
+
+    <nav>
+      <ul id="menuPrincipal">
+        <li>
+          <a>Temporada actual</a>
+        </li>
+        <li>
+          <a>Historia</a>
+          <ul class="submenu">
+            <li><a href="{{url_for('paginaResets')}}">Resets</a></li>
+            <li><a>Salon de la Fama</a></li>
+            <li><a>Partidos</a></li>
+            <li><a>DTs</a></li>
+          </ul>
+        </li>
+        <li>
+          <a>Perfil</a>
+          <ul class="submenu">
+            <li><a>Cuenta</a></li>
+            <li><a>Mi Equipo</a></li>
+          </ul>
+        </li>
+        {% if datosDt.pO == true %}
+        <li>
+          <a href="{{url_for('registro')}}">Registrar jugador</a>
+        </li>
+        {% endif %}
+        <li><a href="{{url_for('salir')}}">Salir</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div id="content">
+    {% block content %}{% endblock %}
+
+
+  </div>
+</body>
+
 </html>
-

@@ -1,33 +1,36 @@
 {% extends "index.html" %}
-{% block title %}Reset {{idReset}}{% endblock %} 
+{% block title %}Reset {{idReset}}{% endblock %}
 {% block content %}
 
 <div class="contenedorGenerico">
     <h1>Reset {{idReset}}</h1>
     <table id="tablaContenedorTemporadas">
         <tbody>
-            
-            <tr>                
+
+            <tr>
                 {% for i in range (0, temporadas|count) %}
-                <td>                    
-                    <a class='contenedorBotonGenerico' href="{{url_for('partidosTemporada', idTemporada=temporadas[i].id)}}">
-                        <img src="{{ url_for('static', filename='img/logo-lce.png') }}"/>
-                        <h1>Temporada {{ temporadas[i].id }}</h1>                        
-                        <h4>Campeón {{"Desconocido"}}</h4>                                                
-                    </a>                    
-                </td>  
+                <td>
+                    <a class='contenedorBotonGenerico'
+                        href="{{url_for('partidosTemporada', idTemporada=temporadas[i].id)}}">
+                        <img src="{{ url_for('static', filename='img/logo-lce.png') }}" />
+                        <h1>Temporada {{ temporadas[i].id }}</h1>
+                        <h4>Campeón {{"Desconocido"}}</h4>
+                    </a>
+                </td>
                 {% if i % 3 == 0 and i != 0 %}
             </tr>
             <tr>
-                {% endif %}                                                                    
-                {% endfor %}                
-            </tr> 
-            <tr>           
+                {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                {% if datosDt.admin == true or datosDt.pO%}
                 <td>
-                    <a class='contenedorBotonGenerico' href="{{url_for('crearTemporada', idReset = idReset)}}">                        
-                        <h1>+ Nueva temporada</h1>                                                
+                    <a class='contenedorBotonGenerico' href="{{url_for('crearTemporada', idReset = idReset)}}">
+                        <h1>+ Nueva temporada</h1>
                     </a>
-                </td>  
+                </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>

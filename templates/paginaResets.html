@@ -26,12 +26,15 @@
             </tr>
             <tr>
                 {% endif %}
-                {% endfor %}                                        
+                {% endfor %}        
+
+                {% if datosDt.admin == true or datosDt.pO == true%}                                
                 <td>
                     <a class='contenedorBotonGenerico' href="{{url_for('crearReset')}}">                        
                         <h1>+ Nuevo reset</h1>                                                
                     </a>
                 </td> 
+                {% endif %}
             </tr>
         </tbody>
     </table>

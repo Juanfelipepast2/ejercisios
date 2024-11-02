@@ -6,10 +6,12 @@
   <!--CONTENEDOR TABLA-->
   <div id="contenedorTabla">
     <h1>Clasificación</h1>
-    <div style="margin-top: 20px;">
+    {# <div style="margin-top: 20px;"> ##TODO: HACER QUE ESTO FUNCIONE
       <h3>Equipos que pasan:</h3>
+    
       <input type="number" />
-    </div>
+    
+    </div> #}
     <table id="tablaTemporada">
       <thead>
         <!--Cabeza tabla-->
@@ -91,7 +93,7 @@
   <script>
     let listaJson = {{listaJson|tojson}};
     let partidosOptimos = {{cantPartidosOptimosPorFecha}};
-    window.onload = cargarPartidosEnTemporada(1, {{cantPartidosOptimosPorFecha}});
+    window.onload = cargarPartidosEnTemporada(1, partidosOptimos, {{datosDt.toJson()|tojson}});
   </script>
 
 

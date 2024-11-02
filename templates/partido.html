@@ -1,6 +1,14 @@
 {% extends "index.html" %}
 {% block title %}Partido{% endblock %}
 {% block content %}
+
+{# FUNCION PARA BLOQUEAR LOS ACCESOS A LOS SELECTORES #}
+{% if datosDt.admin == true or datosDt.pO == true %}
+{% set bloquear = "" %}
+{% else %}
+{% set bloquear = "disabled" %}
+{% endif %}
+
 <div class="contenedorGenerico">
     <form action="{{url_for('editandoPartido', idTemporada=partido.idTemporada)}}" method="POST">
         <div class="contenedorVistaPartido">
@@ -24,7 +32,7 @@
             <!--CONTENEDOR MARCADOR-->
             <div class="equipoLocal">
                 <h3>Equipo Local</h1>
-                    <select title="Equipo Local" name="selectorLocal">
+                    <select title="Equipo Local" name="selectorLocal" {{bloquear}}>
                                             
                         {% for i in range (0, listaEquipos|count) %}
                             {% if partido.equipoLocal.id == listaEquipos[i].id %}
@@ -35,7 +43,7 @@
                         {% endfor %}
                     </select>
                     <h3>Dt</h1>
-                        <select title="DT equipo local" name="selectorDTLocal">
+                        <select title="DT equipo local" name="selectorDTLocal" {{bloquear}}>
                             {% for i in range (0, listaTecnicos|count) %}
                                 {% if listaTecnicos[i].id == partido.equipoLocal.tecnico.id %}
                                     <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
@@ -54,7 +62,7 @@
             </div>
             <div class="equipoVisitante">
                 <h3>Equipo Visitante</h1>
-                    <select title="Equipo visitante" name="selectorVisitante">
+                    <select title="Equipo visitante" name="selectorVisitante" {{bloquear}}>
 
                         {% for i in range (0, listaEquipos|count) %}
                             {% if partido.equipoVisitante.id == listaEquipos[i].id %}
@@ -65,7 +73,7 @@
                         {% endfor %}                    
                     </select>
                     <h3>Dt</h1>
-                        <select title="DT equipo visitante" name="selectorDTVisitante">
+                        <select title="DT equipo visitante" name="selectorDTVisitante" {{bloquear}}>
                             {% for i in range (0, listaTecnicos|count) %}
                                 {% if listaTecnicos[i].id == partido.equipoVisitante.tecnico.id %}
                                     <option value="{{listaTecnicos[i].id}}" selected>{{listaTecnicos[i].nombre}}
@@ -81,12 +89,13 @@
             <!--CONTENEDOR ESTADISTICAS-->
             <div id="estadisticasLocal">
                 <div class="botonesAñadirEstadisticas">
+                    {% if not bloquear %}
                     <ul>
 
                         <li><input type="button" onclick="botonGol(true, true)" value="Gol+"></li>
                         <li><input type="button" onclick="botonGol(true, false)" value="Gol-"></li>
                     </ul>
-
+                    {% endif %}
                     <ul>
                         <li><label>Amarillas</label></li>
                         <li><input type="number" name="cantidadAmarillasLocal" class="cajaAmarillas" placeholder="Cantidad amarillas" value="{{partido.amarillasLocal}}"></li>
@@ -105,10 +114,12 @@
 
             <div id="estadisticasVisitante">
                 <div class="botonesAñadirEstadisticas">
+                    {% if not bloquear %}
                     <ul>
                         <li><input type="button" onclick="botonGol(false, true)" value="Gol+"></li>
                         <li><input type="button" onclick="botonGol(false, false)" value="Gol-"></li>                        
                     </ul>
+                    {% endif %}
 
                     <ul>
                         <li><label>Amarillas</label></li>
@@ -123,7 +134,9 @@
 
             </div>
 
+            {% if not bloquear %}
             <input type="submit" class="botonGuardarPartido" value="Guardar partido">
+            {% endif %}
         </div>
     </form>
     <script>

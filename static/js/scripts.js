@@ -233,7 +233,7 @@ function textoTarjetas(classElemento) { //tipoTarjeta = true -> amarilla; tipoTa
 //FUNCIONES PARA CREAR TEMPORADA
 
 function generarCuadroPartido(partido) {
-  console.log(partido);
+  //console.log(partido);
   let cuadroPartido = document.createElement("a");
   cuadroPartido.href = "/temporada/" + partido.idTemporada + "/" + partido.id;
   cuadroPartido.innerHTML = `
@@ -257,7 +257,7 @@ function generarCuadroPartido(partido) {
 }
 
 
-function cargarPartidosEnTemporada(fecha) {
+function cargarPartidosEnTemporada(fecha, partidosOptimos, datosDt) {
   listaPartidos = listaJson
   let contenedorPartidos = document.getElementById("contenedorPartidos");
   for (let i = 0; i < listaPartidos.length; i++) {
@@ -267,7 +267,8 @@ function cargarPartidosEnTemporada(fecha) {
     }
   }
   cantPartidosFecha = contenedorPartidos.childElementCount;
-  if (cantPartidosFecha < partidosOptimos) {
+  console.log(datosDt);
+  if (cantPartidosFecha < partidosOptimos && (datosDt.admin == true || datosDt.pO == true)) {
     
     let cuadroPartido = document.createElement("a");
     cuadroPartido.innerHTML = `
