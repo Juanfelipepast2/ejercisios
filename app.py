@@ -10,6 +10,9 @@ app = Flask(__name__)
 app.secret_key = 'Wo7X$Gj79%BBTz'
 
 
+#TODO ASIGNAR PERMISOS DE ADMIN Y PO A LAS RUTAS
+#AGREGAR DF A LOS PARTIDOS O A LOS DTS
+
 def sesionRequerida(f):
     @wraps(f)
     def decorador(*args, **kwargs):
@@ -22,7 +25,29 @@ def sesionRequerida(f):
     return decorador
 
 
+def adminRequerido(f):
+    @wraps(f)
+    def decorador(*args, **kwargs):
+        if 'codigoDt' in session:
+            if clases.Tecnico.obtenerTecnico(int(session['codigoDt'])).admin:
+                return f(*args, **kwargs)
+            else:
+                flash("No tienes permisos para acceder a esta página")
+                return redirect(url_for("inicio"))
+        else:
+            return redirect(url_for("iniciarSesion"))
+    return decorador
 
+def propietarioRequerido(f):
+    @wraps(f)
+    def decorador(*args, **kwargs):
+        if 'codigoDt' in session:
+            if clases.Tecnico.obtenerTecnico(int(session['codigoDt'])).pO:
+                return f(*args, **kwargs)
+            else:
+                flash("No tienes permisos para acceder a esta página")
+                return redirect(url_for("inicio"))
+    return decorador
 
 @app.route("/")
 @app.route("/inicio")
@@ -36,7 +61,8 @@ def inicio():
 
 @app.context_processor
 def variablesGlobales():
-    if 'codigoDt' in session:        
+    if 'codigoDt' in session:       
+
         return {'datosDt': clases.Tecnico.obtenerTecnico(int(session['codigoDt']))}
     else:
         return {'datosDt': None}
@@ -72,12 +98,14 @@ def salir():
 
 @app.route("/registro")
 @sesionRequerida
+@propietarioRequerido
 def registro():    
     
     app.logger.info(f"Se ha cargado la página de registro {request.path}")             
     return render_template("registro.html", cantidadTecnicos=clases.Tecnico.cantidadTecnicos())        
 
 @app.route("/registrandoDt", methods=["POST"])
+@adminRequerido
 @sesionRequerida
 def registrandoDt():
     if request.method == "POST":
@@ -92,6 +120,7 @@ def registrandoDt():
 
 @app.route("/reset/<int:idReset>/temporada/crear")
 @sesionRequerida
+@adminRequerido
 def crearTemporada(idReset):    
     app.logger.info(f"Se ha cargado la página de creación de temporada {request.path}")
     return render_template("crearTemporada.html", idReset=idReset)
@@ -136,7 +165,8 @@ def partidosTemporada(idTemporada):
     print(cantFechas)
 
     try:
-        response = requests.get(f'http://127.0.0.1:5000/api/temporada/{idTemporada}')        
+        response = requests.get(f'http://127.0.0.1:5000/api/temporada/{idTemporada}', data=session)  
+        print(response.json())      
     except requests.ConnectionError as e:
         print(e)
     
@@ -152,6 +182,7 @@ def partido(idTemporada,idPartido):
 
 @app.route("/temporada/<int:idTemporada>/fecha/<int:fechaPartido>/fase/<fase>/crearPartido")
 @sesionRequerida
+@adminRequerido
 def crearPartido(idTemporada, fechaPartido, fase):
     print(f"**********************************FECHA PARTIDO {fechaPartido} ID TEMPORADA {idTemporada}")
     app.logger.info(f"Se ha cargado la página de partidos de la temporada {request.path}")
@@ -280,6 +311,7 @@ def reset(idReset):
 
 @app.route("/reset/crear")
 @sesionRequerida
+@adminRequerido
 def crearReset():
     app.logger.info(f"Se ha cargado la página de reset {request.path}")
     codigo = clases.Reset.cantidadResets() + 1
