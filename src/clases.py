@@ -161,7 +161,7 @@ class Tecnico:
         
 
 class Equipo:
-    def __init__(self, id: int, idReset: int, nombre: str, escudo, presupuesto: int, idTecnico: int):
+    def __init__(self, id: int = None, idReset: int = None, nombre: str = None, escudo = None, presupuesto: int = None, idTecnico: int = None):
         self.id = id
         self.nombre = nombre
         self.escudo = escudo        
@@ -303,7 +303,7 @@ class Temporada:
         return cantidad[0][0]
 
 class Partido:
-    def __init__(self, id: int, equipoLocal: Equipo, equipoVisitante: Equipo, idTemporada: int, fecha: int, amarillasLocal: int, rojasLocal: int, amarillasVisitante: int, rojasVisitante: int, fase: str, resultado: str):
+    def __init__(self, id: int = None, equipoLocal: Equipo = None, equipoVisitante: Equipo = None, idTemporada: int = None, fecha: int = None, amarillasLocal: int = None, rojasLocal: int = None, amarillasVisitante: int = None, rojasVisitante: int = None, fase: str = None, resultado: str = None):
         self.id = id
         self.equipoLocal = equipoLocal
         self.equipoVisitante = equipoVisitante

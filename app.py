@@ -208,7 +208,7 @@ def creandoPartido(idTemporada):
         partidoTemp.rojasVisitante = int(request.form["cantidadRojasVisitante"]) if request.form["cantidadRojasVisitante"] != "" else 0
         partidoTemp.fecha = int(request.form["fechaPartido"]) if request.form["fechaPartido"] != "" else  0
         partidoTemp.fase = request.form["fasePartido"]
-        partidoTemp.resultado = f"{request.form.get("contadorGolesLocal")} - {request.form.get("contadorGolesVisitante")}"
+        partidoTemp.resultado = f"{request.form.get('contadorGolesLocal')} - {request.form.get('contadorGolesVisitante')}"
 
         partidoTemp.guardarPartido()
 
