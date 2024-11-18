@@ -303,6 +303,10 @@ class Temporada:
         return cantidad[0][0]
 
 class Partido:
+
+
+    #AGREGAR NO PRESENTADO POR LOCAL O VISITANTE, Y NO JUGADO
+
     def __init__(self, id: int = None, equipoLocal: Equipo = None, equipoVisitante: Equipo = None, idTemporada: int = None, fecha: int = None, amarillasLocal: int = None, rojasLocal: int = None, amarillasVisitante: int = None, rojasVisitante: int = None, fase: str = None, resultado: str = None):
         self.id = id
         self.equipoLocal = equipoLocal
@@ -315,6 +319,10 @@ class Partido:
         self.rojasVisitante = rojasVisitante
         self.fase = fase
         self.resultado = resultado
+
+        self.NoPresentadoLocal = False
+        self.NoPresentadoVisitante = False
+        self.Jugado = False
 
         self.golesLocal = []
         self.golesVisitante = []

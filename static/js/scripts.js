@@ -290,3 +290,35 @@ function cambiarFechasTemporada(fecha) {
   contenedorPartidos.innerHTML = "";
   cargarPartidosEnTemporada(fecha);
 }
+
+function vaciarGoles(){
+  let golesLocal = document.getElementById("contadorGolesLocal").value;
+
+  let golesVisitante = document.getElementById("contadorGolesVisitante").value;
+
+  for(let i = 0; i < golesLocal; i++){
+    botonGol(true, false);
+  }
+  for(let i = 0; i < golesVisitante; i++){
+    botonGol(false, false);
+  }
+  
+
+}
+
+
+function limpiarEstadisticas(checkbox){
+  if (checkbox.checked == true) {
+
+    let listaCajaAmarrillas = document.getElementsByClassName("cajaAmarillas");
+    let listaCajaRojas = document.getElementsByClassName("cajaRojas");
+
+    for (let i = 0; i < listaCajaAmarrillas.length; i++) {
+      listaCajaAmarrillas[i].value = 0;
+      listaCajaRojas[i].value = 0;
+      listaCajaRojas[i].value = 0;
+      listaCajaAmarrillas[i].value = 0;
+    }
+    vaciarGoles();
+  }
+}
