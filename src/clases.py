@@ -747,3 +747,63 @@ class Equipoposiciones:
             del con
         return listaPosiciones
     
+class llave:
+    def __init__(self, id: int = None, idTemporada: int = None, idFase: str = None, EquipoA: Equipo = None, EquipoB: Equipo = None , idaVuelta: bool = None):
+        self.id = id
+        self.idTemporada = idTemporada
+        self.idFase = idFase
+        self.EquipoA = EquipoA
+        self.EquipoB = EquipoB
+        self.idaVuelta = idaVuelta
+
+        #ATRIBUTOS CON METODOS        
+        self.partido1 = None
+        self.partido2 = None
+        self.partidoDesempate = None
+        
+    def setPartidos(self):
+        #TODO ASIGNAR QUE LOS PARTIDOS SEAN NO JUGADOS AL CREAR LA LLAVE
+        #TODO HACER QUE LOS GOLES DEL PARTIDO CAMBIAR VARIABLE RESULTADO Y ASIGNAR GOLES LOCAL Y VISITANTE
+        #TODO ASIGNAR PENALES A LOS PARTIDOS
+        self.partido1 = Partido(equipoLocal=self.EquipoA, equipoVisitante=self.EquipoB, idTemporada=self.idTemporada, fase=self.idFase)
+        #self.partido1.guardarPartido()
+        if self.idaVuelta:
+            self.partido2 = Partido(equipoLocal=self.EquipoB, equipoVisitante=self.EquipoA, idTemporada=self.idTemporada, fase=self.idFase)
+            #self.partido2.guardarPartido()
+            
+
+
+    def editarPartidos(self, desempate: bool) : #USAR CUANDO SE VAYA A EDITAR LOS PARTIDOS DE LA LLAVE
+        self.partido1.actualizarPartido()
+        if self.idaVuelta:
+            self.partido2.actualizarPartido()
+        
+        if desempate:
+            if self.partidoDesempate != None:
+                self.partidoDesempate.actualizarPartido()
+            else:
+                self.partidoDesempate = Partido(equipoLocal=self.EquipoB, equipoVisitante=self.EquipoA, idTemporada=self.idTemporada, fase=self.idFase)            
+                self.partidoDesempate.guardarPartido()
+
+    def __str__(self) -> str:
+        return f"{self.partido1.__str__()}\n{self.partido2.__str__()}\n{self.partidoDesempate.__str__()}"
+        
+class bracket:
+    def __init__(self, id: int = None, idTemporada: int = None, listaEquipos: list = []):
+        self.id = id
+        self.idTemporada = idTemporada
+        self.listaEquipos = listaEquipos
+        self.llaves = []
+
+    def generarCrucres(self):
+        if len(self.listaEquipos) % 4 == 0:
+            for i in range(0, int(len(self.listaEquipos) / 2), 1):
+                llaveTemp = llave(idTemporada=self.idTemporada, EquipoA=self.listaEquipos[i], EquipoB=self.listaEquipos[-i-1], idaVuelta=True)
+                llaveTemp.setPartidos()
+                self.llaves.append(llaveTemp)
+
+    def printBracket(self):
+        for llave in self.llaves:
+            print(llave.__str__())
+            print("-------------------------------------------------")
+            
